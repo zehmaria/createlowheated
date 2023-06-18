@@ -1,7 +1,6 @@
 package zeh.createlowheated.content.processing.charcoal;
 
 import java.util.List;
-import java.util.Random;
 
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.fluids.tank.FluidTankBlock;
@@ -14,6 +13,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -199,7 +199,7 @@ public class CharcoalBurnerBlockEntity extends SmartBlockEntity {
         if (level == null) return;
         if (heatLevel == HeatLevel.NONE) return;
 
-        Random r = level.getRandom();
+        RandomSource r = level.getRandom();
 
         Vec3 c = VecHelper.getCenterOf(worldPosition);
         Vec3 v = c.add(VecHelper.offsetRandomly(Vec3.ZERO, r, .125f).multiply(1, 0, 1));
@@ -223,7 +223,7 @@ public class CharcoalBurnerBlockEntity extends SmartBlockEntity {
 
     public void spawnParticleBurst() {
         Vec3 c = VecHelper.getCenterOf(worldPosition);
-        Random r = level.random;
+        RandomSource r = level.random;
         for (int i = 0; i < 20; i++) {
             Vec3 offset = VecHelper.offsetRandomly(Vec3.ZERO, r, .5f).multiply(1, .25f, 1).normalize();
             Vec3 v = c.add(offset.scale(.5 + r.nextDouble() * .125f)).add(0, .125, 0);

@@ -4,7 +4,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
+import net.minecraftforge.data.event.GatherDataEvent;
 import zeh.createlowheated.CreateLowHeated;
 
 @SuppressWarnings("unused")
@@ -12,11 +12,11 @@ import zeh.createlowheated.CreateLowHeated;
 public class DataGenerators {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
-        //DataGenerator generator = event.getGenerator();
-        //ExistingFileHelper helper = event.getExistingFileHelper();
+        DataGenerator generator = event.getGenerator();
+        ExistingFileHelper helper = event.getExistingFileHelper();
 
-        //BlockTags blockTags = new BlockTags(generator, CreateLowHeated.ID, helper);
-        ///generator.addProvider(event.includeServer(), blockTags);
+        BlockTags blockTags = new BlockTags(generator, CreateLowHeated.ID, helper);
+        generator.addProvider(event.includeServer(), blockTags);
         //generator.addProvider(event.includeServer(), new ItemTags(generator, blockTags, CreateLowHeated.ID, helper));
         //generator.addProvider(event.includeServer(), new EntityTags(generator, CreateLowHeated.ID, helper));
         //generator.addProvider(event.includeServer(), new Recipes(generator));

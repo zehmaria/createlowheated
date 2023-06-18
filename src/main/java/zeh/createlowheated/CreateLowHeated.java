@@ -13,7 +13,7 @@ import com.simibubi.create.foundation.item.TooltipModifier;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
@@ -73,7 +73,7 @@ public class CreateLowHeated {
 
         AllBlocks.register();
         AllItems.register();
-        //AllFluids.register();
+        AllFluids.register();
         AllBlockEntityTypes.register();
         // AllRecipeTypes.register(modEventBus);
 
@@ -95,7 +95,7 @@ public class CreateLowHeated {
         TagGen.datagen();
         DataGenerator gen = event.getGenerator();
         if (event.includeClient()) {
-            gen.addProvider(new LangMerger(gen, ID, NAME, AllLangPartials.values()));
+            gen.addProvider(true, new LangMerger(gen, ID, NAME, AllLangPartials.values()));
         }
         if (event.includeServer()) {
             //gen.addProvider(new AllAdvancements(gen));
