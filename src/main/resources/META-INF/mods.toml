@@ -1,0 +1,38 @@
+modLoader="javafml"
+license="MIT License, Copyright (c) 2019 simibubi, Copyright 2022 MRH0, Copyright (c) 2023 Zeh Maria"
+loaderVersion="[40,)"
+issueTrackerURL="https://github.com/zehmaria/createlowheated/issues"
+displayURL="https://github.com/zehmaria/createlowheated"
+logoFile="cpw_logo.png"
+
+[[mods]]
+    modId="createlowheated"
+    version="${file.jarVersion}"
+    displayName="Create Low Heated"
+	authors="zeh_maria"
+    description="Active charcoal-fueled low-heat alternative for processing and steam engine."
+
+[[dependencies.createlowheated]]
+    modId="forge"
+    mandatory=true
+    versionRange="[40.2.4,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.createlowheated]]
+    modId="create"
+    mandatory=true
+    versionRange="[0.5.1.a,0.6.0)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.createlowheated]]
+    modId="flywheel"
+    mandatory=true
+    versionRange="[0.6.8,0.6.9)"
+    ordering="AFTER"
+    side="CLIENT"
+[[dependencies.createlowheated]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.18.2,1.19)"
+    ordering="NONE"
+    side="BOTH"
