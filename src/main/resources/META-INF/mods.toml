@@ -3,14 +3,14 @@ license="MIT License, Copyright (c) 2019 simibubi, Copyright 2022 MRH0, Copyrigh
 loaderVersion="[43,)"
 issueTrackerURL="https://github.com/zehmaria/createlowheated/issues"
 displayURL="https://github.com/zehmaria/createlowheated"
-logoFile="cpw_logo.png"
+logoFile="clh_logo.png"
 
 [[mods]]
     modId="createlowheated"
     version="${file.jarVersion}"
     displayName="Create Low Heated"
 	authors="zeh_maria"
-    description="Active coal-fueled low-heat alternative for processing and steam engine."
+    description="Active charcoal-fueled low-heat alternative for processing and steam engine."
 
 [[dependencies.createlowheated]]
     modId="forge"
