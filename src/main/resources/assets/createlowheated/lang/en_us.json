@@ -17,8 +17,6 @@
 	"block.createlowheated.charcoal_burner.tooltip.condition1": "Requires Charcoal",
 	"block.createlowheated.charcoal_burner.tooltip.behaviour1": "Right click it with _Charcoal_ or use a _Deployer/Mechanical Arm_.",
 	"block.createlowheated.charcoal_burner.tooltip.condition2": "Requires Flint and Steel",
-	"block.createlowheated.charcoal_burner.tooltip.behaviour2": "To start the _fire_ you need to right-click it with _Flint and Steel_. As long as it's fed charcoal continually, the fire will persist.",
-
-	"_": "Thank you for translating Create Low-Heated!"
+	"block.createlowheated.charcoal_burner.tooltip.behaviour2": "To start the _fire_ you need to right-click it with _Flint and Steel_. As long as it's fed charcoal continually, the fire will persist."
 
 }

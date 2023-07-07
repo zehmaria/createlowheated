@@ -1,9 +1,9 @@
 modLoader="javafml"
 license="MIT"
-loaderVersion="[43,)"
+loaderVersion="[47,)"
 issueTrackerURL="https://github.com/zehmaria/createlowheated/issues"
 displayURL="https://github.com/zehmaria/createlowheated"
-logoFile="clh_logo.png"
+logoFile="logo.png"
 
 [[mods]]
     modId="createlowheated"
@@ -15,7 +15,7 @@ logoFile="clh_logo.png"
 [[dependencies.createlowheated]]
     modId="forge"
     mandatory=true
-    versionRange="[43.2.3,)"
+    versionRange="[47.0.0,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.createlowheated]]
@@ -27,12 +27,12 @@ logoFile="clh_logo.png"
 [[dependencies.createlowheated]]
     modId="flywheel"
     mandatory=true
-    versionRange="[0.6.8,0.6.9)"
+    versionRange="[0.6.9,0.6.10)"
     ordering="AFTER"
     side="CLIENT"
 [[dependencies.createlowheated]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19.2,1.20)"
+    versionRange="[1.20,1.21)"
     ordering="NONE"
     side="BOTH"

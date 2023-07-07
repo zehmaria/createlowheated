@@ -4,13 +4,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mojang.logging.LogUtils;
 import com.simibubi.create.foundation.data.CreateRegistrate;
-import com.simibubi.create.foundation.data.LangMerger;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipHelper.Palette;
 import com.simibubi.create.foundation.item.TooltipModifier;
 
-import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.data.event.GatherDataEvent;
@@ -27,14 +25,10 @@ import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
 
-import zeh.createlowheated.common.CommonSetup;
 import zeh.createlowheated.common.Configuration;
 
 import org.slf4j.Logger;
-import zeh.createlowheated.foundation.data.AllLangPartials;
 import zeh.createlowheated.foundation.data.TagGen;
-
-import static zeh.createlowheated.foundation.data.AllLangPartials.values;
 
 @Mod(zeh.createlowheated.CreateLowHeated.ID)
 public class CreateLowHeated {
@@ -64,26 +58,21 @@ public class CreateLowHeated {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
 
-        modEventBus.addListener(CommonSetup::init);
-
         REGISTRATE.registerEventListeners(modEventBus);
 
         AllTags.init();
-        AllCreativeModeTabs.init();
 
         AllBlocks.register();
         AllItems.register();
         AllFluids.register();
         AllBlockEntityTypes.register();
-        // AllRecipeTypes.register(modEventBus);
+        AllCreativeModeTabs.register(modEventBus);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Configuration.COMMON_CONFIG);
-
         AllArmInteractionPointTypes.register();
-        // BlockSpoutingBehaviour.registerDefaults();
 
         modEventBus.addListener(CreateLowHeated::init);
-        modEventBus.addListener(EventPriority.LOWEST, CreateLowHeated::gatherData);
+        modEventBus.addListener(EventPriority.LOW, CreateLowHeated::gatherData);
 
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> CreateLowHeatedClient.onCtorClient(modEventBus, forgeEventBus));
     }
@@ -93,10 +82,8 @@ public class CreateLowHeated {
 
     public static void gatherData(GatherDataEvent event) {
         TagGen.datagen();
-        DataGenerator gen = event.getGenerator();
-        if (event.includeClient()) {
-            gen.addProvider(true, new LangMerger(gen, ID, NAME, AllLangPartials.values()));
-        }
+        //DataGenerator gen = event.getGenerator();
+        //PackOutput output = gen.getPackOutput();
         if (event.includeServer()) {
             //gen.addProvider(new AllAdvancements(gen));
             //gen.addProvider(new StandardRecipeGen(gen));

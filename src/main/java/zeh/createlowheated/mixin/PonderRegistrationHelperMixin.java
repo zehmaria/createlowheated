@@ -25,7 +25,7 @@ public abstract class PonderRegistrationHelperMixin {
     /**
      * @author ZehMaria
      * @reason Changing Water Wheel to require a big body of water [like the Hose Pulley] and a River Biomes.
-     */
+     *
     @Overwrite
     public PonderStoryBoardEntry addStoryBoard(ItemProviderEntry<?> component,
                                                String schematicPath,
@@ -38,6 +38,6 @@ public abstract class PonderRegistrationHelperMixin {
             result = addStoryBoard(component, asLocation(schematicPath), storyBoard, tags);
         }
         return result;
-    }
+    }*/
 
 }

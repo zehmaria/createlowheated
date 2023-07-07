@@ -1,6 +1,5 @@
 package zeh.createlowheated.mixin;
 
-import com.simibubi.create.Create;
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock.HeatLevel;
 import com.simibubi.create.content.processing.recipe.HeatCondition;
 import org.spongepowered.asm.mixin.*;

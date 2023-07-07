@@ -6,7 +6,12 @@ import com.tterrag.registrate.providers.ProviderType;
 import com.tterrag.registrate.providers.RegistrateTagsProvider;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
 
+import net.minecraft.core.Holder;
+import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagBuilder;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -17,6 +22,9 @@ import zeh.createlowheated.AllTags.AllItemTags;
 import zeh.createlowheated.AllTags.AllFluidTags;
 import zeh.createlowheated.AllTags;
 import zeh.createlowheated.CreateLowHeated;
+
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 public class TagGen {
     public static <T extends Block, P> NonNullFunction<BlockBuilder<T, P>, BlockBuilder<T, P>> axeOrPickaxe() {
@@ -50,7 +58,8 @@ public class TagGen {
         //CreateLowHeated.REGISTRATE.addDataGenerator(ProviderType.FLUID_TAGS, TagGen::genFluidTags);
     }
 
-    private static void genBlockTags(RegistrateTagsProvider<Block> prov) {
+    private static void genBlockTags(RegistrateTagsProvider<Block> provIn) {
+        CreateTagsProvider<Block> prov = new CreateTagsProvider<>(provIn, Block::builtInRegistryHolder);
         // VALIDATE
 
         for (AllBlockTags tag : AllBlockTags.values()) {
@@ -60,7 +69,9 @@ public class TagGen {
         }
     }
 
-    private static void genItemTags(RegistrateTagsProvider<Item> prov) {
+    private static void genItemTags(RegistrateTagsProvider<Item> provIn) {
+        CreateTagsProvider<Item> prov = new CreateTagsProvider<>(provIn, Item::builtInRegistryHolder);
+
         prov.tag(AllItemTags.CHARCOAL_BURNER_FUEL.tag).add(Items.CHARCOAL);
 
         // VALIDATE
@@ -71,7 +82,9 @@ public class TagGen {
         }
     }
 
-    private static void genFluidTags(RegistrateTagsProvider<Fluid> prov) {
+    private static void genFluidTags(RegistrateTagsProvider<Fluid> provIn) {
+        CreateTagsProvider<Fluid> prov = new CreateTagsProvider<>(provIn, Fluid::builtInRegistryHolder);
+
         // VALIDATE
 
         for (AllFluidTags tag : AllFluidTags.values()) {
@@ -80,5 +93,51 @@ public class TagGen {
             }
         }
     }
+
+    public static class CreateTagsProvider<T> {
+
+        private RegistrateTagsProvider<T> provider;
+        private Function<T, ResourceKey<T>> keyExtractor;
+
+        public CreateTagsProvider(RegistrateTagsProvider<T> provider, Function<T, Holder.Reference<T>> refExtractor) {
+            this.provider = provider;
+            this.keyExtractor = refExtractor.andThen(Holder.Reference::key);
+        }
+
+        public CreateTagAppender<T> tag(TagKey<T> tag) {
+            TagBuilder tagbuilder = getOrCreateRawBuilder(tag);
+            return new CreateTagAppender<>(tagbuilder, keyExtractor, CreateLowHeated.ID);
+        }
+
+        public TagBuilder getOrCreateRawBuilder(TagKey<T> tag) {
+            return provider.addTag(tag).getInternalBuilder();
+        }
+
+    }
+
+    public static class CreateTagAppender<T> extends TagsProvider.TagAppender<T> {
+
+        private Function<T, ResourceKey<T>> keyExtractor;
+
+        public CreateTagAppender(TagBuilder pBuilder, Function<T, ResourceKey<T>> pKeyExtractor, String modId) {
+            super(pBuilder, modId);
+            this.keyExtractor = pKeyExtractor;
+        }
+
+        public CreateTagAppender<T> add(T entry) {
+            this.add(this.keyExtractor.apply(entry));
+            return this;
+        }
+
+        @SafeVarargs
+        public final CreateTagAppender<T> add(T... entries) {
+            Stream.<T>of(entries)
+                    .map(this.keyExtractor)
+                    .forEach(this::add);
+            return this;
+        }
+
+    }
+
 
 }
