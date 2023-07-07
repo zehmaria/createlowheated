@@ -25,16 +25,10 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.config.ModConfig;
-
-import zeh.createlowheated.common.CommonSetup;
-import zeh.createlowheated.common.Configuration;
 
 import org.slf4j.Logger;
 import zeh.createlowheated.foundation.data.AllLangPartials;
 import zeh.createlowheated.foundation.data.TagGen;
-
-import static zeh.createlowheated.foundation.data.AllLangPartials.values;
 
 @Mod(zeh.createlowheated.CreateLowHeated.ID)
 public class CreateLowHeated {
@@ -64,8 +58,6 @@ public class CreateLowHeated {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
 
-        modEventBus.addListener(CommonSetup::init);
-
         REGISTRATE.registerEventListeners(modEventBus);
 
         AllTags.init();
@@ -77,7 +69,7 @@ public class CreateLowHeated {
         AllBlockEntityTypes.register();
         // AllRecipeTypes.register(modEventBus);
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Configuration.COMMON_CONFIG);
+        //ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Configuration.COMMON_CONFIG);
 
         AllArmInteractionPointTypes.register();
         // BlockSpoutingBehaviour.registerDefaults();
@@ -102,12 +94,6 @@ public class CreateLowHeated {
             //gen.addProvider(new StandardRecipeGen(gen));
             //ProcessingRecipeGen.registerAll(gen);
         }
-    }
-
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
-        // Do something when the server starts
-        LOGGER.info("HELLO from server starting");
     }
 
     public static ResourceLocation asResource(String path) {
