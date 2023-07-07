@@ -9,6 +9,8 @@ import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipHelper.Palette;
 import com.simibubi.create.foundation.item.TooltipModifier;
 
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.data.event.GatherDataEvent;
@@ -28,9 +30,11 @@ import net.minecraftforge.fml.config.ModConfig;
 import zeh.createlowheated.common.Configuration;
 
 import org.slf4j.Logger;
+import zeh.createlowheated.foundation.data.LangMerger;
 import zeh.createlowheated.foundation.data.TagGen;
 
-@Mod(zeh.createlowheated.CreateLowHeated.ID)
+
+@Mod(CreateLowHeated.ID)
 public class CreateLowHeated {
 
     public static final String ID = "createlowheated";
@@ -50,7 +54,6 @@ public class CreateLowHeated {
 
     public CreateLowHeated() {
         onCtor();
-        MinecraftForge.EVENT_BUS.register(this);
     }
 
     public static void onCtor() {
@@ -68,7 +71,8 @@ public class CreateLowHeated {
         AllBlockEntityTypes.register();
         AllCreativeModeTabs.register(modEventBus);
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Configuration.COMMON_CONFIG);
+        //ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Configuration.COMMON_CONFIG);
+
         AllArmInteractionPointTypes.register();
 
         modEventBus.addListener(CreateLowHeated::init);
@@ -82,12 +86,10 @@ public class CreateLowHeated {
 
     public static void gatherData(GatherDataEvent event) {
         TagGen.datagen();
-        //DataGenerator gen = event.getGenerator();
-        //PackOutput output = gen.getPackOutput();
-        if (event.includeServer()) {
-            //gen.addProvider(new AllAdvancements(gen));
-            //gen.addProvider(new StandardRecipeGen(gen));
-            //ProcessingRecipeGen.registerAll(gen);
+        DataGenerator gen = event.getGenerator();
+        PackOutput output = gen.getPackOutput();
+        if (event.includeClient()) {
+            LangMerger.attachToRegistrateProvider(gen, output);
         }
     }
 
