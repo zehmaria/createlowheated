@@ -22,7 +22,6 @@ apply plugin: 'org.parchmentmc.librarian.forgegradle'
 apply plugin: 'idea'
 apply plugin: "org.spongepowered.mixin"
 
-
 group = mod_author + '.' + mod_id // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = mod_id + "-forge"
 version = minecraft_version + '-' + new Date().format("yyMMdd'T'HH", TimeZone.getTimeZone("UTC"))
@@ -143,8 +142,8 @@ jar {
                 "Specification-Title"     : mod_id,
                 "Specification-Vendor"    : mod_author,
                 "Specification-Version"   : "1", // We are version 1 of ourselves
-                'Implementation-Title': project.jar.archiveBaseName,
-                'Implementation-Version': project.jar.archiveVersion,
+                'Implementation-Title'    : project.jar.archiveBaseName,
+                'Implementation-Version'  : project.jar.archiveVersion,
                 "Implementation-Vendor"   : mod_author,
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ", TimeZone.getTimeZone("UTC")),
                 "MixinConfigs"            : "createlowheated.mixins.json"
