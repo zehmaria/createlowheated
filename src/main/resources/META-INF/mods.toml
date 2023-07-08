@@ -3,7 +3,7 @@ license="MIT License, Copyright (c) 2019 simibubi, Copyright 2022 MRH0, Copyrigh
 loaderVersion="[40,)"
 issueTrackerURL="https://github.com/zehmaria/createlowheated/issues"
 displayURL="https://github.com/zehmaria/createlowheated"
-logoFile="clh_logo.png"
+logoFile="logo.png"
 
 [[mods]]
     modId="createlowheated"
