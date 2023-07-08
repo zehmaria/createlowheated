@@ -3,7 +3,7 @@ license="MIT"
 loaderVersion="[43,)"
 issueTrackerURL="https://github.com/zehmaria/createlowheated/issues"
 displayURL="https://github.com/zehmaria/createlowheated"
-logoFile="clh_logo.png"
+logoFile="logo.png"
 
 [[mods]]
     modId="createlowheated"
