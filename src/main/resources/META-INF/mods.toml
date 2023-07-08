@@ -15,7 +15,7 @@ logoFile="clh_logo.png"
 [[dependencies.createlowheated]]
     modId="forge"
     mandatory=true
-    versionRange="[40.2.4,)"
+    versionRange="[40.2.0,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.createlowheated]]
@@ -24,12 +24,6 @@ logoFile="clh_logo.png"
     versionRange="[0.5.1.a,0.6.0)"
     ordering="NONE"
     side="BOTH"
-[[dependencies.createlowheated]]
-    modId="flywheel"
-    mandatory=true
-    versionRange="[0.6.8,0.6.9)"
-    ordering="AFTER"
-    side="CLIENT"
 [[dependencies.createlowheated]]
     modId="minecraft"
     mandatory=true
