@@ -71,7 +71,7 @@ public class CreateLowHeated {
         AllBlockEntityTypes.register();
         AllCreativeModeTabs.register(modEventBus);
 
-        //ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Configuration.COMMON_CONFIG);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Configuration.COMMON_CONFIG);
 
         AllArmInteractionPointTypes.register();
 

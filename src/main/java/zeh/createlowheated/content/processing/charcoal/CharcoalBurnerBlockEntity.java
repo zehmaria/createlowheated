@@ -22,19 +22,22 @@ import net.minecraftforge.common.ForgeHooks;
 
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock.HeatLevel;
 import zeh.createlowheated.AllTags;
+import zeh.createlowheated.common.Configuration;
 
 public class CharcoalBurnerBlockEntity extends SmartBlockEntity {
 
     public static final int MAX_HEAT_CAPACITY = 16000;
-    public static final int INSERTION_THRESHOLD = 500;
+    public static final int INSERTION_THRESHOLD = 800;
 
     protected FuelType activeFuel;
     protected int remainingBurnTime;
+    protected int fanMultiplier;
 
     public CharcoalBurnerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         activeFuel = FuelType.NONE;
         remainingBurnTime = 0;
+        fanMultiplier = Configuration.FAN_MULTIPLIER.get();
     }
 
     public FuelType getActiveFuel() {
@@ -63,7 +66,7 @@ public class CharcoalBurnerBlockEntity extends SmartBlockEntity {
         }
 
         if (remainingBurnTime > 0) {
-            if (getEmpoweredFromBlock()) remainingBurnTime -= 100;
+            if (getEmpoweredFromBlock()) remainingBurnTime -= fanMultiplier;
             else remainingBurnTime--;
         }
         if (remainingBurnTime < 0) remainingBurnTime = 0;
