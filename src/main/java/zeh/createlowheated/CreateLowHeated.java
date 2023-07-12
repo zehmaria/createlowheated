@@ -18,6 +18,7 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
@@ -27,6 +28,7 @@ import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 
 import org.slf4j.Logger;
+import zeh.createlowheated.common.Configuration;
 import zeh.createlowheated.foundation.data.AllLangPartials;
 import zeh.createlowheated.foundation.data.TagGen;
 
@@ -68,7 +70,7 @@ public class CreateLowHeated {
         AllFluids.register();
         AllBlockEntityTypes.register();
 
-        //ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Configuration.COMMON_CONFIG);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Configuration.COMMON_CONFIG);
 
         AllArmInteractionPointTypes.register();
 

@@ -8,19 +8,15 @@ public class Configuration {
 
     public static ForgeConfigSpec COMMON_CONFIG;
 
-	public static ForgeConfigSpec.IntValue WATERWHEELS_THRESHOLD;
-	public static ForgeConfigSpec.IntValue WATERWHEELS_RANGE;
+	public static ForgeConfigSpec.IntValue FAN_MULTIPLIER;
 
     static {
 
 		ForgeConfigSpec.Builder COMMON_BUILDER = new ForgeConfigSpec.Builder();
 
-	    COMMON_BUILDER.comment("#Waterwheel requirements").push("waterwheels");
-	    WATERWHEELS_THRESHOLD = COMMON_BUILDER.comment("The minimum amount of fluid blocks the waterwheel needs to find before rotation begins.")
-				.defineInRange("waterwheelThreshold", 3200, 1, Integer.MAX_VALUE);
-
-		WATERWHEELS_RANGE = COMMON_BUILDER.comment("The maximum distance a waterwheel can consider fluid blocks from.")
-				.defineInRange("waterwheelRange", 128, 1, Integer.MAX_VALUE);
+		COMMON_BUILDER.comment("#Charcoal Burner Requirements").push("charcoal_burner");
+		FAN_MULTIPLIER = COMMON_BUILDER.comment("How much more a burner consumes when empowered by a maxed encased fan.")
+				.defineInRange("fanMultiplier", 100, 1, Integer.MAX_VALUE);
 
 		COMMON_BUILDER.pop();
 
