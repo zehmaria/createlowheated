@@ -13,6 +13,7 @@ import com.simibubi.create.foundation.item.TooltipModifier;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -27,6 +28,7 @@ import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 
 import org.slf4j.Logger;
+import zeh.createlowheated.common.Configuration;
 import zeh.createlowheated.foundation.data.AllLangPartials;
 import zeh.createlowheated.foundation.data.TagGen;
 
@@ -69,7 +71,7 @@ public class CreateLowHeated {
         AllBlockEntityTypes.register();
         // AllRecipeTypes.register(modEventBus);
 
-        //ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Configuration.COMMON_CONFIG);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Configuration.COMMON_CONFIG);
 
         AllArmInteractionPointTypes.register();
         // BlockSpoutingBehaviour.registerDefaults();
