@@ -27,7 +27,7 @@ import zeh.createlowheated.common.Configuration;
 public class CharcoalBurnerBlockEntity extends SmartBlockEntity {
 
     public static final int MAX_HEAT_CAPACITY = 16000;
-    public static final int INSERTION_THRESHOLD = 500;
+    public static final int INSERTION_THRESHOLD = 800;
 
     protected FuelType activeFuel;
     protected int remainingBurnTime;
