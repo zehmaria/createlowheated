@@ -57,6 +57,7 @@ public abstract class HeatConditionMixin {
      */
     @Overwrite
     public HeatLevel visualizeAsBlazeBurner() {
+        if (this.equals(LOWHEATED)) return HeatLevel.valueOf("CHARCOAL");
         if (this.equals(HeatCondition.SUPERHEATED)) return HeatLevel.SEETHING;
         if (this.equals(HeatCondition.HEATED)) return HeatLevel.KINDLED;
         return HeatLevel.NONE;

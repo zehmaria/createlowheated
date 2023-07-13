@@ -8,7 +8,9 @@
 		"BoilerHeatersMixin",
 		"HeatConditionMixin",
 		"HeatLevelMixin",
-		"EncasedFanBlockEntityMixin"
+		"EncasedFanBlockEntityMixin",
+		"AnimatedBlazeBurnerMixin",
+		"BasinCategoryMixin"
 	],
 	"minVersion": "0.8"
 }
