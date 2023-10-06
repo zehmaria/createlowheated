@@ -19,7 +19,7 @@ import com.tterrag.registrate.util.entry.BlockEntry;
 
 public class AllBlocks {
 
-    static { REGISTRATE.useCreativeTab(AllCreativeModeTabs.MAIN_TAB); }
+    static { REGISTRATE.setCreativeTab(AllCreativeModeTabs.MAIN_TAB); }
 
 
     public static final BlockEntry<CharcoalBurnerBlock> CHARCOAL_BURNER =

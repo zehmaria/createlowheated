@@ -24,7 +24,7 @@ apply plugin: "org.spongepowered.mixin"
 
 group = mod_author + '.' + mod_id // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = mod_id + "-forge"
-version = minecraft_version + '-' + new Date().format("yyMMdd'T'HH", TimeZone.getTimeZone("UTC"))
+version = minecraft_version + '-' + create_version + '-' + mod_version
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
@@ -102,7 +102,7 @@ dependencies {
 
     implementation fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
     implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${flywheel_minecraft_version}:${flywheel_version}")
-    implementation fg.deobf("com.simibubi.create:create-${create_minecraft_version}:${create_version}:slim") { transitive = false }
+    implementation fg.deobf("com.simibubi.create:create-${create_minecraft_version}:${create_version}-${create_version_suffix}:slim") { transitive = false }
 
     compileOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}-common-api:${jei_version}")
     compileOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}-forge-api:${jei_version}")

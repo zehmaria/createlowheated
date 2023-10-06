@@ -9,12 +9,8 @@ import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipHelper.Palette;
 import com.simibubi.create.foundation.item.TooltipModifier;
 
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
@@ -22,17 +18,12 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
 
 import zeh.createlowheated.common.Configuration;
 
 import org.slf4j.Logger;
-import zeh.createlowheated.foundation.data.LangMerger;
-import zeh.createlowheated.foundation.data.TagGen;
-
 
 @Mod(CreateLowHeated.ID)
 public class CreateLowHeated {
@@ -57,46 +48,27 @@ public class CreateLowHeated {
     }
 
     public static void onCtor() {
-        ModLoadingContext modLoadingContext = ModLoadingContext.get();
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
 
         REGISTRATE.registerEventListeners(modEventBus);
 
         AllTags.init();
+        AllCreativeModeTabs.register(modEventBus);
 
         AllBlocks.register();
         AllItems.register();
         AllFluids.register();
         AllBlockEntityTypes.register();
-        AllCreativeModeTabs.register(modEventBus);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Configuration.COMMON_CONFIG);
 
         AllArmInteractionPointTypes.register();
 
         modEventBus.addListener(CreateLowHeated::init);
-        modEventBus.addListener(EventPriority.LOW, CreateLowHeated::gatherData);
-
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> CreateLowHeatedClient.onCtorClient(modEventBus, forgeEventBus));
     }
 
     public static void init(final FMLCommonSetupEvent event) {
-    }
-
-    public static void gatherData(GatherDataEvent event) {
-        TagGen.datagen();
-        DataGenerator gen = event.getGenerator();
-        PackOutput output = gen.getPackOutput();
-        if (event.includeClient()) {
-            LangMerger.attachToRegistrateProvider(gen, output);
-        }
-    }
-
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
-        // Do something when the server starts
-        LOGGER.info("HELLO from server starting");
     }
 
     public static ResourceLocation asResource(String path) {

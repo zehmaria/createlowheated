@@ -8,7 +8,7 @@
 	"_": "->------------------------]  UI & Messages  [------------------------<-",
 
 	"create.recipe.heat_requirement.lowheated": "Low-Heated",
-
+    "itemGroup.createlowheated.base": "Create Low-Heated",
 
 	"_": "->------------------------]  Item Descriptions  [------------------------<-",
 

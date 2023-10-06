@@ -10,7 +10,7 @@ import net.minecraft.world.item.Item;
 import com.tterrag.registrate.util.entry.ItemEntry;
 
 public class AllItems {
-    static { REGISTRATE.useCreativeTab(AllCreativeModeTabs.MAIN_TAB); }
+    static { REGISTRATE.setCreativeTab(AllCreativeModeTabs.MAIN_TAB); }
 
 /*
     public static final ItemEntry<CharcoalBurnerBlockItem> EMPTY_CHARCOAL_BURNER =
