@@ -32,12 +32,16 @@ public class CharcoalBurnerBlockEntity extends SmartBlockEntity {
     protected FuelType activeFuel;
     protected int remainingBurnTime;
     protected int fanMultiplier;
+    protected boolean hotBurners;
+    protected int hotBurnersMultiplier;
 
     public CharcoalBurnerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         activeFuel = FuelType.NONE;
         remainingBurnTime = 0;
         fanMultiplier = Configuration.FAN_MULTIPLIER.get();
+        hotBurners = Configuration.HOT_BURNERS.get();
+        hotBurnersMultiplier = Configuration.HOT_BURNERS_MULTIPLIER.get();
     }
 
     public FuelType getActiveFuel() {
@@ -67,6 +71,7 @@ public class CharcoalBurnerBlockEntity extends SmartBlockEntity {
 
         if (remainingBurnTime > 0) {
             if (getEmpoweredFromBlock()) remainingBurnTime -= fanMultiplier;
+            else if (hotBurners) remainingBurnTime -= hotBurnersMultiplier;
             else remainingBurnTime--;
         }
         if (remainingBurnTime < 0) remainingBurnTime = 0;
@@ -189,7 +194,11 @@ public class CharcoalBurnerBlockEntity extends SmartBlockEntity {
         if (!getLitFromBlock()) return level;
         switch (activeFuel) {
             case NORMAL:
-                level = getEmpoweredFromBlock() ? HeatLevel.KINDLED : HeatLevel.byIndex(5);
+            	if (hotBurners) {
+            		level = getEmpoweredFromBlock() ? HeatLevel.SEETHING : HeatLevel.KINDLED;
+            	} else {
+            		level = getEmpoweredFromBlock() ? HeatLevel.KINDLED : HeatLevel.byIndex(5);
+            	}
                 break;
             default:
             case NONE:
