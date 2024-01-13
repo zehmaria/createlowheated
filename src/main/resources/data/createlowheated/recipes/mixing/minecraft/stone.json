@@ -1,0 +1,15 @@
+{
+  "type": "create:mixing",
+  "output": {
+    "id": {
+      "f_135804_": "minecraft",
+      "f_135805_": "stone"
+    },
+    "count": 1
+  },
+  "ingredients": [
+    {
+      "item": "ad_astra:raw_ostrum_block"
+    }
+  ]
+}

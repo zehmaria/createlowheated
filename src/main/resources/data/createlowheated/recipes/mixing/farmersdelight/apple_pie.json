@@ -1,0 +1,19 @@
+{
+  "conditions": [
+    { "type": "forge:mod_loaded", "modid": "farmersdelight" },
+    { "type": "forge:not",  "value":{ "type": "forge:tag_empty", "tag": "createlowheated:delight_included" }}
+  ],
+  "type": "create:mixing",
+  "heatRequirement": "lowheated",
+  "results": [{ "item": "farmersdelight:apple_pie" }],
+  "ingredients": [
+    { "item": "minecraft:sugar" },
+    { "item": "minecraft:sugar" },
+    { "item": "minecraft:apple" },
+    { "item": "minecraft:apple" },
+    { "item": "minecraft:apple" },
+    { "item": "create:dough" },
+    { "item": "farmersdelight:pie_crust" }
+  ]
+}
+

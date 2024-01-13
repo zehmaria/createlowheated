@@ -1,0 +1,11 @@
+{
+  "type": "create:mixing",
+  "output": {
+    "id": {
+      "f_135804_": "minecraft",
+      "f_135805_": "netherite_scrap"
+    },
+    "count": 1
+  },
+  "ingredients": []
+}

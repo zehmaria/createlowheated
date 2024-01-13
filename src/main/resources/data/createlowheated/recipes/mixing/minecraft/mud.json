@@ -1,0 +1,16 @@
+{
+  "type": "create:mixing",
+  "output": {
+    "id": {
+      "f_135804_": "minecraft",
+      "f_135805_": "mud"
+    },
+    "count": 1
+  },
+  "ingredients": [
+    {
+      "type": "create:block_tag_ingredient",
+      "tag": "minecraft:convertable_to_mud"
+    }
+  ]
+}

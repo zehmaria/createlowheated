@@ -1,0 +1,16 @@
+{
+  "conditions": [
+    { "type": "forge:mod_loaded", "modid": "farmersdelight" },
+    { "type": "forge:not",  "value":{ "type": "forge:tag_empty", "tag": "createlowheated:delight_included" }}
+  ],
+  "type": "create:mixing",
+  "heatRequirement": "lowheated",
+  "results": [{ "item": "farmersdelight:bone_broth" }],
+  "ingredients": [
+    { "item": "minecraft:bowl" },
+    { "item": "minecraft:bone" },
+    { "item": "minecraft:bone" },
+    { "tag": "forge:mushrooms" },
+    { "amount": 250, "fluid": "minecraft:water", "nbt": {} }
+  ]
+}
