@@ -76,8 +76,6 @@ public class CreateLowHeated {
 
         modEventBus.addListener(CreateLowHeated::init);
         modEventBus.addListener(EventPriority.LOWEST, CreateLowHeated::gatherData);
-
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> CreateLowHeatedClient.onCtorClient(modEventBus, forgeEventBus));
     }
 
     public static void init(final FMLCommonSetupEvent event) {

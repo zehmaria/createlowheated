@@ -198,7 +198,7 @@ public class CharcoalBurnerBlockEntity extends SmartBlockEntity {
         if (!getLitFromBlock()) return level;
         switch (activeFuel) {
             case NORMAL:
-            	level = getEmpoweredFromBlock() ? empoweredHeatLevel : activeHeatLevel;
+                level = getEmpoweredFromBlock() ? empoweredHeatLevel : activeHeatLevel;
                 break;
             default:
             case NONE:
