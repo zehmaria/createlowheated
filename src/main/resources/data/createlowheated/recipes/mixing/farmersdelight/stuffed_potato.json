@@ -1,0 +1,14 @@
+{
+  "conditions": [
+    { "type": "forge:mod_loaded", "modid": "farmersdelight" },
+    { "type": "forge:not",  "value":{ "type": "forge:tag_empty", "tag": "createlowheated:delight_included" }}
+  ],
+  "type": "create:mixing",
+  "heatRequirement": "lowheated",
+  "results": [{ "item": "farmersdelight:stuffed_potato" }], 
+  "ingredients": [
+    { "item": "minecraft:baked_potato" },
+    { "item": "farmersdelight:beef_patty" },
+    { "amount": 250, "fluid": "minecraft:water", "nbt": {} }
+  ]
+}

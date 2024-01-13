@@ -1,0 +1,15 @@
+{
+  "conditions": [
+    { "type": "forge:mod_loaded", "modid": "farmersdelight" },
+    { "type": "forge:not",  "value":{ "type": "forge:tag_empty", "tag": "createlowheated:delight_included" }}
+  ],
+  "type": "create:mixing",
+  "heatRequirement": "lowheated",
+  "results": [{ "item": "farmersdelight:dumplings" }], 
+  "ingredients": [
+    { "item": "create:dough" },
+    { "item": "farmersdelight:cabbage_leaf" },
+    { "tag": "forge:vegetables/onion" },
+    { "tag": "farmersdelight:cabbage_roll_ingredients" }
+  ]
+}

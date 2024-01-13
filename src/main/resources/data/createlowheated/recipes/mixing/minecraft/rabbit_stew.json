@@ -1,0 +1,27 @@
+{
+  "type": "create:mixing",
+  "output": {
+    "id": {
+      "f_135804_": "minecraft",
+      "f_135805_": "rabbit_stew"
+    },
+    "count": 1
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:bowl"
+    },
+    {
+      "item": "minecraft:potato"
+    },
+    {
+      "item": "minecraft:rabbit"
+    },
+    {
+      "item": "minecraft:carrot"
+    },
+    {
+      "tag": "forge:mushrooms"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "conditions": [
+    { "type": "forge:mod_loaded", "modid": "farmersdelight" },
+    { "type": "forge:not",  "value":{ "type": "forge:tag_empty", "tag": "createlowheated:delight_included" }}
+  ],
+  "type": "create:mixing",
+  "heatRequirement": "lowheated",
+  "results": [{ "item": "farmersdelight:cooked_rice" }],
+  "ingredients": [
+    { "item": "minecraft:bowl" },
+    { "item": "farmersdelight:rice" },
+    { "amount": 100, "fluid": "minecraft:water", "nbt": {} }
+  ]
+}

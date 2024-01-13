@@ -1,0 +1,18 @@
+{
+  "conditions": [
+    { "type": "forge:mod_loaded", "modid": "farmersdelight" },
+    { "type": "forge:not",  "value":{ "type": "forge:tag_empty", "tag": "createlowheated:delight_included" }}
+  ],
+  "type": "create:mixing",
+  "heatRequirement": "lowheated",
+  "results": [{ "item": "farmersdelight:vegetable_noodles" }],
+  "ingredients": [
+    { "item": "minecraft:bowl" },
+    { "item": "minecraft:carrot" },
+    { "tag": "forge:mushrooms" },
+    { "item": "farmersdelight:raw_pasta" },
+    { "item": "farmersdelight:cabbage_leaf" },
+    { "tag": "forge:vegetables" },
+    { "amount": 250, "fluid": "minecraft:water", "nbt": {} }
+  ]
+}

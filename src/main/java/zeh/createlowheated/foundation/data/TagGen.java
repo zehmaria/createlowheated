@@ -62,6 +62,7 @@ public class TagGen {
 
     private static void genItemTags(RegistrateTagsProvider<Item> prov) {
         prov.tag(AllItemTags.CHARCOAL_BURNER_FUEL.tag).add(Items.CHARCOAL);
+        prov.tag(AllItemTags.DELIGHT_INCLUDED.tag).add(Items.BEDROCK);
 
         // VALIDATE
         for (AllItemTags tag : AllItemTags.values()) {

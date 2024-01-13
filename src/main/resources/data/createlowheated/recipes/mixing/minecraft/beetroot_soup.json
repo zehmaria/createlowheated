@@ -1,0 +1,24 @@
+{
+  "type": "create:mixing",
+  "output": {
+    "id": {
+      "f_135804_": "minecraft",
+      "f_135805_": "beetroot_soup"
+    },
+    "count": 1
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:bowl"
+    },
+    {
+      "item": "minecraft:beetroot"
+    },
+    {
+      "item": "minecraft:beetroot"
+    },
+    {
+      "item": "minecraft:beetroot"
+    }
+  ]
+}

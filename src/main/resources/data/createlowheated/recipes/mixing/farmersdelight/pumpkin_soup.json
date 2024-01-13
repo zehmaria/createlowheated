@@ -1,0 +1,16 @@
+{
+  "conditions": [
+    { "type": "forge:mod_loaded", "modid": "farmersdelight" },
+    { "type": "forge:not",  "value":{ "type": "forge:tag_empty", "tag": "createlowheated:delight_included" }}
+  ],
+  "type": "create:mixing",
+  "heatRequirement": "lowheated",
+  "results": [{ "item": "farmersdelight:pumpkin_soup" }], 
+  "ingredients": [
+    { "item": "minecraft:bowl" },
+    { "item": "farmersdelight:pumpkin_slice" },
+    { "item": "farmersdelight:cabbage_leaf" },
+    { "item": "farmersdelight:bacon" },
+    { "amount": 250, "fluid": "minecraft:water", "nbt": {} }
+  ]
+}

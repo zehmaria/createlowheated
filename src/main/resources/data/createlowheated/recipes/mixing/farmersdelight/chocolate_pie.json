@@ -1,0 +1,18 @@
+{
+  "conditions": [
+    { "type": "forge:mod_loaded", "modid": "farmersdelight" },
+    { "type": "forge:not",  "value":{ "type": "forge:tag_empty", "tag": "createlowheated:delight_included" }}
+  ],
+  "type": "create:mixing",
+  "heatRequirement": "lowheated",
+  "results": [{ "item": "farmersdelight:chocolate_pie" }],
+  "ingredients": [
+    { "item": "minecraft:sugar" },
+    { "item": "minecraft:sugar" },
+    { "item": "minecraft:cocoa_beans" },
+    { "item": "minecraft:cocoa_beans" },
+    { "item": "minecraft:cocoa_beans" },
+    { "item": "farmersdelight:pie_crust" },
+    { "amount": 1000, "fluid": "minecraft:milk", "nbt": {} }
+  ]
+}
