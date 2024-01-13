@@ -115,7 +115,8 @@ public class AllTags {
     }
 
     public enum AllItemTags {
-        CHARCOAL_BURNER_FUEL
+        CHARCOAL_BURNER_FUEL,
+        DELIGHT_INCLUDED
         ;
 
         public final TagKey<Item> tag;
