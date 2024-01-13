@@ -5,7 +5,7 @@
   ],
   "type": "create:mixing",
   "heatRequirement": "lowheated",
-  "results": [{ "item": "farmersdelight:dumplings" }], 
+  "results": [{ "item": "farmersdelight:dumplings", "count": 2 }], 
   "ingredients": [
     { "item": "create:dough" },
     { "item": "farmersdelight:cabbage_leaf" },

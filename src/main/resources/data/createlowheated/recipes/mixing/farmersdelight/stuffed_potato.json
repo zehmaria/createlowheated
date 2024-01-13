@@ -9,6 +9,6 @@
   "ingredients": [
     { "item": "minecraft:baked_potato" },
     { "item": "farmersdelight:beef_patty" },
-    { "amount": 250, "fluid": "minecraft:water", "nbt": {} }
+    { "amount": 250, "fluid": "minecraft:milk", "nbt": {} }
   ]
 }

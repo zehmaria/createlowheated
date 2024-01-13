@@ -11,7 +11,7 @@
     { "item": "farmersdelight:raw_pasta" },
     { "item": "farmersdelight:fried_egg" },
     { "item": "farmersdelight:bacon" },
-    { "item": "farmersdelight:bacon" },
+    { "item": "minecraft:dried_kelp" },
     { "amount": 250, "fluid": "minecraft:water", "nbt": {} }
   ]
 }

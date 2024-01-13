@@ -30,6 +30,7 @@ public class BoilerHeatersMixin {
             HeatLevel value = state.getValue(CharcoalBurnerBlock.HEAT_LEVEL);
             if (value == HeatLevel.NONE) return -1;
             if (value == HeatLevel.byIndex(5)) return 0;
+            if (value == HeatLevel.SEETHING) return 2;
             if (value.isAtLeast(HeatLevel.FADING)) return 1;
             return -1;
         });
