@@ -5,7 +5,7 @@
   ],
   "type": "create:mixing",
   "heatRequirement": "lowheated",
-  "results": [{ "item": "farmersdelight:honey_cookie" }], 
+  "results": [{ "item": "farmersdelight:honey_cookie", "count": 8 }], 
   "ingredients": [
     { "item": "create:dough" },
     { "amount": 250, "fluid": "create:honey", "nbt": {} }

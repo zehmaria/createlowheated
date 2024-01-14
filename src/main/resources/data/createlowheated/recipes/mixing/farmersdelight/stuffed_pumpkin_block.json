@@ -7,7 +7,7 @@
   "heatRequirement": "lowheated",
   "results": [{ "item": "farmersdelight:stuffed_pumpkin_block" }],
   "ingredients": [
-    { "item": "minecraft:bowl" },
+    { "item": "minecraft:pumpkin" },
     { "item": "farmersdelight:rice" },
     { "tag": "forge:vegetables/onion" },
     { "tag": "forge:mushrooms" },
