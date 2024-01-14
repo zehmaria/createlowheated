@@ -1,21 +1,14 @@
 {
+  "conditions": [
+    { "type": "forge:not",  "value":{ "type": "forge:tag_empty", "tag": "createlowheated:delight_included" }}
+  ],
   "type": "create:mixing",
-  "output": {
-    "id": {
-      "f_135804_": "minecraft",
-      "f_135805_": "mushroom_stew"
-    },
-    "count": 1
-  },
+  "heatRequirement": "lowheated",
+  "results": [{ "item": "minecraft:mushroom_stew" }],
   "ingredients": [
-    {
-      "item": "minecraft:bowl"
-    },
-    {
-      "tag": "forge:mushrooms"
-    },
-    {
-      "tag": "forge:mushrooms"
-    }
+    { "item": "minecraft:bowl" },
+    { "tag": "forge:mushrooms" },
+    { "tag": "forge:mushrooms" },
+    { "amount": 250, "fluid": "minecraft:water", "nbt": {} }
   ]
 }
