@@ -1,4 +1,4 @@
-// 1.19.2	2023-07-06T22:35:05.908081663	Registrate Provider for createlowheated [Recipes, Advancements, Loot tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.19.2	2024-01-13T22:49:32.115204797	Registrate Provider for createlowheated [Recipes, Advancements, Loot tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 5274bc52bbc4c6e314b1fceae46cba7d422db3d1 assets/createlowheated/blockstates/charcoal_burner.json
 05b4f0cc3e1f507233b0ddea9ed4819a3ab21e15 assets/createlowheated/lang/en_ud.json
 500e7816ca65dbbeeb818fed817c3fdf2392ca48 assets/createlowheated/lang/en_us.json
@@ -6,4 +6,5 @@ f6cd0bb77b0ffa36ec599170c8a261662a18bd79 assets/createlowheated/models/item/char
 25d2ccb7fc09f1d59151041ec88736f00d9c9e49 data/create/tags/blocks/fan_transparent.json
 deb0bf8bfbf058bd549c32c70ee9a5fb99ecfd7a data/createlowheated/loot_tables/blocks/charcoal_burner.json
 f470b0889459fb2d48176e69995c70ce18aa66ea data/createlowheated/tags/items/charcoal_burner_fuel.json
+cfab2ab481bf476a645d326b87627918009b9e50 data/createlowheated/tags/items/delight_included.json
 25d2ccb7fc09f1d59151041ec88736f00d9c9e49 data/minecraft/tags/blocks/mineable/pickaxe.json
