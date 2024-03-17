@@ -1,13 +1,13 @@
 {
-  "block.createlowheated.basic_burner": "ɹǝuɹnᗺ ɔısɐᗺ",
-  "block.createlowheated.basic_burner.tooltip": "ɹǝuɹnᗺ ɔısɐᗺ",
-  "block.createlowheated.basic_burner.tooltip.behaviour1": "˙‾ɯɹⱯ ןɐɔıuɐɥɔǝW/ɹǝʎoןdǝᗡ/ןǝuunℲ‾ ɐ ǝsn ɹo ‾ןǝnℲ‾ ɥʇıʍ ʇı ʞɔıןɔ ʇɥbıᴚ",
-  "block.createlowheated.basic_burner.tooltip.behaviour2": "˙ʇsısɹǝd ןןıʍ ǝɹıɟ ǝɥʇ 'ʎןןɐnuıʇuoɔ pǝɟ s,ʇı sɐ buoן sⱯ ˙‾ןǝǝʇS puɐ ʇuıןℲ‾ ɥʇıʍ ʇı ʞɔıןɔ-ʇɥbıɹ oʇ pǝǝu noʎ ‾ǝɹıɟ‾ ǝɥʇ ʇɹɐʇs o⟘",
-  "block.createlowheated.basic_burner.tooltip.behaviour3": "˙ʇı ʇsuıɐbɐ uɐɟ WԀᴚ-xɐW ɐ buısn ʎq pǝɹǝʍodɯǝ ǝq uɐƆ",
-  "block.createlowheated.basic_burner.tooltip.condition1": "ןǝnℲ sǝɹınbǝᴚ",
-  "block.createlowheated.basic_burner.tooltip.condition2": "ןǝǝʇS puɐ ʇuıןℲ sǝɹınbǝᴚ",
-  "block.createlowheated.basic_burner.tooltip.condition3": "ɹǝuɹnᗺ pǝɹǝʍodɯƎ",
-  "block.createlowheated.basic_burner.tooltip.summary": "˙‾ǝuıbuƎ ɯɐǝʇS‾ ǝɥʇ puɐ ‾sǝdıɔǝᴚ uısɐᗺ‾ oʇ ‾ʇɐǝɥ‾ sǝpıʌoɹԀ",
-  "create.recipe.heat_requirement.lowheated": "pǝʇɐǝH-ʍoꞀ",
-  "itemGroup.create.base": "pǝʇɐǝH-ʍoꞀ ǝʇɐǝɹƆ"
+  "block.createlowheated.basic_burner": "\u0279\u01DDu\u0279n\u15FA \u0254\u0131s\u0250\u15FA",
+  "block.createlowheated.basic_burner.tooltip": "\u0279\u01DDu\u0279n\u15FA \u0254\u0131s\u0250\u15FA",
+  "block.createlowheated.basic_burner.tooltip.behaviour1": "\u02D9\u203E\u026F\u0279\u2C6F \u05DF\u0250\u0254\u0131u\u0250\u0265\u0254\u01DDW/\u0279\u01DD\u028Eo\u05DFd\u01DD\u15E1/\u05DF\u01DDuun\u2132\u203E \u0250 \u01DDsn \u0279o \u203E\u05DF\u01DDn\u2132\u203E \u0265\u0287\u0131\u028D \u0287\u0131 \u029E\u0254\u0131\u05DF\u0254 \u0287\u0265b\u0131\u1D1A",
+  "block.createlowheated.basic_burner.tooltip.behaviour2": "\u02D9\u0287s\u0131s\u0279\u01DDd \u05DF\u05DF\u0131\u028D \u01DD\u0279\u0131\u025F \u01DD\u0265\u0287 '\u028E\u05DF\u05DF\u0250nu\u0131\u0287uo\u0254 p\u01DD\u025F s,\u0287\u0131 s\u0250 buo\u05DF s\u2C6F \u02D9\u203E\u05DF\u01DD\u01DD\u0287S pu\u0250 \u0287u\u0131\u05DF\u2132\u203E \u0265\u0287\u0131\u028D \u0287\u0131 \u029E\u0254\u0131\u05DF\u0254-\u0287\u0265b\u0131\u0279 o\u0287 p\u01DD\u01DDu no\u028E \u203E\u01DD\u0279\u0131\u025F\u203E \u01DD\u0265\u0287 \u0287\u0279\u0250\u0287s o\u27D8",
+  "block.createlowheated.basic_burner.tooltip.behaviour3": "\u02D9\u0287\u0131 \u0287su\u0131\u0250b\u0250 u\u0250\u025F W\u0500\u1D1A-x\u0250W \u0250 bu\u0131sn \u028Eq p\u01DD\u0279\u01DD\u028Dod\u026F\u01DD \u01DDq u\u0250\u0186",
+  "block.createlowheated.basic_burner.tooltip.condition1": "\u05DF\u01DDn\u2132 s\u01DD\u0279\u0131nb\u01DD\u1D1A",
+  "block.createlowheated.basic_burner.tooltip.condition2": "\u05DF\u01DD\u01DD\u0287S pu\u0250 \u0287u\u0131\u05DF\u2132 s\u01DD\u0279\u0131nb\u01DD\u1D1A",
+  "block.createlowheated.basic_burner.tooltip.condition3": "\u0279\u01DDu\u0279n\u15FA p\u01DD\u0279\u01DD\u028Dod\u026F\u018E",
+  "block.createlowheated.basic_burner.tooltip.summary": "\u02D9\u203E\u01DDu\u0131bu\u018E \u026F\u0250\u01DD\u0287S\u203E \u01DD\u0265\u0287 pu\u0250 \u203Es\u01DDd\u0131\u0254\u01DD\u1D1A u\u0131s\u0250\u15FA\u203E o\u0287 \u203E\u0287\u0250\u01DD\u0265\u203E s\u01DDp\u0131\u028Co\u0279\u0500",
+  "create.recipe.heat_requirement.lowheated": "p\u01DD\u0287\u0250\u01DDH-\u028Do\uA780",
+  "itemGroup.create.base": "p\u01DD\u0287\u0250\u01DDH-\u028Do\uA780 \u01DD\u0287\u0250\u01DD\u0279\u0186"
 }

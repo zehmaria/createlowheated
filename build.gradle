@@ -21,17 +21,19 @@ apply plugin: 'org.parchmentmc.librarian.forgegradle'
 apply plugin: 'idea'
 apply plugin: "org.spongepowered.mixin"
 
-
-version = minecraft_version + '-' + new Date().format("yyMMdd'T'HH", TimeZone.getTimeZone("UTC"))
 group = mod_author + '.' + mod_id // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = mod_id + "-forge"
+version = minecraft_version + '-' + create_version + '-' + mod_version
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
 minecraft {
-    //mappings channel: 'official', version: minecraft_version
-    mappings channel: 'parchment', version: "${parchment_version}"
+    if (Boolean.parseBoolean(project.use_parchment)) {
+        mappings channel: 'parchment', version: "${parchment_version}-${minecraft_version}"
+    } else {
+        mappings channel: 'official', version: "${minecraft_version}"
+    }   
 
     runs {
         client = {
