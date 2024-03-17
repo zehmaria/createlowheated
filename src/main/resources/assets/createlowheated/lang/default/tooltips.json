@@ -7,5 +7,5 @@
 	"block.createlowheated.basic_burner.tooltip.behaviour2": "To start the _fire_ you need to right-click it with _Flint and Steel_. As long as it's fed continually, the fire will persist.",
 	"block.createlowheated.basic_burner.tooltip.condition3": "Empowered Burner",
 	"block.createlowheated.basic_burner.tooltip.behaviour3": "Can be empowered by using a Max-RPM fan against it.",
-	"itemGroup.create.base": "Create Low-Heated"
+	"itemGroup.createlowheated.base": "Create Low-Heated"
 }
