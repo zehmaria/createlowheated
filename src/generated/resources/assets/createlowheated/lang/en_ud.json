@@ -9,5 +9,5 @@
   "block.createlowheated.basic_burner.tooltip.condition3": "\u0279\u01DDu\u0279n\u15FA p\u01DD\u0279\u01DD\u028Dod\u026F\u018E",
   "block.createlowheated.basic_burner.tooltip.summary": "\u02D9\u203E\u01DDu\u0131bu\u018E \u026F\u0250\u01DD\u0287S\u203E \u01DD\u0265\u0287 pu\u0250 \u203Es\u01DDd\u0131\u0254\u01DD\u1D1A u\u0131s\u0250\u15FA\u203E o\u0287 \u203E\u0287\u0250\u01DD\u0265\u203E s\u01DDp\u0131\u028Co\u0279\u0500",
   "create.recipe.heat_requirement.lowheated": "p\u01DD\u0287\u0250\u01DDH-\u028Do\uA780",
-  "itemGroup.create.base": "p\u01DD\u0287\u0250\u01DDH-\u028Do\uA780 \u01DD\u0287\u0250\u01DD\u0279\u0186"
+  "itemGroup.createlowheated.base": "p\u01DD\u0287\u0250\u01DDH-\u028Do\uA780 \u01DD\u0287\u0250\u01DD\u0279\u0186"
 }

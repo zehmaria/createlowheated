@@ -9,5 +9,5 @@
   "block.createlowheated.basic_burner.tooltip.condition3": "Empowered Burner",
   "block.createlowheated.basic_burner.tooltip.summary": "Provides _heat_ to _Basin Recipes_ and the _Steam Engine_.",
   "create.recipe.heat_requirement.lowheated": "Low-Heated",
-  "itemGroup.create.base": "Create Low-Heated"
+  "itemGroup.createlowheated.base": "Create Low-Heated"
 }
