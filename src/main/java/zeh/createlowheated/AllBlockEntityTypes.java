@@ -4,15 +4,15 @@ import static zeh.createlowheated.CreateLowHeated.REGISTRATE;
 
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 
-import zeh.createlowheated.content.processing.charcoal.CharcoalBurnerBlockEntity;
-import zeh.createlowheated.content.processing.charcoal.CharcoalBurnerRenderer;
+import zeh.createlowheated.content.processing.basicburner.BasicBurnerBlockEntity;
+import zeh.createlowheated.content.processing.basicburner.BasicBurnerRenderer;
 
 public class AllBlockEntityTypes {
 
-    public static final BlockEntityEntry<CharcoalBurnerBlockEntity> CHARCOAL_HEATER = REGISTRATE
-            .blockEntity("charcoal_heater", CharcoalBurnerBlockEntity::new)
-            .validBlocks(AllBlocks.CHARCOAL_BURNER)
-            .renderer(() -> CharcoalBurnerRenderer::new)
+    public static final BlockEntityEntry<BasicBurnerBlockEntity> BASIC_HEATER = REGISTRATE
+            .blockEntity("basic_heater", BasicBurnerBlockEntity::new)
+            .validBlocks(AllBlocks.BASIC_BURNER)
+            .renderer(() -> BasicBurnerRenderer::new)
             .register();
 
     public static void register() {}

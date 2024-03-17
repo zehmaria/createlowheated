@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "createlowheated:charcoal_burner"
+          "name": "createlowheated:basic_burner"
         }
       ],
       "rolls": 1.0

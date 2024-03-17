@@ -17,12 +17,10 @@ plugins {
 }
 
 apply plugin: 'net.minecraftforge.gradle'
-// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
-apply plugin: 'com.matthewprenger.cursegradle'
-//apply plugin: 'maven-publish'
-apply plugin: "org.spongepowered.mixin"
 apply plugin: 'idea'
+apply plugin: "org.spongepowered.mixin"
+
 
 group = mod_author + '.' + mod_id // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = mod_id + "-forge"
@@ -42,7 +40,7 @@ minecraft {
         client = {
             workingDirectory project.file('run')
             arg '-mixin.config=createlowheated.mixins.json'
-            property 'forge.logging.console.level', 'debug'
+            property 'forge.logging.console.level', 'info'
             mods {
                 createlowheated {
                     source sourceSets.main
@@ -52,7 +50,7 @@ minecraft {
         server = {
             workingDirectory project.file('run')
             arg '-mixin.config=createlowheated.mixins.json'
-            property 'forge.logging.console.level', 'debug'
+            property 'forge.logging.console.level', 'info'
             mods {
                 createlowheated {
                     source sourceSets.main
@@ -61,7 +59,7 @@ minecraft {
         }
         data {
             workingDirectory project.file('run')
-            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.markers', 'REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
             args '--mod', 'createlowheated', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/'), '--existing-mod', 'create'
 
@@ -101,9 +99,9 @@ repositories {
 dependencies {
     minecraft 'net.minecraftforge:forge:' + minecraft_version + '-' + forge_version
 
-    implementation fg.deobf("com.simibubi.create:create-${create_minecraft_version}:${create_version}-${create_version_suffix}:slim") { transitive = false }
-    implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${flywheel_minecraft_version}:${flywheel_version}")
     implementation fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
+    implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${flywheel_minecraft_version}:${flywheel_version}")
+    implementation fg.deobf("com.simibubi.create:create-${create_minecraft_version}:${create_version}-${create_version_suffix}:slim") { transitive = false }
 
     compileOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}-common-api:${jei_version}")
     compileOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}-forge-api:${jei_version}")
@@ -121,6 +119,12 @@ sourceSets.main.resources {
 
 mixin {
     add sourceSets.main, 'createlowheated.refmap.json'
+}
+
+// Workaround for SpongePowered/MixinGradle#38
+afterEvaluate {
+    tasks.configureReobfTaskForReobfJar.mustRunAfter(tasks.compileJava)
+    tasks.configureReobfTaskForReobfJarJar.mustRunAfter(tasks.compileJava)
 }
 
 tasks.withType(JavaCompile).configureEach {

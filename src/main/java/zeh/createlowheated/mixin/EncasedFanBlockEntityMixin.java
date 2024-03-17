@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import zeh.createlowheated.content.processing.charcoal.CharcoalBurnerBlockEntity;
+import zeh.createlowheated.content.processing.basicburner.BasicBurnerBlockEntity;
 
 @Mixin(value = EncasedFanBlockEntity.class, remap = false)
 public abstract class EncasedFanBlockEntityMixin extends KineticBlockEntity {
@@ -26,23 +26,23 @@ public abstract class EncasedFanBlockEntityMixin extends KineticBlockEntity {
         super(typeIn, pos, state);
     }
 
-    public void updateCharcoalBurner(boolean rm) {
+    public void updateBasicBurner(boolean rm) {
         Direction direction = getBlockState().getValue(EncasedFanBlock.FACING);
         if (!direction.getAxis().isHorizontal()) return;
 
         BlockEntity poweredBurner = level.getBlockEntity(worldPosition.relative(direction));
-        if (!(poweredBurner instanceof CharcoalBurnerBlockEntity))  return;
-        CharcoalBurnerBlockEntity burnerBE = (CharcoalBurnerBlockEntity) poweredBurner;
+        if (!(poweredBurner instanceof BasicBurnerBlockEntity))  return;
+        BasicBurnerBlockEntity burnerBE = (BasicBurnerBlockEntity) poweredBurner;
 
         burnerBE.setEmpowered(rm ? false : (Mth.abs(airCurrent.source.getSpeed()) == 256 ? true : false));
     }
 
     @Inject(method = "onSpeedChanged", at = @At("HEAD"), cancellable = true)
-    protected void addCharcoalBurnerToSpeedChange(float prevSpeed, CallbackInfo ci) { updateCharcoalBurner(false); }
+    protected void addBasicBurnerToSpeedChange(float prevSpeed, CallbackInfo ci) { updateBasicBurner(false); }
 
     @Inject(method = "remove", at = @At("HEAD"), cancellable = true)
-    protected void addCharcoalBurnerToRemove(CallbackInfo ci) {
-        updateCharcoalBurner(true);
+    protected void addBasicBurnerToRemove(CallbackInfo ci) {
+        updateBasicBurner(true);
     }
 
 }

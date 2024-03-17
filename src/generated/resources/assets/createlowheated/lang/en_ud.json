@@ -1,3 +1,13 @@
 {
-  "block.createlowheated.charcoal_burner": "ɹǝuɹnᗺ ןɐoɔɹɐɥƆ"
+  "block.createlowheated.basic_burner": "ɹǝuɹnᗺ ɔısɐᗺ",
+  "block.createlowheated.basic_burner.tooltip": "ɹǝuɹnᗺ ɔısɐᗺ",
+  "block.createlowheated.basic_burner.tooltip.behaviour1": "˙‾ɯɹⱯ ןɐɔıuɐɥɔǝW/ɹǝʎoןdǝᗡ/ןǝuunℲ‾ ɐ ǝsn ɹo ‾ןǝnℲ‾ ɥʇıʍ ʇı ʞɔıןɔ ʇɥbıᴚ",
+  "block.createlowheated.basic_burner.tooltip.behaviour2": "˙ʇsısɹǝd ןןıʍ ǝɹıɟ ǝɥʇ 'ʎןןɐnuıʇuoɔ pǝɟ s,ʇı sɐ buoן sⱯ ˙‾ןǝǝʇS puɐ ʇuıןℲ‾ ɥʇıʍ ʇı ʞɔıןɔ-ʇɥbıɹ oʇ pǝǝu noʎ ‾ǝɹıɟ‾ ǝɥʇ ʇɹɐʇs o⟘",
+  "block.createlowheated.basic_burner.tooltip.behaviour3": "˙ʇı ʇsuıɐbɐ uɐɟ WԀᴚ-xɐW ɐ buısn ʎq pǝɹǝʍodɯǝ ǝq uɐƆ",
+  "block.createlowheated.basic_burner.tooltip.condition1": "ןǝnℲ sǝɹınbǝᴚ",
+  "block.createlowheated.basic_burner.tooltip.condition2": "ןǝǝʇS puɐ ʇuıןℲ sǝɹınbǝᴚ",
+  "block.createlowheated.basic_burner.tooltip.condition3": "ɹǝuɹnᗺ pǝɹǝʍodɯƎ",
+  "block.createlowheated.basic_burner.tooltip.summary": "˙‾ǝuıbuƎ ɯɐǝʇS‾ ǝɥʇ puɐ ‾sǝdıɔǝᴚ uısɐᗺ‾ oʇ ‾ʇɐǝɥ‾ sǝpıʌoɹԀ",
+  "create.recipe.heat_requirement.lowheated": "pǝʇɐǝH-ʍoꞀ",
+  "itemGroup.create.base": "pǝʇɐǝH-ʍoꞀ ǝʇɐǝɹƆ"
 }

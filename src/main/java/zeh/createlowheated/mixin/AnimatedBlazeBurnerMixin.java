@@ -34,7 +34,7 @@ public class AnimatedBlazeBurnerMixin extends AnimatedKinetics {
 
     /**
      * @author ZehMaria
-     * @reason Adds Charcoal Burner as SMOULDERING, removes all passive heaters.
+     * @reason Adds Basic Burner as SMOULDERING, removes all passive heaters.
      */
     @Overwrite
     public void draw(PoseStack matrixStack, int xOffset, int yOffset) {
@@ -46,12 +46,12 @@ public class AnimatedBlazeBurnerMixin extends AnimatedKinetics {
 
         float offset = (Mth.sin(AnimationTickHolder.getRenderTime() / 16f) + 0.5f) / 16f;
 
-        if (heatLevel == HeatLevel.valueOf("CHARCOAL")) {
-            blockElement(zeh.createlowheated.AllBlocks.CHARCOAL_BURNER.getDefaultState()).atLocal(0, 1.65, 0)
+        if (heatLevel == HeatLevel.valueOf("LOW")) {
+            blockElement(zeh.createlowheated.AllBlocks.BASIC_BURNER.getDefaultState()).atLocal(0, 1.65, 0)
                     .scale(scale)
                     .render(matrixStack);
 
-            blockElement(zeh.createlowheated.AllBlocks.CHARCOAL_BURNER.getDefaultState()).atLocal(1, 1.8, 1)
+            blockElement(zeh.createlowheated.AllBlocks.BASIC_BURNER.getDefaultState()).atLocal(1, 1.8, 1)
                     .rotate(0, 180, 0)
                     .scale(scale)
                     .render(matrixStack);

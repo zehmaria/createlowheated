@@ -1,10 +1,12 @@
-// 1.19.2	2024-01-13T22:49:32.115204797	Registrate Provider for createlowheated [Recipes, Advancements, Loot tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
-5274bc52bbc4c6e314b1fceae46cba7d422db3d1 assets/createlowheated/blockstates/charcoal_burner.json
-05b4f0cc3e1f507233b0ddea9ed4819a3ab21e15 assets/createlowheated/lang/en_ud.json
-500e7816ca65dbbeeb818fed817c3fdf2392ca48 assets/createlowheated/lang/en_us.json
-f6cd0bb77b0ffa36ec599170c8a261662a18bd79 assets/createlowheated/models/item/charcoal_burner.json
-25d2ccb7fc09f1d59151041ec88736f00d9c9e49 data/create/tags/blocks/fan_transparent.json
-deb0bf8bfbf058bd549c32c70ee9a5fb99ecfd7a data/createlowheated/loot_tables/blocks/charcoal_burner.json
-f470b0889459fb2d48176e69995c70ce18aa66ea data/createlowheated/tags/items/charcoal_burner_fuel.json
+// 1.19.2	2024-03-17T13:06:05.085737692	Registrate Provider for createlowheated [Recipes, Advancements, Loot tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+920ebe2ac62e9031e244916af58b7a6739121be1 assets/createlowheated/blockstates/basic_burner.json
+387085f12d90c4a829aa91d306c2303b7ce044a6 assets/createlowheated/lang/en_ud.json
+8981d4dd387255a580871cb84e48e59d44dba34a assets/createlowheated/lang/en_us.json
+d7224ffa6757e629df96a2730c93b92e2a0a3205 assets/createlowheated/models/item/basic_burner.json
+1697f5eb228b52052a33bad1f95dd7ea39fb2769 data/create/tags/blocks/fan_transparent.json
+3bbc2bb56520fc53d61ba52a0aad25e047ca6b2c data/createlowheated/loot_tables/blocks/basic_burner.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/createlowheated/tags/items/basic_burner_fuel_blacklist.json
+f470b0889459fb2d48176e69995c70ce18aa66ea data/createlowheated/tags/items/basic_burner_fuel_whitelist.json
+ea5453bb23292a045408ae8581a1bcde5230ac72 data/createlowheated/tags/items/burner_starters.json
 cfab2ab481bf476a645d326b87627918009b9e50 data/createlowheated/tags/items/delight_included.json
-25d2ccb7fc09f1d59151041ec88736f00d9c9e49 data/minecraft/tags/blocks/mineable/pickaxe.json
+1697f5eb228b52052a33bad1f95dd7ea39fb2769 data/minecraft/tags/blocks/mineable/pickaxe.json
