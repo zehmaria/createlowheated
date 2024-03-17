@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import zeh.createlowheated.AllBlocks;
-import zeh.createlowheated.content.processing.basicburner.BasicBurnerRenderer;
+import zeh.createlowheated.content.processing.basicburner.BasicBurnerBlock;
 
 @Mixin(value = BoilerHeaters.class, remap = false)
 public class BoilerHeatersMixin {
