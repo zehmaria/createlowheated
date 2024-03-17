@@ -1,8 +1,5 @@
 package zeh.createlowheated;
 
-import static net.minecraft.core.Direction.EAST;
-import static net.minecraft.core.Direction.NORTH;
-import static net.minecraft.core.Direction.SOUTH;
 import static net.minecraft.core.Direction.UP;
 
 import java.util.function.BiFunction;
@@ -18,7 +15,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class AllShapes {
     // Static Block Shapes
-    public static final VoxelShape CHARCOAL_HEATER_BLOCK_SHAPE = shape(1, 0, 1, 15, 16, 15).build();
+    public static final VoxelShape BASIC_HEATER_BLOCK_SHAPE = shape(1, 0, 1, 15, 16, 15).build();
 
     private static Builder shape(VoxelShape shape) {
         return new Builder(shape);

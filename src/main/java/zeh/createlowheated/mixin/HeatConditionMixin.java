@@ -1,6 +1,5 @@
 package zeh.createlowheated.mixin;
 
-import com.simibubi.create.Create;
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock.HeatLevel;
 import com.simibubi.create.content.processing.recipe.HeatCondition;
 import org.spongepowered.asm.mixin.*;
@@ -58,7 +57,7 @@ public abstract class HeatConditionMixin {
      */
     @Overwrite
     public HeatLevel visualizeAsBlazeBurner() {
-        if (this.equals(LOWHEATED)) return HeatLevel.valueOf("CHARCOAL");
+        if (this.equals(LOWHEATED)) return HeatLevel.valueOf("LOW");
         if (this.equals(HeatCondition.SUPERHEATED)) return HeatLevel.SEETHING;
         if (this.equals(HeatCondition.HEATED)) return HeatLevel.KINDLED;
         return HeatLevel.NONE;

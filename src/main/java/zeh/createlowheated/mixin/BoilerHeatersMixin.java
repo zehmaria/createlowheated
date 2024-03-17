@@ -8,13 +8,13 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import zeh.createlowheated.AllBlocks;
-import zeh.createlowheated.content.processing.charcoal.CharcoalBurnerBlock;
+import zeh.createlowheated.content.processing.basicburner.BasicBurnerRenderer;
 
 @Mixin(value = BoilerHeaters.class, remap = false)
 public class BoilerHeatersMixin {
     /**
      * @author ZehMaria
-     * @reason Adds Charcoal Burner, removes all passive heaters.
+     * @reason Adds Basic Burner, removes all passive heaters.
      */
     @Overwrite
     public static void registerDefaults() {
@@ -26,10 +26,11 @@ public class BoilerHeatersMixin {
             return -1;
         });
 
-        registerHeater(AllBlocks.CHARCOAL_BURNER.get(), (level, pos, state) -> {
-            HeatLevel value = state.getValue(CharcoalBurnerBlock.HEAT_LEVEL);
+        registerHeater(AllBlocks.BASIC_BURNER.get(), (level, pos, state) -> {
+            HeatLevel value = state.getValue(BasicBurnerBlock.HEAT_LEVEL);
             if (value == HeatLevel.NONE) return -1;
-            if (value == HeatLevel.byIndex(5)) return 0;
+            if (value == HeatLevel.valueOf("LOW")) return 0;
+            if (value == HeatLevel.SEETHING) return 2;
             if (value.isAtLeast(HeatLevel.FADING)) return 1;
             return -1;
         });

@@ -11,11 +11,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-import zeh.createlowheated.CreateLowHeated;
 
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
-import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.IFocusGroup;
 
 @Mixin(value = BasinCategory.class, remap = false)
@@ -30,8 +27,8 @@ public abstract class BasinCategoryMixin {
     private void onSetBurnerType(IRecipeLayoutBuilder builder, BasinRecipe recipe, IFocusGroup focuses, CallbackInfo ci) {
         HeatCondition requiredHeat = recipe.getRequiredHeat();
         if (!requiredHeat.testBlazeBurner(HeatLevel.NONE)) {
-            if (requiredHeat.testBlazeBurner(HeatLevel.valueOf("CHARCOAL"))) {
-                builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 134, 81).addItemStack(zeh.createlowheated.AllBlocks.CHARCOAL_BURNER.asStack());
+            if (requiredHeat.testBlazeBurner(HeatLevel.valueOf("LOW"))) {
+                builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 134, 81).addItemStack(zeh.createlowheated.AllBlocks.BASIC_BURNER.asStack());
             } else {
                 builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 134, 81).addItemStack(AllBlocks.BLAZE_BURNER.asStack());
                 if (!requiredHeat.testBlazeBurner(HeatLevel.KINDLED)) {

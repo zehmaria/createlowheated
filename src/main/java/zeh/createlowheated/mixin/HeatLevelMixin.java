@@ -1,8 +1,6 @@
 package zeh.createlowheated.mixin;
 
-import com.simibubi.create.content.processing.burner.BlazeBurnerBlock;
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock.HeatLevel;
-import org.jetbrains.annotations.Contract;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -11,7 +9,6 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import zeh.createlowheated.CreateLowHeated;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,7 +22,7 @@ public abstract class HeatLevelMixin {
 
     @Shadow public abstract boolean isAtLeast(HeatLevel heatLevel);
 
-    private static final HeatLevel CHARCOAL = heatExpansion$addVariant("CHARCOAL");
+    private static final HeatLevel LOW = heatExpansion$addVariant("LOW");
 
     @Invoker("<init>")
     public static HeatLevel heatExpansion$invokeInit(String internalName, int internalId) {
@@ -41,8 +38,8 @@ public abstract class HeatLevelMixin {
     }
 
     @Inject(method = "isAtLeast", at = @At("HEAD"), cancellable = true)
-    protected void hardCodedCharcoal(HeatLevel heatLevel, CallbackInfoReturnable<Boolean> cir) {
-        if (heatLevel.getSerializedName() == "charcoal") { cir.setReturnValue(this.isAtLeast(HeatLevel.FADING)); }
+    protected void hardCodedLow(HeatLevel heatLevel, CallbackInfoReturnable<Boolean> cir) {
+        if (heatLevel.getSerializedName() == "low") { cir.setReturnValue(this.isAtLeast(HeatLevel.FADING)); }
     }
 
 }

@@ -8,9 +8,9 @@ logoFile="logo.png"
 [[mods]]
     modId="createlowheated"
     version="${file.jarVersion}"
-    displayName="Create Low Heated"
+    displayName="Create Low-Heated"
 	authors="zeh_maria"
-    description="Active charcoal-fueled low-heat alternative for processing and steam engine."
+    description="Active fueled low-heat alternative for processing and steam engine."
 
 [[dependencies.createlowheated]]
     modId="forge"

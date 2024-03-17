@@ -9,7 +9,7 @@ public class BaseCreativeModeTab extends CreateCreativeModeTab {
     }
     @Override
     public ItemStack makeIcon() {
-        return AllBlocks.CHARCOAL_BURNER.asStack();
+        return AllBlocks.BASIC_BURNER.asStack();
     }
 }
 

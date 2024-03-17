@@ -13,12 +13,7 @@ public class AllItems {
     static {
         REGISTRATE.creativeModeTab(() -> AllCreativeModeTabs.BASE_CREATIVE_TAB);
     }
-/*
-    public static final ItemEntry<CharcoalBurnerBlockItem> EMPTY_CHARCOAL_BURNER =
-            REGISTRATE.item("empty_charcoal_burner", CharcoalBurnerBlockItem::empty)
-                    .model(AssetLookup.customBlockItemModel("charcoal_burner", "block"))
-                    .register();*/
-
+    
     // Shortcuts
     private static ItemEntry<Item> ingredient(String name) {
         return REGISTRATE.item(name, Item::new)
