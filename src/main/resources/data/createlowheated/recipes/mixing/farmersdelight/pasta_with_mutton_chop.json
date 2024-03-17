@@ -1,0 +1,14 @@
+{
+  "conditions": [
+    { "type": "forge:mod_loaded", "modid": "farmersdelight" },
+    { "type": "forge:not",  "value":{ "type": "forge:tag_empty", "tag": "createlowheated:delight_included" }}
+  ],
+  "type": "create:mixing",
+  "heatRequirement": "lowheated",
+  "results": [{ "item": "farmersdelight:pasta_with_mutton_chop" }], 
+  "ingredients": [
+    { "item": "farmersdelight:tomato_sauce" },
+    { "item": "farmersdelight:raw_pasta" },
+    { "item": "farmersdelight:mutton_chops" }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "conditions": [
+    { "type": "forge:mod_loaded", "modid": "farmersdelight" },
+    { "type": "forge:not",  "value":{ "type": "forge:tag_empty", "tag": "createlowheated:delight_included" }}
+  ],
+  "type": "create:mixing",
+  "heatRequirement": "lowheated",
+  "results": [{ "item": "farmersdelight:sweet_berry_cheesecake" }], 
+  "ingredients": [
+    { "item": "minecraft:sweet_berries" },
+    { "item": "minecraft:sweet_berries" },
+    { "item": "minecraft:sweet_berries" },
+    { "item": "minecraft:sweet_berries" },
+    { "item": "minecraft:sweet_berries" },
+    { "item": "minecraft:sweet_berries" },
+    { "item": "farmersdelight:pie_crust" },
+    { "amount": 500, "fluid": "minecraft:milk", "nbt": {} }
+  ]
+}

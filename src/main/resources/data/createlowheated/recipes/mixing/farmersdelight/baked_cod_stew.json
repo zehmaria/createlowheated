@@ -1,0 +1,17 @@
+{
+  "conditions": [
+    { "type": "forge:mod_loaded", "modid": "farmersdelight" },
+    { "type": "forge:not",  "value":{ "type": "forge:tag_empty", "tag": "createlowheated:delight_included" }}
+  ],
+  "type": "create:mixing",
+  "heatRequirement": "lowheated",
+  "results": [{ "item": "farmersdelight:baked_cod_stew" }],
+  "ingredients": [
+    { "item": "minecraft:bowl" },
+    { "item": "farmersdelight:cod_slice" },
+    { "item": "minecraft:potato" },
+    { "item": "minecraft:egg" },
+    { "tag": "forge:vegetables/tomato" },
+    { "amount": 250, "fluid": "minecraft:water", "nbt": {} } 
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "conditions": [
+    { "type": "forge:mod_loaded", "modid": "farmersdelight" },
+    { "type": "forge:not",  "value":{ "type": "forge:tag_empty", "tag": "createlowheated:delight_included" }}
+  ],
+  "type": "create:mixing",
+  "heatRequirement": "lowheated",
+  "results": [{ "item": "farmersdelight:noodle_soup" }], 
+  "ingredients": [
+    { "item": "minecraft:bowl" },
+    { "item": "farmersdelight:raw_pasta" },
+    { "item": "farmersdelight:fried_egg" },
+    { "item": "farmersdelight:bacon" },
+    { "item": "minecraft:dried_kelp" },
+    { "amount": 250, "fluid": "minecraft:water", "nbt": {} }
+  ]
+}

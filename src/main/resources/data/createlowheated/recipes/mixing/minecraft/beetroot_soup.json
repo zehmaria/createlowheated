@@ -1,0 +1,15 @@
+{
+  "conditions": [
+    { "type": "forge:not",  "value":{ "type": "forge:tag_empty", "tag": "createlowheated:delight_included" }}
+  ],
+  "type": "create:mixing",
+  "heatRequirement": "lowheated",
+  "results": [{ "item": "minecraft:beetroot_soup" }],
+  "ingredients": [
+    { "item": "minecraft:bowl" },
+    { "item": "minecraft:beetroot" },
+    { "item": "minecraft:beetroot" },
+    { "item": "minecraft:beetroot" },
+    { "amount": 250, "fluid": "minecraft:water", "nbt": {} }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "conditions": [
+    { "type": "forge:mod_loaded", "modid": "farmersdelight" },
+    { "type": "forge:not",  "value":{ "type": "forge:tag_empty", "tag": "createlowheated:delight_included" }}
+  ],
+  "type": "create:mixing",
+  "heatRequirement": "lowheated",
+  "results": [{ "item": "farmersdelight:fried_rice" }],
+  "ingredients": [
+    { "item": "minecraft:bowl" },
+    { "item": "farmersdelight:rice" },
+    { "item": "minecraft:egg" },
+    { "item": "minecraft:carrot" },
+    { "tag": "forge:vegetables/onion" },
+    { "amount": 100, "fluid": "minecraft:water", "nbt": {} }
+  ]
+}

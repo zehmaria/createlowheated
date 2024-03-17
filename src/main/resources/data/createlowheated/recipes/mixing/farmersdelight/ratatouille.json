@@ -1,0 +1,16 @@
+{
+  "conditions": [
+    { "type": "forge:mod_loaded", "modid": "farmersdelight" },
+    { "type": "forge:not",  "value":{ "type": "forge:tag_empty", "tag": "createlowheated:delight_included" }}
+  ],
+  "type": "create:mixing",
+  "heatRequirement": "lowheated",
+  "results": [{ "item": "farmersdelight:ratatouille" }], 
+  "ingredients": [
+    { "item": "minecraft:bowl" },
+    { "tag": "forge:vegetables/tomato" },
+    { "tag": "forge:vegetables/onion" },
+    { "item": "minecraft:beetroot" },
+    { "tag": "forge:vegetables" }
+  ]
+}
