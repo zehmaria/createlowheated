@@ -58,8 +58,6 @@ public class CreateLowHeated {
         AllCreativeModeTabs.register(modEventBus);
 
         AllBlocks.register();
-        AllItems.register();
-        AllFluids.register();
         AllBlockEntityTypes.register();
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Configuration.COMMON_CONFIG);
