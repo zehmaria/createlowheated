@@ -44,9 +44,11 @@ public class CreateLowHeated {
 
     public CreateLowHeated() {
         onCtor();
+        MinecraftForge.EVENT_BUS.register(this);
     }
 
     public static void onCtor() {
+        ModLoadingContext modLoadingContext = ModLoadingContext.get();
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
 
