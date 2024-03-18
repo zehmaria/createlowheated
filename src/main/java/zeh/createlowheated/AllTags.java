@@ -29,10 +29,8 @@ public class AllTags {
 
     public static String asId(String name) { return name.toLowerCase(Locale.ROOT); }
 
-    public static <T extends IForgeRegistryEntry<T>> TagKey<T> optionalTag(IForgeRegistry<T> registry,
-                                                                           ResourceLocation id) {
-        return registry.tags()
-                .createOptionalTagKey(id, Collections.emptySet());
+    public static <T extends IForgeRegistryEntry<T>> TagKey<T> optionalTag(IForgeRegistry<T> registry, ResourceLocation id) {
+        return registry.tags().createOptionalTagKey(id, Collections.emptySet());
     }
 
     public static <T extends IForgeRegistryEntry<T>> TagKey<T> forgeTag(IForgeRegistry<T> registry, String path) {
