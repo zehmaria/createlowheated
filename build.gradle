@@ -90,7 +90,6 @@ repositories {
         }
     }
 
-    mavenLocal()
     flatDir {
         dirs 'libs'
     }

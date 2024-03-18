@@ -1,5 +1,5 @@
 {
- 	"block.createlowheated.basic_burner.tooltip": "Basic Burner",
+	"block.createlowheated.basic_burner.tooltip": "Basic Burner",
 	"block.createlowheated.basic_burner.tooltip.summary": "Provides _heat_ to _Basin Recipes_ and the _Steam Engine_.",
 	"block.createlowheated.basic_burner.tooltip.condition1": "Requires Fuel",
 	"block.createlowheated.basic_burner.tooltip.behaviour1": "Right click it with _Fuel_ or use a _Funnel/Deployer/Mechanical Arm_.",
