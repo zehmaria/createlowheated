@@ -21,7 +21,6 @@ apply plugin: 'org.parchmentmc.librarian.forgegradle'
 apply plugin: 'idea'
 apply plugin: "org.spongepowered.mixin"
 
-
 group = mod_author + '.' + mod_id // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = mod_id + "-forge"
 version = minecraft_version + '-' + create_version + '-' + mod_version
@@ -91,6 +90,7 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+
     flatDir {
         dirs 'libs'
     }

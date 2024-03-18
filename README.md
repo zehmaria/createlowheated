@@ -1,4 +1,4 @@
-Create Low-Heated modifies Create's heating system, exchanging the passive heaters for an active one. 
+Create Low-Heated modifies Create's heating system, exchanging the passive heaters for an active one.
 
 It changes the following:
 
