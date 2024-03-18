@@ -249,6 +249,7 @@ public class AllTags {
         AllBlockTags.init();
         AllItemTags.init();
         AllFluidTags.init();
+        AllEntityTags.init();
     }
 
 }

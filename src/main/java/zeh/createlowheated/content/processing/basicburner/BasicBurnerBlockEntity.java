@@ -339,7 +339,7 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity {
         @Override
         public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
             if (slot != MAIN_SLOT) return stack;
-            if (!inputInv.getStackInSlot(0).isEmpty() && !stack.sameItem(inputInv.getStackInSlot(0))) return stack;
+            if (!inputInv.getStackInSlot(0).isEmpty() && !stack.is(inputInv.getStackInSlot(0).getItem())) return stack;
             if (!isItemValid(slot, stack)) return stack;
             ItemStack remainder = inputInv.insertItem(slot, stack, simulate);
             if (!simulate && remainder != stack) notifyUpdate();
