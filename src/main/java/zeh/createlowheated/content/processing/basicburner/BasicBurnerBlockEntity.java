@@ -249,7 +249,7 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity {
         if (!getLitFromBlock()) return level;
         switch (activeFuel) {
             case NORMAL:
-                level = getEmpoweredFromBlock() ? HeatLevel.KINDLED : HeatLevel.byIndex(5);
+                level = getEmpoweredFromBlock() ? empoweredHeatLevel : activeHeatLevel;
                 break;
             default:
             case NONE:
