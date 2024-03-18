@@ -1,7 +1,7 @@
-// 1.19.2	2024-03-17T13:06:05.085737692	Registrate Provider for createlowheated [Recipes, Advancements, Loot tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.19.2	2024-03-18T19:00:37.443345175	Registrate Provider for createlowheated [Recipes, Advancements, Loot tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 920ebe2ac62e9031e244916af58b7a6739121be1 assets/createlowheated/blockstates/basic_burner.json
-387085f12d90c4a829aa91d306c2303b7ce044a6 assets/createlowheated/lang/en_ud.json
-8981d4dd387255a580871cb84e48e59d44dba34a assets/createlowheated/lang/en_us.json
+7c638ca2d4215674d8c40dab39f4097ca31a80bd assets/createlowheated/lang/en_ud.json
+ce8653343fede8ee409f0227785187c2bf823d5d assets/createlowheated/lang/en_us.json
 d7224ffa6757e629df96a2730c93b92e2a0a3205 assets/createlowheated/models/item/basic_burner.json
 1697f5eb228b52052a33bad1f95dd7ea39fb2769 data/create/tags/blocks/fan_transparent.json
 3bbc2bb56520fc53d61ba52a0aad25e047ca6b2c data/createlowheated/loot_tables/blocks/basic_burner.json
