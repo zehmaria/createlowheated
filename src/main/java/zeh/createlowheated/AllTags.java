@@ -54,7 +54,7 @@ public class AllTags {
         public final boolean alwaysDatagenDefault;
 
         NameSpace(String id) {
-            this(id, false, false);
+            this(id, true, false);
         }
 
         NameSpace(String id, boolean optionalDefault, boolean alwaysDatagenDefault) {
