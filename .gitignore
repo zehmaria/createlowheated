@@ -31,3 +31,5 @@ CREDITS.txt
 /.apt_generated_tests/
 
 libs
+
+src/generated/resources/.cache/
