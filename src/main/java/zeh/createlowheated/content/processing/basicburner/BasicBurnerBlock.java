@@ -126,8 +126,6 @@ public class BasicBurnerBlock extends HorizontalDirectionalBlock implements IBE<
             return InteractionResult.SUCCESS;
         }
 
-        if (world.isClientSide) return InteractionResult.SUCCESS;
-
         ItemStack mainItemStack = burnerBE.inputInv.getStackInSlot(0);
 
         if (!mainItemStack.isEmpty() && wasEmptyHanded) {
