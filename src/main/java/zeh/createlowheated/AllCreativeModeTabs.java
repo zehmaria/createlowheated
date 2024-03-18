@@ -39,7 +39,7 @@ public class AllCreativeModeTabs {
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.createlowheated.base"))
                     .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
-                    .icon(() -> AllBlocks.CHARCOAL_BURNER.asStack())
+                    .icon(() -> AllBlocks.BASIC_BURNER.asStack())
                     .displayItems(new RegistrateDisplayItemsGenerator(true, AllCreativeModeTabs.MAIN_TAB))
                     .build());
 

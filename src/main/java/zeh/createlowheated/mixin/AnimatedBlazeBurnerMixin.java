@@ -29,12 +29,12 @@ import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(value = AnimatedBlazeBurner.class, remap = false)
-public abstract class AnimatedBlazeBurnerMixin extends AnimatedKinetics {
-
+public class AnimatedBlazeBurnerMixin extends AnimatedKinetics {
     @Shadow private BlazeBurnerBlock.HeatLevel heatLevel;
 
     /**
      * @author ZehMaria
+<<<<<<< HEAD
      * @reason Adds Charcoal Burner as SMOULDERING, removes all passive heaters.
      */
     @Overwrite
@@ -49,11 +49,11 @@ public abstract class AnimatedBlazeBurnerMixin extends AnimatedKinetics {
         float offset = (Mth.sin(AnimationTickHolder.getRenderTime() / 16f) + 0.5f) / 16f;
 
         if (heatLevel == HeatLevel.valueOf("CHARCOAL")) {
-            blockElement(zeh.createlowheated.AllBlocks.CHARCOAL_BURNER.getDefaultState()).atLocal(0, 1.65, 0)
+            blockElement(zeh.createlowheated.AllBlocks.BASIC_BURNER.getDefaultState()).atLocal(0, 1.65, 0)
                     .scale(scale)
                     .render(graphics);
 
-            blockElement(zeh.createlowheated.AllBlocks.CHARCOAL_BURNER.getDefaultState()).atLocal(1, 1.8, 1)
+            blockElement(zeh.createlowheated.AllBlocks.BASIC_BURNER.getDefaultState()).atLocal(1, 1.8, 1)
                     .rotate(0, 180, 0)
                     .scale(scale)
                     .render(graphics);

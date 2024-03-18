@@ -10,22 +10,21 @@ import com.simibubi.create.foundation.item.TooltipHelper.Palette;
 import com.simibubi.create.foundation.item.TooltipModifier;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.config.ModConfig;
-
-import zeh.createlowheated.common.Configuration;
 
 import org.slf4j.Logger;
+import zeh.createlowheated.common.Configuration;
+import zeh.createlowheated.infrastructure.data.CreateLowHeatedDatagen;
 
-@Mod(CreateLowHeated.ID)
+@Mod(zeh.createlowheated.CreateLowHeated.ID)
 public class CreateLowHeated {
 
     public static final String ID = "createlowheated";
@@ -66,6 +65,7 @@ public class CreateLowHeated {
         AllArmInteractionPointTypes.register();
 
         modEventBus.addListener(CreateLowHeated::init);
+        modEventBus.addListener(EventPriority.LOWEST, CreateLowHeatedDatagen::gatherData);
     }
 
     public static void init(final FMLCommonSetupEvent event) {
