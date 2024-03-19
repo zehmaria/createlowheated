@@ -1,6 +1,6 @@
 {
 	"required": true,
-	"priority": 1000,
+	"priority": 1100,
 	"package": "zeh.createlowheated.mixin",
 	"compatibilityLevel": "JAVA_16",
 	"mixins": [
