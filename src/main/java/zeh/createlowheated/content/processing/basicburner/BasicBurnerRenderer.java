@@ -31,7 +31,7 @@ public class BasicBurnerRenderer extends SafeBlockEntityRenderer<BasicBurnerBloc
         RandomSource r = RandomSource.create(be.getBlockPos().hashCode());
 
         ms.pushPose();
-        ms.translate(.5f, .29f, .5f);
+        ms.translate(.5f, .275f, .5f);
         ms.scale(.5f, .5f, .5f);
 
         for (int i = 0; i <= stack.getCount() / 8; i++) {
@@ -39,8 +39,8 @@ public class BasicBurnerRenderer extends SafeBlockEntityRenderer<BasicBurnerBloc
             Vec3 vec = VecHelper.offsetRandomly(Vec3.ZERO, (RandomSource) r, 1 / 8f);
             ms.translate(vec.x, Math.abs(i * vec.y/3), vec.z);
             TransformStack.cast(ms)
-                    .rotateY(35 + (vec.x + vec.z) / (2 / 8f) * 20)
-                    .rotateX(65 + (vec.y + vec.z) / (2 / 8f) * 20);
+                    .rotateY(35 + (vec.x + vec.z) / (2 / 8f) * 10)
+                    .rotateX(65 + (vec.y + vec.z) / (2 / 8f) * 10);
             itemRenderer.renderStatic(stack, TransformType.FIXED, light, overlay, ms, buffer, 0);
             ms.popPose();
         }
