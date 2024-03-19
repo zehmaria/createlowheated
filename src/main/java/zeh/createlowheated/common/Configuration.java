@@ -29,7 +29,7 @@ public class Configuration {
 				.defineInRange("baseMultiplier", 1, 1, Integer.MAX_VALUE);
 		
 		FAN_MULTIPLIER = COMMON_BUILDER.comment("How much more fuel a Basic Burner consumes when empowered by a maxed encased fan.")
-				.defineInRange("fanMultiplier", 100, 1, Integer.MAX_VALUE);
+				.defineInRange("fanMultiplier", 32, 1, Integer.MAX_VALUE);
 
 		COMMON_BUILDER.pop();
 
