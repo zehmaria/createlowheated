@@ -1,7 +1,6 @@
 package zeh.createlowheated.mixin;
 
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
-import com.simibubi.create.content.kinetics.fan.AirCurrent;
 import com.simibubi.create.content.kinetics.fan.EncasedFanBlock;
 import com.simibubi.create.content.kinetics.fan.EncasedFanBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -20,21 +19,21 @@ import zeh.createlowheated.content.processing.basicburner.BasicBurnerBlockEntity
 @Mixin(value = EncasedFanBlockEntity.class, remap = false)
 public abstract class EncasedFanBlockEntityMixin extends KineticBlockEntity {
 
-    @Shadow public AirCurrent airCurrent;
+    @Shadow public abstract Direction getAirflowOriginSide();
 
     public EncasedFanBlockEntityMixin(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {
         super(typeIn, pos, state);
     }
 
     public void updateBasicBurner(boolean rm) {
-        Direction direction = getBlockState().getValue(EncasedFanBlock.FACING);
-        if (!direction.getAxis().isHorizontal()) return;
+        Direction fanFacingDir = getAirflowOriginSide();
+        if (!fanFacingDir.getAxis().isHorizontal()) return;
 
-        BlockEntity poweredBurner = level.getBlockEntity(worldPosition.relative(direction));
+        BlockEntity poweredBurner = level.getBlockEntity(worldPosition.relative(fanFacingDir));
         if (!(poweredBurner instanceof BasicBurnerBlockEntity))  return;
-        BasicBurnerBlockEntity burnerBE = (BasicBurnerBlockEntity) poweredBurner;
 
-        burnerBE.setEmpowered(rm ? false : (Mth.abs(airCurrent.source.getSpeed()) == 256 ? true : false));
+        BasicBurnerBlockEntity burnerBE = (BasicBurnerBlockEntity) poweredBurner;
+        burnerBE.setEmpowered(rm ? false : (Mth.abs(getSpeed()) == 256 ? true : false));
     }
 
     @Inject(method = "onSpeedChanged", at = @At("HEAD"), cancellable = true)

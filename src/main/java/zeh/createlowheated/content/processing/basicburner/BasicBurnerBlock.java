@@ -9,6 +9,7 @@ import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.Create;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
+import com.simibubi.create.content.kinetics.fan.EncasedFanBlock;
 import com.simibubi.create.content.kinetics.fan.EncasedFanBlockEntity;
 import com.simibubi.create.content.processing.basin.BasinBlockEntity;
 import com.simibubi.create.foundation.block.IBE;
@@ -25,7 +26,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -148,15 +148,21 @@ public class BasicBurnerBlock extends HorizontalDirectionalBlock implements IBE<
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        ItemStack stack = context.getItemInHand();
-        Item item = stack.getItem();
         boolean isEmpowered = false;
         for (Direction side : Iterate.directions) {
-            BlockPos offsetPos = context.getClickedPos().relative(side);
-            BlockEntity fan = context.getLevel().getBlockEntity(offsetPos);
+            if (!side.getAxis().isHorizontal()) continue;
+
+            BlockPos burnerPos = context.getClickedPos();
+            BlockPos fanPos = burnerPos.relative(side);
+            BlockEntity fan = context.getLevel().getBlockEntity(fanPos);
             if (!(fan instanceof EncasedFanBlockEntity)) continue;
+
+            Direction fanFacingDir = fan.getBlockState().getValue(EncasedFanBlock.FACING);
+            BlockPos fanFacingPos = fanPos.relative(fanFacingDir);
+            if (!burnerPos.equals(fanFacingPos)) continue;
+
             EncasedFanBlockEntity fanBE = (EncasedFanBlockEntity) fan;
-            isEmpowered = (Mth.abs(fanBE.airCurrent.source.getSpeed()) == 256 ? true : false);
+            isEmpowered = (Mth.abs(fanBE.getSpeed()) == 256 ? true : false);
         }
         return super.getStateForPlacement(context).setValue(EMPOWERED, isEmpowered);
     }
