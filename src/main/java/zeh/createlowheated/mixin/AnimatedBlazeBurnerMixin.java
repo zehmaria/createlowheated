@@ -48,7 +48,7 @@ public class AnimatedBlazeBurnerMixin extends AnimatedKinetics {
 
         float offset = (Mth.sin(AnimationTickHolder.getRenderTime() / 16f) + 0.5f) / 16f;
 
-        if (heatLevel == HeatLevel.valueOf("CHARCOAL")) {
+        if (heatLevel == HeatLevel.valueOf("LOW")) {
             blockElement(zeh.createlowheated.AllBlocks.BASIC_BURNER.getDefaultState()).atLocal(0, 1.65, 0)
                     .scale(scale)
                     .render(graphics);
