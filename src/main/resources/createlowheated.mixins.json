@@ -3,7 +3,7 @@
 	"minVersion": "0.8",
 	"priority": 1100,
 	"package": "zeh.createlowheated.mixin",
-	"compatibilityLevel": "JAVA_16",
+	"compatibilityLevel": "JAVA_17",
 	"mixins": [
 		"BasinBlockEntityMixin",
 		"BoilerHeatersMixin",
