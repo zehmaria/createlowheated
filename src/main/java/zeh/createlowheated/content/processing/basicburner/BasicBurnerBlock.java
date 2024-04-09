@@ -36,6 +36,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
@@ -61,7 +62,7 @@ import zeh.createlowheated.AllTags;
 public class BasicBurnerBlock extends HorizontalDirectionalBlock implements IBE<BasicBurnerBlockEntity>, IWrenchable {
 
     public static final EnumProperty<HeatLevel> HEAT_LEVEL = EnumProperty.create("low", HeatLevel.class);
-    public static final BooleanProperty LIT = BooleanProperty.create("lit");
+    public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final BooleanProperty FUELED = BooleanProperty.create("fueled");
     public static final BooleanProperty EMPOWERED = BooleanProperty.create("empowered");
 
