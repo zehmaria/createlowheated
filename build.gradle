@@ -119,7 +119,7 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}-forge-api:${jei_version}")
     runtimeOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}-forge:${jei_version}")
 
-    implementation("dev.latvian.mods:kubejs-create-forge:1802.2.4-build.16")
+    implementation("dev.latvian.mods:kubejs-create-forge:1902.2.4-build.36")
     implementation fg.deobf("dev.latvian.mods:kubejs-forge:${kubejs_version}")
     implementation fg.deobf("dev.architectury:architectury-forge:${architectury_version}")
     implementation fg.deobf("dev.latvian.mods:rhino-forge:${rhino_version}")

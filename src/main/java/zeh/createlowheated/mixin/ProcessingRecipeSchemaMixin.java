@@ -1,14 +1,14 @@
 package zeh.createlowheated.mixin;
 
+import dev.latvian.mods.kubejs.recipe.RecipeJS;
 import org.spongepowered.asm.mixin.Mixin;
-import dev.latvian.mods.kubejs.create.ProcessingRecipeJS;
-import org.spongepowered.asm.mixin.Shadow;
+import dev.latvian.mods.kubejs.create.ProcessingRecipeSchema;
+import org.spongepowered.asm.mixin.Unique;
 
-@Mixin(value = ProcessingRecipeJS.class, remap = false)
-public abstract class ProcessingRecipeSchemaMixin {
-    @Shadow public abstract ProcessingRecipeJS heatRequirement(String req);
-
-    public ProcessingRecipeJS lowheated() {
-        return heatRequirement("lowheated");
+@Mixin(value = ProcessingRecipeSchema.ProcessingRecipeJS.class, remap = false)
+public abstract class ProcessingRecipeSchemaMixin extends RecipeJS {
+    @Unique
+    public RecipeJS lowheated() {
+        return setValue(ProcessingRecipeSchema.HEAT_REQUIREMENT, "lowheated");
     }
 }
