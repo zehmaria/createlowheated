@@ -56,6 +56,7 @@ import zeh.createlowheated.AllShapes;
 
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock.HeatLevel;
 import zeh.createlowheated.AllTags;
+import zeh.createlowheated.common.Configuration;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
@@ -163,7 +164,7 @@ public class BasicBurnerBlock extends HorizontalDirectionalBlock implements IBE<
             if (!burnerPos.equals(fanFacingPos)) continue;
 
             EncasedFanBlockEntity fanBE = (EncasedFanBlockEntity) fan;
-            isEmpowered = (Mth.abs(fanBE.getSpeed()) == 256 ? true : false);
+            isEmpowered = (Mth.abs(fanBE.getSpeed()) == Configuration.FAN_SPEED_REQUIRED.get() ? true : false);
         }
         return super.getStateForPlacement(context).setValue(EMPOWERED, isEmpowered);
     }
