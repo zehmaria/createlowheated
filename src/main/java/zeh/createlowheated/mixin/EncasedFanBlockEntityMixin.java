@@ -33,7 +33,7 @@ public abstract class EncasedFanBlockEntityMixin extends KineticBlockEntity {
         if (!(poweredBurner instanceof BasicBurnerBlockEntity))  return;
 
         BasicBurnerBlockEntity burnerBE = (BasicBurnerBlockEntity) poweredBurner;
-        burnerBE.setEmpowered(rm ? false : (Mth.abs(getSpeed()) == Configuration.FAN_SPEED_REQUIRED.get() ? true : false));
+        burnerBE.setEmpowered(rm ? false : (Mth.abs(getSpeed()) >= Configuration.FAN_SPEED_REQUIRED.get() ? true : false));
     }
 
     @Inject(method = "onSpeedChanged", at = @At("HEAD"), cancellable = true)
