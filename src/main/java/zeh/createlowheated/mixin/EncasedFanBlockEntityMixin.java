@@ -1,7 +1,6 @@
 package zeh.createlowheated.mixin;
 
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
-import com.simibubi.create.content.kinetics.fan.EncasedFanBlock;
 import com.simibubi.create.content.kinetics.fan.EncasedFanBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -14,6 +13,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import zeh.createlowheated.common.Configuration;
 import zeh.createlowheated.content.processing.basicburner.BasicBurnerBlockEntity;
 
 @Mixin(value = EncasedFanBlockEntity.class, remap = false)
@@ -33,7 +33,7 @@ public abstract class EncasedFanBlockEntityMixin extends KineticBlockEntity {
         if (!(poweredBurner instanceof BasicBurnerBlockEntity))  return;
 
         BasicBurnerBlockEntity burnerBE = (BasicBurnerBlockEntity) poweredBurner;
-        burnerBE.setEmpowered(rm ? false : (Mth.abs(getSpeed()) == 256 ? true : false));
+        burnerBE.setEmpowered(rm ? false : (Mth.abs(getSpeed()) == Configuration.FAN_SPEED_REQUIRED.get() ? true : false));
     }
 
     @Inject(method = "onSpeedChanged", at = @At("HEAD"), cancellable = true)
