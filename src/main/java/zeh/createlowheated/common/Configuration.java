@@ -33,7 +33,7 @@ public class Configuration {
 				.defineInRange("fanMultiplier", 32, 1, Integer.MAX_VALUE);
 
 		FAN_SPEED_REQUIRED = COMMON_BUILDER.comment("How much fan speed is needed for the Basic Burner to be empowered.")
-				.defineInRange("fanMultiplier", 256, 1, Integer.MAX_VALUE);
+				.defineInRange("fanSpeedRequired", 256, 1, Integer.MAX_VALUE);
 
 		COMMON_BUILDER.pop();
 
