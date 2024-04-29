@@ -8,6 +8,7 @@ public class Configuration {
 
     public static ForgeConfigSpec COMMON_CONFIG;
 	public static ForgeConfigSpec.IntValue FAN_MULTIPLIER;
+	public static ForgeConfigSpec.IntValue FAN_SPEED_REQUIRED;
 	public static ForgeConfigSpec.IntValue BASE_MULTIPLIER;
 	public static ForgeConfigSpec.BooleanValue HOT_BURNERS;
 	public static ForgeConfigSpec.BooleanValue IGNORES_FUEL_TAG_WHITELIST;
@@ -28,8 +29,11 @@ public class Configuration {
 		BASE_MULTIPLIER = COMMON_BUILDER.comment("How much more fuel a non-empowered Basic Burner consumes. Use fanMultiplier for fan-empowered burners. Intended for use with the hotBurners option, the default value of 1 is recommended otherwise.")
 				.defineInRange("baseMultiplier", 1, 1, Integer.MAX_VALUE);
 		
-		FAN_MULTIPLIER = COMMON_BUILDER.comment("How much more fuel a Basic Burner consumes when empowered by a maxed encased fan.")
+		FAN_MULTIPLIER = COMMON_BUILDER.comment("How much more fuel a Basic Burner consumes when empowered by an encased fan.")
 				.defineInRange("fanMultiplier", 32, 1, Integer.MAX_VALUE);
+
+		FAN_SPEED_REQUIRED = COMMON_BUILDER.comment("How much fan speed is needed for the Basic Burner to be empowered.")
+				.defineInRange("fanMultiplier", 256, 1, Integer.MAX_VALUE);
 
 		COMMON_BUILDER.pop();
 
