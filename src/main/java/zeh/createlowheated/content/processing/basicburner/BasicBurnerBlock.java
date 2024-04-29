@@ -164,7 +164,7 @@ public class BasicBurnerBlock extends HorizontalDirectionalBlock implements IBE<
             if (!burnerPos.equals(fanFacingPos)) continue;
 
             EncasedFanBlockEntity fanBE = (EncasedFanBlockEntity) fan;
-            isEmpowered = (Mth.abs(fanBE.getSpeed()) == Configuration.FAN_SPEED_REQUIRED.get() ? true : false);
+            isEmpowered = (Mth.abs(fanBE.getSpeed()) >= Configuration.FAN_SPEED_REQUIRED.get() ? true : false);
         }
         return super.getStateForPlacement(context).setValue(EMPOWERED, isEmpowered);
     }
