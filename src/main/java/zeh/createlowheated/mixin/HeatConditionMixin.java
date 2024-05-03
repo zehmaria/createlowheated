@@ -4,6 +4,9 @@ import com.simibubi.create.content.processing.burner.BlazeBurnerBlock.HeatLevel;
 import com.simibubi.create.content.processing.recipe.HeatCondition;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.gen.Invoker;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,30 +40,27 @@ public abstract class HeatConditionMixin {
         return heat;
     }
 
-    /**
-     * @author zeh_maria
-     * @reason Creating a new heatRequirement (lowheated).
-     */
-    @Overwrite
-    public boolean testBlazeBurner(HeatLevel level) {
-        if (this.equals(LOWHEATED)) return level.isAtLeast(HeatLevel.FADING);
-        if (this.equals(HeatCondition.SUPERHEATED)) return level == HeatLevel.SEETHING;
-        if (this.equals(HeatCondition.HEATED)) {
-            return level == HeatLevel.KINDLED || level == HeatLevel.FADING || level == HeatLevel.SEETHING;
+    @Inject(method = "testBlazeBurner", at = @At("HEAD"), cancellable = true)
+    private void testBlazeBurnerMixin(HeatLevel level, CallbackInfoReturnable<Boolean> cir) {
+        if (this.equals(HeatCondition.SUPERHEATED)) {
+            cir.setReturnValue(level == HeatLevel.SEETHING);
+            return;
         }
-        return true;
+
+        if (this.equals(HeatCondition.HEATED)) {
+            cir.setReturnValue(level == HeatLevel.FADING || level == HeatLevel.KINDLED || level == HeatLevel.SEETHING);
+            return;
+        }
+
+        if (this.equals(LOWHEATED)) {
+            cir.setReturnValue(level == HeatLevel.valueOf("LOW") || level == HeatLevel.FADING ||
+                    level == HeatLevel.KINDLED || level == HeatLevel.SEETHING);
+        }
     }
 
-    /**
-     * @author zeh_maria
-     * @reason Creating a new heatRequirement (lowheated).
-     */
-    @Overwrite
-    public HeatLevel visualizeAsBlazeBurner() {
-        if (this.equals(LOWHEATED)) return HeatLevel.valueOf("LOW");
-        if (this.equals(HeatCondition.SUPERHEATED)) return HeatLevel.SEETHING;
-        if (this.equals(HeatCondition.HEATED)) return HeatLevel.KINDLED;
-        return HeatLevel.NONE;
+    @Inject(method = "visualizeAsBlazeBurner", at = @At("HEAD"), cancellable = true)
+    private void visualizeAsBlazeBurnerMixin(CallbackInfoReturnable<HeatLevel> cir) {
+        if (this.equals(LOWHEATED)) cir.setReturnValue(HeatLevel.valueOf("LOW"));
     }
 
 }
