@@ -1,7 +1,7 @@
 {
 	"required": true,
 	"minVersion": "0.8",
-	"priority": 1100,
+	"priority": 2000,
 	"package": "zeh.createlowheated.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
@@ -10,8 +10,8 @@
 		"HeatConditionMixin",
 		"HeatLevelMixin",
 		"EncasedFanBlockEntityMixin",
-		"AnimatedBlazeBurnerMixin",
 		"BasinCategoryMixin",
+		"MixingCategoryMixin",
 		"ProcessingRecipeSchemaMixin"
 	],
 	"injectors": {

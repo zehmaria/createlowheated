@@ -6,9 +6,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.gen.Invoker;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,11 +32,6 @@ public abstract class HeatLevelMixin {
         variants.add(heat);
         HeatLevelMixin.$VALUES = variants.toArray(new HeatLevel[0]);
         return heat;
-    }
-
-    @Inject(method = "isAtLeast", at = @At("HEAD"), cancellable = true)
-    protected void hardCodedLow(HeatLevel heatLevel, CallbackInfoReturnable<Boolean> cir) {
-        if (heatLevel.getSerializedName() == "low") { cir.setReturnValue(this.isAtLeast(HeatLevel.FADING)); }
     }
 
 }
