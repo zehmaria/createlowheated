@@ -2,7 +2,7 @@ package zeh.createlowheated.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Axis;
+import com.mojang.math.Vector3f;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.AllSpriteShifts;
 import com.simibubi.create.compat.jei.category.MixingCategory;
@@ -17,7 +17,6 @@ import com.simibubi.create.foundation.render.CachedBufferer;
 import com.simibubi.create.foundation.utility.AnimationTickHolder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -33,7 +32,7 @@ import zeh.createlowheated.CreateLowHeated;
 @Mixin(value = MixingCategory.class, remap = false)
 public abstract class MixingCategoryMixin {
     @Inject(
-            method = "draw(Lcom/simibubi/create/content/processing/basin/BasinRecipe;Lmezz/jei/api/gui/ingredient/IRecipeSlotsView;Lnet/minecraft/client/gui/GuiGraphics;DD)V",
+            method = "draw(Lcom/simibubi/create/content/processing/basin/BasinRecipe;Lmezz/jei/api/gui/ingredient/IRecipeSlotsView;Lcom/mojang/blaze3d/vertex/PoseStack;DD)V",
             at = @At(
                     value = "INVOKE",
                     target = "Lcom/simibubi/create/content/processing/basin/BasinRecipe;getRequiredHeat()Lcom/simibubi/create/content/processing/recipe/HeatCondition;"
@@ -41,14 +40,12 @@ public abstract class MixingCategoryMixin {
             cancellable = true,
             remap = false
     )
-    private void drawMixin(BasinRecipe recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics graphics,
+    private void drawMixin(BasinRecipe recipe, IRecipeSlotsView iRecipeSlotsView, PoseStack matrixStack,
                            double mouseX, double mouseY, CallbackInfo ci) {
         HeatCondition requiredHeat = recipe.getRequiredHeat();
-        CreateLowHeated.LOGGER.info("CREATELOWLOW" + requiredHeat.toString());
         if (recipe.getRequiredHeat().name().equals("LOWHEATED")) {
-            CreateLowHeated.LOGGER.info("CREATELOWLOWLOW" + requiredHeat.toString());
-            createLowHeated$drawLow(requiredHeat.visualizeAsBlazeBurner(), graphics, 177 / 2 + 3, 55);
-            createLowHeated$mixer.draw(graphics, 177 / 2 + 3, 34);
+            createLowHeated$drawLow(requiredHeat.visualizeAsBlazeBurner(), matrixStack, 177 / 2 + 3, 55);
+            createLowHeated$mixer.draw(matrixStack, 177 / 2 + 3, 34);
             ci.cancel();
         }
     }
@@ -57,22 +54,21 @@ public abstract class MixingCategoryMixin {
     private final AnimatedMixer createLowHeated$mixer = new AnimatedMixer();
 
     @Unique
-    public void createLowHeated$drawLow(BlazeBurnerBlock.HeatLevel heatLevel, GuiGraphics graphics, int xOffset, int yOffset) {
-        PoseStack matrixStack = graphics.pose();
+    public void createLowHeated$drawLow(BlazeBurnerBlock.HeatLevel heatLevel, PoseStack matrixStack, int xOffset, int yOffset) {
         matrixStack.pushPose();
         matrixStack.translate(xOffset, yOffset, 200);
-        matrixStack.mulPose(Axis.XP.rotationDegrees(-15.5f));
-        matrixStack.mulPose(Axis.YP.rotationDegrees(22.5f));
+        matrixStack.mulPose(Vector3f.XP.rotationDegrees(-15.5f));
+        matrixStack.mulPose(Vector3f.YP.rotationDegrees(22.5f));
         int scale = 23;
 
         createLowHeated$blockElement(zeh.createlowheated.AllBlocks.BASIC_BURNER.getDefaultState()).atLocal(0, 1.65, 0)
                 .scale(scale)
-                .render(graphics);
+                .render(matrixStack);
 
         createLowHeated$blockElement(zeh.createlowheated.AllBlocks.BASIC_BURNER.getDefaultState()).atLocal(1, 1.8, 1)
                 .rotate(0, 180, 0)
                 .scale(scale)
-                .render(graphics);
+                .render(matrixStack);
 
         matrixStack.scale(scale, -scale, scale);
         matrixStack.translate(0, -1.8, 0);

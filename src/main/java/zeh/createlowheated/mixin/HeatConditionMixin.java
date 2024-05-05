@@ -39,7 +39,6 @@ public abstract class HeatConditionMixin {
     private static HeatCondition heatExpansion$addVariant(String internalName, int color) {
         ArrayList<HeatCondition> variants = new ArrayList<>(Arrays.asList(HeatConditionMixin.$VALUES));
         HeatCondition heat = heatExpansion$invokeInit(internalName, variants.get(variants.size() - 1).ordinal() + 1, color);
-        CreateLowHeated.LOGGER.info("CREATELOWHEATED" + variants.size());
         variants.add(heat);
         HeatConditionMixin.$VALUES = variants.toArray(new HeatCondition[0]);
         return heat;
