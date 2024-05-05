@@ -7,6 +7,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import zeh.createlowheated.CreateLowHeated;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,6 +26,8 @@ public abstract class HeatConditionMixin {
 
     @Shadow public abstract String serialize();
 
+    @Shadow @Final public static HeatCondition SUPERHEATED;
+    @Unique
     private static final HeatCondition LOWHEATED = heatExpansion$addVariant("LOWHEATED",  0xED9C33);
 
     @Invoker("<init>")
@@ -32,9 +35,11 @@ public abstract class HeatConditionMixin {
         throw new AssertionError();
     }
 
+    @Unique
     private static HeatCondition heatExpansion$addVariant(String internalName, int color) {
         ArrayList<HeatCondition> variants = new ArrayList<>(Arrays.asList(HeatConditionMixin.$VALUES));
         HeatCondition heat = heatExpansion$invokeInit(internalName, variants.get(variants.size() - 1).ordinal() + 1, color);
+        CreateLowHeated.LOGGER.info("CREATELOWHEATED" + variants.size());
         variants.add(heat);
         HeatConditionMixin.$VALUES = variants.toArray(new HeatCondition[0]);
         return heat;
