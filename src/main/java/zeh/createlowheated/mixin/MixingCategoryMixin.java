@@ -44,9 +44,7 @@ public abstract class MixingCategoryMixin {
     private void drawMixin(BasinRecipe recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics graphics,
                            double mouseX, double mouseY, CallbackInfo ci) {
         HeatCondition requiredHeat = recipe.getRequiredHeat();
-        CreateLowHeated.LOGGER.info("CREATELOWLOW" + requiredHeat.toString());
         if (recipe.getRequiredHeat().name().equals("LOWHEATED")) {
-            CreateLowHeated.LOGGER.info("CREATELOWLOWLOW" + requiredHeat.toString());
             createLowHeated$drawLow(requiredHeat.visualizeAsBlazeBurner(), graphics, 177 / 2 + 3, 55);
             createLowHeated$mixer.draw(graphics, 177 / 2 + 3, 34);
             ci.cancel();
