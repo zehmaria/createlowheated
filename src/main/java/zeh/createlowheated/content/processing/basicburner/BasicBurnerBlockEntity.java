@@ -58,7 +58,7 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity {
         fanMultiplier = Configuration.FAN_MULTIPLIER.get();
         baseMultiplier= Configuration.BASE_MULTIPLIER.get();
         hotBurners = Configuration.HOT_BURNERS.get();
-        activeHeatLevel = hotBurners ? HeatLevel.KINDLED : HeatLevel.byIndex(5);
+        activeHeatLevel = hotBurners ? HeatLevel.KINDLED : HeatLevel.valueOf("LOW");
         empoweredHeatLevel = hotBurners ? HeatLevel.SEETHING : HeatLevel.KINDLED;
     }
 
@@ -278,7 +278,7 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity {
                         .scale((empty ? .25f : .5) + r.nextDouble() * .125f)).add(0, .5, 0);
 
         double yExtra = getEmpoweredFromBlock() ? .02f : 0;
-        if (heatLevel.isAtLeast(HeatLevel.FADING)) {
+        if (!heatLevel.equals(HeatLevel.NONE)) {
             level.addParticle(ParticleTypes.FLAME, v2.x, v2.y, v2.z, 0, yMotion + yExtra, 0);
             if (getEmpoweredFromBlock()) level.addParticle(ParticleTypes.SOUL_FIRE_FLAME, v2.x, v2.y, v2.z, 0, yMotion + yExtra, 0);
         }

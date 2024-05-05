@@ -198,7 +198,8 @@ public class BasicBurnerBlock extends HorizontalDirectionalBlock implements IBE<
     @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState state, Level world, BlockPos pos, Random random) {
         if (random.nextInt(10) != 0) return;
-        if (!state.getValue(HEAT_LEVEL).isAtLeast(HeatLevel.byIndex(5))) return;
+        if (!state.getValue(HEAT_LEVEL).equals(HeatLevel.NONE)) return;
+        //if (!state.getValue(HEAT_LEVEL).isAtLeast(HeatLevel.valueOf("LOW"))) return;
         world.playLocalSound((double) ((float) pos.getX() + 0.5F), (double) ((float) pos.getY() + 0.5F),
                 (double) ((float) pos.getZ() + 0.5F), SoundEvents.CAMPFIRE_CRACKLE, SoundSource.BLOCKS,
                 0.5F + random.nextFloat(), random.nextFloat() * 0.7F + 0.6F, false);
