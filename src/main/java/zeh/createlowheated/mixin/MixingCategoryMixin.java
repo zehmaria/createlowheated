@@ -11,11 +11,11 @@ import com.simibubi.create.compat.jei.category.animations.AnimatedMixer;
 import com.simibubi.create.content.processing.basin.BasinRecipe;
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock;
 import com.simibubi.create.content.processing.recipe.HeatCondition;
-import com.simibubi.create.foundation.block.render.SpriteShiftEntry;
-import com.simibubi.create.foundation.gui.element.GuiGameElement;
-import com.simibubi.create.foundation.render.CachedBufferer;
-import com.simibubi.create.foundation.utility.AnimationTickHolder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import net.createmod.catnip.animation.AnimationTickHolder;
+import net.createmod.catnip.gui.element.GuiGameElement;
+import net.createmod.catnip.render.CachedBuffers;
+import net.createmod.catnip.render.SpriteShiftEntry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.LightTexture;
@@ -28,7 +28,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import zeh.createlowheated.CreateLowHeated;
 
 @Mixin(value = MixingCategory.class, remap = false)
 public abstract class MixingCategoryMixin {
@@ -103,7 +102,7 @@ public abstract class MixingCategoryMixin {
         MultiBufferSource.BufferSource buffer = mc.renderBuffers()
                 .bufferSource();
         VertexConsumer vb = buffer.getBuffer(RenderType.cutoutMipped());
-        CachedBufferer.partial(AllPartialModels.BLAZE_BURNER_FLAME, Blocks.AIR.defaultBlockState())
+        CachedBuffers.partial(AllPartialModels.BLAZE_BURNER_FLAME, Blocks.AIR.defaultBlockState())
                 .shiftUVScrolling(spriteShift, (float) uScroll, (float) vScroll)
                 .light(LightTexture.FULL_BRIGHT)
                 .renderInto(matrixStack, vb);

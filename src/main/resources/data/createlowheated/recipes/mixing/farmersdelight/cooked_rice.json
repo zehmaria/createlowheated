@@ -8,7 +8,7 @@
   "results": [{ "item": "farmersdelight:cooked_rice" }],
   "ingredients": [
     { "item": "minecraft:bowl" },
-    { "item": "farmersdelight:rice" },
+    { "tag": "forge:crops/rice" },
     { "amount": 100, "fluid": "minecraft:water", "nbt": {} }
   ]
 }

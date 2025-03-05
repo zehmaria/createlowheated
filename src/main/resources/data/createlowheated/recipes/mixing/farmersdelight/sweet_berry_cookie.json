@@ -7,7 +7,7 @@
   "heatRequirement": "lowheated",
   "results": [{ "item": "farmersdelight:sweet_berry_cookie", "count": 8 }],
   "ingredients": [
-    { "item": "create:dough" },
+    { "tag": "forge:dough" },
     { "item": "minecraft:sweet_berries" }
   ]
 }

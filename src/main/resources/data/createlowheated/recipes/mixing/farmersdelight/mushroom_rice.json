@@ -10,9 +10,14 @@
     { "item": "minecraft:bowl" },
     { "tag": "forge:mushrooms" },
     { "tag": "forge:mushrooms" },
-    { "item": "farmersdelight:rice" },
-    { "item": "minecraft:potato" },
-    { "item": "minecraft:carrot" },
+    { "tag": "forge:crops/rice" },[
+      {
+        "item": "minecraft:carrot"
+      },
+      {
+        "item": "minecraft:potato"
+      }
+    ],
     { "amount": 100, "fluid": "minecraft:water", "nbt": {} }
   ]
 }

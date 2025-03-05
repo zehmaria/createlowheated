@@ -8,8 +8,8 @@
   "results": [{ "item": "farmersdelight:noodle_soup" }], 
   "ingredients": [
     { "item": "minecraft:bowl" },
-    { "item": "farmersdelight:raw_pasta" },
-    { "item": "farmersdelight:fried_egg" },
+    { "tag": "forge:pasta" },
+    { "tag": "forge:cooked_eggs" },
     { "item": "farmersdelight:bacon" },
     { "item": "minecraft:dried_kelp" },
     { "amount": 250, "fluid": "minecraft:water", "nbt": {} }

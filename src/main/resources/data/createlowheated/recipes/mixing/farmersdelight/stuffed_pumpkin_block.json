@@ -8,11 +8,11 @@
   "results": [{ "item": "farmersdelight:stuffed_pumpkin_block" }],
   "ingredients": [
     { "item": "minecraft:pumpkin" },
-    { "item": "farmersdelight:rice" },
-    { "tag": "forge:vegetables/onion" },
+    { "tag": "forge:crops/rice" },
+    { "tag": "forge:crops/onion" },
     { "tag": "forge:mushrooms" },
     { "item": "minecraft:potato" },
-    { "tag": "minecraft:fox_food" },
+    { "tag": "forge:berries" },
     { "tag": "forge:vegetables" },
     { "amount": 50, "fluid": "minecraft:water", "nbt": {} }
   ]

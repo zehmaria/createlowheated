@@ -10,8 +10,8 @@
     { "item": "minecraft:bowl" },
     { "item": "minecraft:carrot" },
     { "tag": "forge:mushrooms" },
-    { "item": "farmersdelight:raw_pasta" },
-    { "item": "farmersdelight:cabbage_leaf" },
+    { "tag": "forge:pasta" },
+    { "tag": "forge:salad_ingredients" },
     { "tag": "forge:vegetables" },
     { "amount": 250, "fluid": "minecraft:water", "nbt": {} }
   ]

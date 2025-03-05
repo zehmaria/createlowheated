@@ -14,7 +14,7 @@ import com.simibubi.create.content.kinetics.fan.EncasedFanBlockEntity;
 import com.simibubi.create.content.processing.basin.BasinBlockEntity;
 import com.simibubi.create.foundation.block.IBE;
 
-import com.simibubi.create.foundation.utility.Iterate;
+import net.createmod.catnip.data.Iterate;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -86,8 +86,7 @@ public class BasicBurnerBlock extends HorizontalDirectionalBlock implements IBE<
     public void onPlace(BlockState state, Level world, BlockPos pos, BlockState p_220082_4_, boolean p_220082_5_) {
         if (world.isClientSide) return;
         BlockEntity blockEntity = world.getBlockEntity(pos.above());
-        if (!(blockEntity instanceof BasinBlockEntity)) return;
-        BasinBlockEntity basin = (BasinBlockEntity) blockEntity;
+        if (!(blockEntity instanceof BasinBlockEntity basin)) return;
         basin.notifyChangeOfContents();
     }
 
@@ -115,8 +114,7 @@ public class BasicBurnerBlock extends HorizontalDirectionalBlock implements IBE<
 
         if (!state.hasBlockEntity()) return InteractionResult.PASS;
         BlockEntity be = world.getBlockEntity(pos);
-        if (!(be instanceof BasicBurnerBlockEntity)) return InteractionResult.PASS;
-        BasicBurnerBlockEntity burnerBE = (BasicBurnerBlockEntity) be;
+        if (!(be instanceof BasicBurnerBlockEntity burnerBE)) return InteractionResult.PASS;
 
         if (!burnerBE.inputInv.getStackInSlot(0).isEmpty() && !state.getValue(LIT) && heldItem.is(AllTags.AllItemTags.BURNER_STARTERS.tag)) {
             world.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F,
@@ -157,14 +155,13 @@ public class BasicBurnerBlock extends HorizontalDirectionalBlock implements IBE<
             BlockPos burnerPos = context.getClickedPos();
             BlockPos fanPos = burnerPos.relative(side);
             BlockEntity fan = context.getLevel().getBlockEntity(fanPos);
-            if (!(fan instanceof EncasedFanBlockEntity)) continue;
+            if (!(fan instanceof EncasedFanBlockEntity fanBE)) continue;
 
             Direction fanFacingDir = fan.getBlockState().getValue(EncasedFanBlock.FACING);
             BlockPos fanFacingPos = fanPos.relative(fanFacingDir);
             if (!burnerPos.equals(fanFacingPos)) continue;
 
-            EncasedFanBlockEntity fanBE = (EncasedFanBlockEntity) fan;
-            isEmpowered = (Mth.abs(fanBE.getSpeed()) >= Configuration.FAN_SPEED_REQUIRED.get() ? true : false);
+            isEmpowered = (Mth.abs(fanBE.getSpeed()) >= Configuration.FAN_SPEED_REQUIRED.get());
         }
         return super.getStateForPlacement(context).setValue(EMPOWERED, isEmpowered);
     }
@@ -200,8 +197,8 @@ public class BasicBurnerBlock extends HorizontalDirectionalBlock implements IBE<
         if (random.nextInt(10) != 0) return;
         if (!state.getValue(HEAT_LEVEL).equals(HeatLevel.NONE)) return;
         //if (!state.getValue(HEAT_LEVEL).isAtLeast(HeatLevel.valueOf("LOW"))) return;
-        world.playLocalSound((double) ((float) pos.getX() + 0.5F), (double) ((float) pos.getY() + 0.5F),
-                (double) ((float) pos.getZ() + 0.5F), SoundEvents.CAMPFIRE_CRACKLE, SoundSource.BLOCKS,
+        world.playLocalSound((float) pos.getX() + 0.5F, (float) pos.getY() + 0.5F,
+                (float) pos.getZ() + 0.5F, SoundEvents.CAMPFIRE_CRACKLE, SoundSource.BLOCKS,
                 0.5F + random.nextFloat(), random.nextFloat() * 0.7F + 0.6F, false);
     }
 
@@ -229,7 +226,7 @@ public class BasicBurnerBlock extends HorizontalDirectionalBlock implements IBE<
     @Override
     public void updateEntityAfterFallOn(BlockGetter worldIn, Entity entityIn) {
         super.updateEntityAfterFallOn(worldIn, entityIn);
-        if (!(entityIn instanceof ItemEntity)) return;
+        if (!(entityIn instanceof ItemEntity itemEntity)) return;
         if (!entityIn.isAlive()) return;
         if (entityIn.level().isClientSide) return;
 
@@ -239,7 +236,6 @@ public class BasicBurnerBlock extends HorizontalDirectionalBlock implements IBE<
 
         if (burner == null) return;
 
-        ItemEntity itemEntity = (ItemEntity) entityIn;
         LazyOptional<IItemHandler> capability = burner.getCapability(ForgeCapabilities.ITEM_HANDLER);
         if (!capability.isPresent())
             return;

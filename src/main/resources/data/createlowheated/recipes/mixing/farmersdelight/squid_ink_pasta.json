@@ -9,8 +9,8 @@
   "ingredients": [
     { "item": "minecraft:bowl" },
     { "tag": "forge:raw_fishes" },
-    { "item": "farmersdelight:raw_pasta" },
-    { "tag": "forge:vegetables/tomato" },
+    { "tag": "forge:pasta" },
+    { "tag": "forge:crops/tomato" },
     { "item": "minecraft:ink_sac" }
   ]
 }

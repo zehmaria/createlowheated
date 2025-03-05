@@ -11,6 +11,6 @@
     { "item": "minecraft:rotten_flesh" },
     { "item": "minecraft:bone_meal" },
     { "tag": "farmersdelight:wolf_prey" },
-    { "item": "farmersdelight:rice" }
+    { "tag": "forge:crops/rice" }
   ]
 }

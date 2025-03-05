@@ -8,10 +8,10 @@
   "results": [{ "item": "farmersdelight:fried_rice" }],
   "ingredients": [
     { "item": "minecraft:bowl" },
-    { "item": "farmersdelight:rice" },
-    { "item": "minecraft:egg" },
+    { "tag": "forge:crops/rice" },
+    { "tag": "forge:eggs" },
     { "item": "minecraft:carrot" },
-    { "tag": "forge:vegetables/onion" },
+    { "tag": "forge:crops/onion" },
     { "amount": 100, "fluid": "minecraft:water", "nbt": {} }
   ]
 }

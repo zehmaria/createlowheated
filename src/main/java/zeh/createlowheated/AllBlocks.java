@@ -31,16 +31,12 @@ public class AllBlocks {
                     .transform(pickaxeOnly())
                     .addLayer(() -> RenderType::cutoutMipped)
                     .tag(AllTags.AllBlockTags.FAN_TRANSPARENT.tag)
-                    .blockstate((c, p) -> {
-                        p.getVariantBuilder(c.getEntry())
-                                .forAllStatesExcept(state -> {
-                                    return ConfiguredModel.builder().modelFile(p.models()
-                                            .getExistingFile(p.modLoc("block/" + (state.getValue(BasicBurnerBlock.LIT) == false
-                                                    ? "basic_burner_off"
-                                                    : "basic_burner"))))
-                                            .build();
-                                }, BasicBurnerBlock.EMPOWERED, BasicBurnerBlock.HEAT_LEVEL, BasicBurnerBlock.FUELED, BasicBurnerBlock.FACING);
-                    })
+                    .blockstate((c, p) -> p.getVariantBuilder(c.getEntry())
+                            .forAllStatesExcept(state -> ConfiguredModel.builder().modelFile(p.models()
+                                    .getExistingFile(p.modLoc("block/" + (!state.getValue(BasicBurnerBlock.LIT)
+                                            ? "basic_burner_off"
+                                            : "basic_burner"))))
+                                    .build(), BasicBurnerBlock.EMPOWERED, BasicBurnerBlock.HEAT_LEVEL, BasicBurnerBlock.FUELED, BasicBurnerBlock.FACING))
                     .item()
                     .transform(customItemModel("basic_burner_off"))
                     .register();

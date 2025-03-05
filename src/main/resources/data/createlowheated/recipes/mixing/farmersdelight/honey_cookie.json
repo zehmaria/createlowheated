@@ -7,7 +7,7 @@
   "heatRequirement": "lowheated",
   "results": [{ "item": "farmersdelight:honey_cookie", "count": 8 }], 
   "ingredients": [
-    { "item": "create:dough" },
+    { "tag": "forge:dough" },
     { "amount": 250, "fluid": "create:honey", "nbt": {} }
   ]
 }

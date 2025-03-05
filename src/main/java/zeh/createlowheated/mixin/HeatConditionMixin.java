@@ -7,7 +7,6 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import zeh.createlowheated.CreateLowHeated;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,10 +20,6 @@ public abstract class HeatConditionMixin {
     @Final
     @Mutable
     private static HeatCondition[] $VALUES;
-
-    @Shadow public abstract int getColor();
-
-    @Shadow public abstract String serialize();
 
     @Shadow @Final public static HeatCondition SUPERHEATED;
     @Unique

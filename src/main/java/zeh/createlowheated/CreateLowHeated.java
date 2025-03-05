@@ -6,9 +6,9 @@ import com.mojang.logging.LogUtils;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
-import com.simibubi.create.foundation.item.TooltipHelper.Palette;
 import com.simibubi.create.foundation.item.TooltipModifier;
 
+import net.createmod.catnip.lang.FontHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -36,10 +36,8 @@ public class CreateLowHeated {
     public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(ID);
 
     static {
-        REGISTRATE.setTooltipModifierFactory(item -> {
-            return new ItemDescription.Modifier(item, Palette.STANDARD_CREATE)
-                    .andThen(TooltipModifier.mapNull(KineticStats.create(item)));
-        });
+        REGISTRATE.setTooltipModifierFactory(item -> new ItemDescription.Modifier(item, FontHelper.Palette.STANDARD_CREATE)
+                .andThen(TooltipModifier.mapNull(KineticStats.create(item))));
     }
 
     public CreateLowHeated() {
@@ -62,7 +60,7 @@ public class CreateLowHeated {
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Configuration.COMMON_CONFIG);
 
-        AllArmInteractionPointTypes.register();
+        AllArmInteractionPointTypes.init();
 
         modEventBus.addListener(CreateLowHeated::init);
         modEventBus.addListener(EventPriority.LOWEST, CreateLowHeatedDatagen::gatherData);

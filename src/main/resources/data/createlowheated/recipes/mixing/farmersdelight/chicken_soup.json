@@ -10,7 +10,7 @@
     { "item": "minecraft:bowl" },
     { "item": "farmersdelight:chicken_cuts" },
     { "item": "minecraft:carrot" },
-    { "item": "farmersdelight:cabbage_leaf" },
+    { "tag": "forge:salad_ingredients" },
     { "tag": "forge:vegetables" },
     { "amount": 250, "fluid": "minecraft:water", "nbt": {} }
   ]

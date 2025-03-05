@@ -1,11 +1,11 @@
 package zeh.createlowheated.content.processing.basicburner;
 
-import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
 
-import com.simibubi.create.foundation.utility.VecHelper;
+import dev.engine_room.flywheel.lib.transform.TransformStack;
+import net.createmod.catnip.math.VecHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -24,6 +24,7 @@ public class BasicBurnerRenderer extends SafeBlockEntityRenderer<BasicBurnerBloc
     @Override
     protected void renderSafe(BasicBurnerBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
                               int light, int overlay) {
+        
         IItemHandler inv = be.capability.orElse(new ItemStackHandler());
         ItemStack stack = inv.getStackInSlot(0);
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
@@ -35,11 +36,12 @@ public class BasicBurnerRenderer extends SafeBlockEntityRenderer<BasicBurnerBloc
 
         for (int i = 0; i <= stack.getCount() / 8; i++) {
             ms.pushPose();
-            Vec3 vec = VecHelper.offsetRandomly(Vec3.ZERO, (RandomSource) r, 1 / 8f);
+            Vec3 vec = VecHelper.offsetRandomly(Vec3.ZERO, r, 1 / 8f);
             ms.translate(vec.x, Math.abs(i * vec.y/3), vec.z);
-            TransformStack.cast(ms)
-                    .rotateY(35 + (vec.x + vec.z) / (2 / 8f) * 10)
-                    .rotateX(65 + (vec.y + vec.z) / (2 / 8f) * 10);
+
+            TransformStack.of(ms)
+                    .rotateYDegrees((float) (35f + (vec.x + vec.z) / (2f / 8f) * 10f))
+                    .rotateXDegrees((float) (65f + (vec.y + vec.z) / (2f / 8f) * 10f));
             itemRenderer.renderStatic(stack, ItemDisplayContext.FIXED, light, overlay, ms, buffer, be.getLevel(), 0);
             ms.popPose();
         }
@@ -55,7 +57,7 @@ public class BasicBurnerRenderer extends SafeBlockEntityRenderer<BasicBurnerBloc
 
         Vec3 itemPosition = VecHelper.rotate(new Vec3(0, 0, 0), 90f, Direction.Axis.Y);
         ms.translate(itemPosition.x, itemPosition.y, itemPosition.z);
-        TransformStack.cast(ms).rotateY(90f).rotateX(0f);
+        TransformStack.of(ms).rotateYDegrees(90f).rotateX(0f);
 
         itemRenderer.renderStatic(stack, ItemDisplayContext.FIXED, light, overlay, ms, buffer, be.getLevel(), 0);
         ms.popPose();

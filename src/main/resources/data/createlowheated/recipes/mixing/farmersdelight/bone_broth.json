@@ -8,9 +8,22 @@
   "results": [{ "item": "farmersdelight:bone_broth" }],
   "ingredients": [
     { "item": "minecraft:bowl" },
-    { "item": "minecraft:bone" },
-    { "item": "minecraft:bone" },
-    { "tag": "forge:mushrooms" },
+    { "tag": "forge:bones" },
+    { "tag": "forge:bones" },
+    [
+      {
+        "item": "minecraft:glow_berries"
+      },
+      {
+        "tag": "forge:mushrooms"
+      },
+      {
+        "item": "minecraft:hanging_roots"
+      },
+      {
+        "item": "minecraft:glow_lichen"
+      }
+    ],
     { "amount": 250, "fluid": "minecraft:water", "nbt": {} }
   ]
 }

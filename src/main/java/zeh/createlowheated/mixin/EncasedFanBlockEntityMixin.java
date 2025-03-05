@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -25,23 +26,23 @@ public abstract class EncasedFanBlockEntityMixin extends KineticBlockEntity {
         super(typeIn, pos, state);
     }
 
-    public void updateBasicBurner(boolean rm) {
+    @Unique
+    public void createLowHeated$updateBasicBurner(boolean rm) {
         Direction fanFacingDir = getAirflowOriginSide();
         if (!fanFacingDir.getAxis().isHorizontal()) return;
 
         BlockEntity poweredBurner = level.getBlockEntity(worldPosition.relative(fanFacingDir));
-        if (!(poweredBurner instanceof BasicBurnerBlockEntity))  return;
+        if (!(poweredBurner instanceof BasicBurnerBlockEntity burnerBE))  return;
 
-        BasicBurnerBlockEntity burnerBE = (BasicBurnerBlockEntity) poweredBurner;
-        burnerBE.setEmpowered(rm ? false : (Mth.abs(getSpeed()) >= Configuration.FAN_SPEED_REQUIRED.get() ? true : false));
+        burnerBE.setEmpowered(!rm && (Mth.abs(getSpeed()) >= Configuration.FAN_SPEED_REQUIRED.get()));
     }
 
-    @Inject(method = "onSpeedChanged", at = @At("HEAD"), cancellable = true)
-    protected void addBasicBurnerToSpeedChange(float prevSpeed, CallbackInfo ci) { updateBasicBurner(false); }
+    @Inject(method = "onSpeedChanged", at = @At("HEAD"))
+    protected void addBasicBurnerToSpeedChange(float prevSpeed, CallbackInfo ci) { createLowHeated$updateBasicBurner(false); }
 
-    @Inject(method = "remove", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "remove", at = @At("HEAD"))
     protected void addBasicBurnerToRemove(CallbackInfo ci) {
-        updateBasicBurner(true);
+        createLowHeated$updateBasicBurner(true);
     }
 
 }

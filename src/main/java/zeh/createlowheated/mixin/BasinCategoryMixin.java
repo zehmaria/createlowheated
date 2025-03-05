@@ -39,7 +39,7 @@ public abstract class BasinCategoryMixin {
                         .addSlot(RecipeIngredientRole.OUTPUT, xPosition, yPosition)
                         .setBackground(getRenderedSlot(result), -1, -1)
                         .addItemStack(result.getStack())
-                        .addTooltipCallback(addStochasticTooltip(result));
+                        .addRichTooltipCallback(addStochasticTooltip(result));
                 i++;
             }
 
@@ -51,7 +51,7 @@ public abstract class BasinCategoryMixin {
                         .addSlot(RecipeIngredientRole.OUTPUT, xPosition, yPosition)
                         .setBackground(getRenderedSlot(), -1, -1)
                         .addIngredient(ForgeTypes.FLUID_STACK, withImprovedVisibility(fluidResult))
-                        .addTooltipCallback(addFluidTooltip(fluidResult.getAmount()));
+                        .addRichTooltipCallback(addFluidTooltip(fluidResult.getAmount()));
                 i++;
             }
 

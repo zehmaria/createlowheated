@@ -17,8 +17,6 @@ public abstract class HeatLevelMixin {
     @Mutable
     private static HeatLevel[] $VALUES;
 
-    @Shadow public abstract boolean isAtLeast(HeatLevel heatLevel);
-
     private static final HeatLevel LOW = heatExpansion$addVariant("LOW");
 
     @Invoker("<init>")

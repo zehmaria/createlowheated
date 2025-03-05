@@ -10,8 +10,8 @@
     { "item": "minecraft:bowl" },
     { "item": "farmersdelight:cod_slice" },
     { "item": "minecraft:potato" },
-    { "item": "minecraft:egg" },
-    { "tag": "forge:vegetables/tomato" },
+    { "tag": "forge:eggs" },
+    { "tag": "forge:crops/tomato" },
     { "amount": 250, "fluid": "minecraft:water", "nbt": {} } 
   ]
 }

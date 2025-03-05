@@ -9,7 +9,7 @@
   "ingredients": [
     { "item": "minecraft:bowl" },
     { "item": "farmersdelight:pumpkin_slice" },
-    { "item": "farmersdelight:cabbage_leaf" },
+    { "tag": "forge:salad_ingredients" },
     { "item": "farmersdelight:bacon" },
     { "amount": 250, "fluid": "minecraft:milk", "nbt": {} }
   ]

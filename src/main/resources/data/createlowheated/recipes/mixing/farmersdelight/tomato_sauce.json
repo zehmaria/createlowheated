@@ -8,7 +8,7 @@
   "results": [{ "item": "farmersdelight:tomato_sauce" }],
   "ingredients": [
     { "item": "minecraft:bowl" },
-    { "tag": "forge:vegetables/tomato" },
-    { "tag": "forge:vegetables/tomato" }
+    { "tag": "forge:crops/tomato" },
+    { "tag": "forge:crops/tomato" }
   ]
 }
