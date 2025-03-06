@@ -3,7 +3,7 @@ package zeh.createlowheated.mixin;
 import com.simibubi.create.compat.jei.category.BasinCategory;
 import com.simibubi.create.content.processing.basin.BasinRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingOutput;
-import mezz.jei.api.forge.ForgeTypes;
+import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import net.minecraftforge.fluids.FluidStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -31,6 +31,15 @@ public abstract class BasinCategoryMixin {
             int size = recipe.getRollableResults().size() + recipe.getFluidResults().size();
             int i = 0;
 
+            for(ProcessingOutput result : recipe.getRollableResults()) {
+                int xPosition = 142 - (size % 2 != 0 && i == size - 1 ? 0 : (i % 2 == 0 ? 10 : -9));
+                int yPosition = -19 * (i / 2) + 51;
+                ((IRecipeSlotBuilder)builder.addSlot(RecipeIngredientRole.OUTPUT, xPosition, yPosition)
+                        .setBackground(getRenderedSlot(result), -1, -1)
+                        .addItemStack(result.getStack()))
+                        .addRichTooltipCallback(addStochasticTooltip(result));
+                ++i;
+            }
             for (ProcessingOutput result : recipe.getRollableResults()) {
                 int xPosition = 142 - (size % 2 != 0 && i == size - 1 ? 0 : i % 2 == 0 ? 10 : -9);
                 int yPosition = -19 * (i / 2) + 51;
@@ -46,12 +55,7 @@ public abstract class BasinCategoryMixin {
             for (FluidStack fluidResult : recipe.getFluidResults()) {
                 int xPosition = 142 - (size % 2 != 0 && i == size - 1 ? 0 : i % 2 == 0 ? 10 : -9);
                 int yPosition = -19 * (i / 2) + 51;
-
-                builder
-                        .addSlot(RecipeIngredientRole.OUTPUT, xPosition, yPosition)
-                        .setBackground(getRenderedSlot(), -1, -1)
-                        .addIngredient(ForgeTypes.FLUID_STACK, withImprovedVisibility(fluidResult))
-                        .addRichTooltipCallback(addFluidTooltip(fluidResult.getAmount()));
+                addFluidSlot(builder, xPosition, yPosition, fluidResult);
                 i++;
             }
 

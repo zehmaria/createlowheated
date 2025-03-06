@@ -20,6 +20,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.ModLoadingContext;
 
+import net.minecraftforge.registries.RegisterEvent;
 import org.slf4j.Logger;
 import zeh.createlowheated.common.Configuration;
 import zeh.createlowheated.infrastructure.data.CreateLowHeatedDatagen;
@@ -60,10 +61,13 @@ public class CreateLowHeated {
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Configuration.COMMON_CONFIG);
 
-        AllArmInteractionPointTypes.init();
-
         modEventBus.addListener(CreateLowHeated::init);
+        modEventBus.addListener(CreateLowHeated::onRegister);
         modEventBus.addListener(EventPriority.LOWEST, CreateLowHeatedDatagen::gatherData);
+    }
+
+    public static void onRegister(final RegisterEvent event) {
+        AllArmInteractionPointTypes.init();
     }
 
     public static void init(final FMLCommonSetupEvent event) {
