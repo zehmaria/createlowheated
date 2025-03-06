@@ -1,7 +1,12 @@
 package zeh.createlowheated.mixin;
 
+import com.mojang.serialization.Codec;
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock.HeatLevel;
 import com.simibubi.create.content.processing.recipe.HeatCondition;
+import io.netty.buffer.ByteBuf;
+import net.createmod.catnip.codecs.stream.CatnipStreamCodecBuilders;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.StringRepresentable;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.gen.Invoker;
 import org.spongepowered.asm.mixin.injection.At;
@@ -15,15 +20,19 @@ import java.util.Arrays;
  * Thanks to https://github.com/SpongePowered/Mixin/issues/387#issuecomment-888408556 for the tip on how to mixin enum values!
  */
 @Mixin(value = HeatCondition.class, remap = false)
-public abstract class HeatConditionMixin {
+public abstract class HeatConditionMixin implements StringRepresentable {
+
     @Shadow
     @Final
     @Mutable
     private static HeatCondition[] $VALUES;
 
-    @Shadow @Final public static HeatCondition SUPERHEATED;
+    @Shadow public abstract String getTranslationKey();
+
+    @Mutable @Shadow @Final public static Codec<HeatCondition> CODEC;
+    @Mutable @Shadow @Final public static StreamCodec<ByteBuf, HeatCondition> STREAM_CODEC;
     @Unique
-    private static final HeatCondition LOWHEATED = heatExpansion$addVariant("LOWHEATED",  0xED9C33);
+    private static HeatCondition LOWHEATED = heatExpansion$addVariant("LOWHEATED",  0xED9C33);
 
     @Invoker("<init>")
     public static HeatCondition heatExpansion$invokeInit(String internalName, int internalId, int color) {
@@ -36,6 +45,8 @@ public abstract class HeatConditionMixin {
         HeatCondition heat = heatExpansion$invokeInit(internalName, variants.get(variants.size() - 1).ordinal() + 1, color);
         variants.add(heat);
         HeatConditionMixin.$VALUES = variants.toArray(new HeatCondition[0]);
+        CODEC = StringRepresentable.fromEnum(HeatCondition::values);
+        STREAM_CODEC = CatnipStreamCodecBuilders.ofEnum(HeatCondition.class);
         return heat;
     }
 

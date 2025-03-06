@@ -16,8 +16,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.IItemHandler;
 
 public class BasicBurnerRenderer extends SafeBlockEntityRenderer<BasicBurnerBlockEntity> {
     public BasicBurnerRenderer(BlockEntityRendererProvider.Context context) {}
@@ -25,7 +24,7 @@ public class BasicBurnerRenderer extends SafeBlockEntityRenderer<BasicBurnerBloc
     protected void renderSafe(BasicBurnerBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
                               int light, int overlay) {
         
-        IItemHandler inv = be.capability.orElse(new ItemStackHandler());
+        IItemHandler inv = be.capability;
         ItemStack stack = inv.getStackInSlot(0);
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
         RandomSource r = RandomSource.create(be.getBlockPos().hashCode());

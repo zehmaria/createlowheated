@@ -17,10 +17,11 @@ import zeh.createlowheated.CreateLowHeated;
 
 public class CreateLowHeatedRegistrateTags {
     public static void addGenerators() {
-        CreateLowHeated.REGISTRATE.addDataGenerator(ProviderType.BLOCK_TAGS, CreateLowHeatedRegistrateTags::genBlockTags);
+
+        //CreateLowHeated.REGISTRATE.addDataGenerator(ProviderType.BLOCK_TAGS, CreateLowHeatedRegistrateTags::genBlockTags);
         CreateLowHeated.REGISTRATE.addDataGenerator(ProviderType.ITEM_TAGS, CreateLowHeatedRegistrateTags::genItemTags);
-        CreateLowHeated.REGISTRATE.addDataGenerator(ProviderType.FLUID_TAGS, CreateLowHeatedRegistrateTags::genFluidTags);
-        CreateLowHeated.REGISTRATE.addDataGenerator(ProviderType.ENTITY_TAGS, CreateLowHeatedRegistrateTags::genEntityTags);
+        //CreateLowHeated.REGISTRATE.addDataGenerator(ProviderType.FLUID_TAGS, CreateLowHeatedRegistrateTags::genFluidTags);
+        //CreateLowHeated.REGISTRATE.addDataGenerator(ProviderType.ENTITY_TAGS, CreateLowHeatedRegistrateTags::genEntityTags);
     }
 
     private static void genBlockTags(RegistrateTagsProvider<Block> provIn) {
@@ -39,12 +40,11 @@ public class CreateLowHeatedRegistrateTags {
 
     private static void genItemTags(RegistrateTagsProvider<Item> provIn) {
         CreateTagsProvider<Item> prov = new CreateTagsProvider<>(provIn, Item::builtInRegistryHolder);
+
         prov.tag(AllItemTags.BASIC_BURNER_FUEL_WHITELIST.tag).add(Items.CHARCOAL);
         prov.tag(AllItemTags.BASIC_BURNER_FUEL_BLACKLIST.tag).add(Items.LAVA_BUCKET);
         prov.tag(AllItemTags.DELIGHT_INCLUDED.tag).add(Items.BEDROCK);
         prov.tag(AllItemTags.BURNER_STARTERS.tag).add(Items.FLINT_AND_STEEL);
-
-        // COMPAT
 
         // VALIDATE
 

@@ -1,174 +1,170 @@
-buildscript {
-    repositories {
-        maven { url = 'https://maven.minecraftforge.net/' }
-        mavenCentral()
-        maven { url = 'https://maven.parchmentmc.org' }
-        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
-    }
-    dependencies {
-        classpath "net.minecraftforge.gradle:ForgeGradle:${forgegradle_version}"
-        classpath "org.parchmentmc:librarian:${librarian_version}"
-        classpath "org.spongepowered:mixingradle:${mixingradle_version}"
-    }
-}
-
 plugins {
-    id 'com.matthewprenger.cursegradle' version "${cursegradle_version}"
+    id "idea"
+    id "eclipse"
+    id "maven-publish"
+    id "net.neoforged.moddev" version "2.0.74"
 }
 
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'org.parchmentmc.librarian.forgegradle'
-apply plugin: 'idea'
-apply plugin: "org.spongepowered.mixin"
+idea {
+    module {
+        //Exclude directories from being managed
+        for (String excludeDirName in ["runs", "out", "logs", "gradle"]) {
+            excludeDirs.add(file(excludeDirName))
+        }
+        //Tell IDEA to always download sources/javadoc artifacts from maven.
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
 
-group = mod_author + '.' + mod_id // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = mod_id + "-forge"
-version = minecraft_version + '-' + create_version + '-' + mod_version
+java.toolchain.languageVersion = JavaLanguageVersion.of(java_version)
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+base {
+    version = minecraft_version + '-' + create_version + '-' + mod_version
+    group = mod_author + '.' + mod_id // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+    archivesName = mod_id + "-neoforge"
+}
 
-println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
-minecraft {
-    if (Boolean.parseBoolean(project.use_parchment)) {
-        mappings channel: 'parchment', version: "${parchment_version}-${minecraft_version}"
-    } else {
-        mappings channel: 'official', version: "${minecraft_version}"
+neoForge {
+    version = project.neo_version
+
+    accessTransformers = project.files('src/main/resources/META-INF/accesstransformer.cfg')
+
+    parchment {
+        mappingsVersion = project.parchment_mappings_version
+        minecraftVersion = project.parchment_minecraft_version
+    }
+
+    mods {
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
+        }
     }
 
     runs {
-        client = {
-            workingDirectory project.file('run')
-            arg '-mixin.config=createlowheated.mixins.json'
-            property 'forge.logging.console.level', 'info'
-            mods {
-                createlowheated {
-                    source sourceSets.main
-                }
-            }
-        }
-        server = {
-            workingDirectory project.file('run')
-            arg '-mixin.config=createlowheated.mixins.json'
-            property 'forge.logging.console.level', 'info'
-            mods {
-                createlowheated {
-                    source sourceSets.main
-                }
-            }
-        }
-        data {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
-            args '--mod', 'createlowheated', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/'), '--existing-mod', 'create'
+        configureEach {
+            systemProperty 'mixin.debug.verbose', 'true'
+            systemProperty 'mixin.debug.export', 'true'
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
 
-            mods {
-                createlowheated {
-                    source sourceSets.main
-                }
-            }
+            logLevel = org.slf4j.event.Level.DEBUG
+        }
+
+        client {
+            client()
+
+            // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        server {
+            server()
+            programArgument '--nogui'
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        data {
+            data()
+            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(),
+                    '--existing', file('src/main/resources/').getAbsolutePath()
+        }
+
+        gameTestServer {
+            type = "gameTestServer"
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
     }
 }
 
+sourceSets.main.resources {
+    srcDirs += 'src/generated/resources'
+    exclude '.cache'
+}
+
+
+configurations {
+    runtimeClasspath.extendsFrom localRuntime
+}
+
 repositories {
+    maven { url = "https://mvn.devos.one/snapshots" } // Registrate
     maven { url = "https://maven.createmod.net" } // Ponder, Flywheel
-    maven {
-        // Location of the maven for mixed mappings, Registrate, and Flywheel
-        name 'tterrag maven'
-        url 'https://maven.tterrag.com'
-    }
-    maven {
-        // location of the maven that hosts JEI files since January 2023
-        // location of the maven for Vazkii's mods
-        name = "Jared's maven"
-        url = "https://maven.blamejared.com/"
-    }
-    maven {
-        url 'https://www.cursemaven.com'
-        content {
-            includeGroup "curse.maven"
-        }
-    }
+    maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven" } // NeoForge config api port, needed by ponder
+    maven { url = "https://maven.blamejared.com" } // JEI, Vazkii's Mods
+    maven { url = "https://maven.theillusivec4.top/" } // Curios API
+    maven { url = "https://www.cursemaven.com" }
+    maven { url = "https://api.modrinth.com/maven" }
+    maven { url = "https://maven.architectury.dev" } // Arch API
     maven {
         url "https://maven.latvian.dev/releases"
         content {
             includeGroup "dev.latvian.mods"
         }
     }
-    maven {
-        url "https://maven.saps.dev/minecraft"
-    }
-    maven {
-        url "https://maven.architectury.dev/"
-    }
-
-    flatDir {
-        dirs 'libs'
-    }
 }
-
 dependencies {
-    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    implementation "net.neoforged:neoforge:${neo_version}"
 
-    implementation fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
-    implementation fg.deobf("dev.engine-room.flywheel:flywheel-forge-${flywheel_minecraft_version}:${flywheel_version}")
-    implementation fg.deobf("net.createmod.ponder:Ponder-Forge-${ponder_minecraft_version}:${ponder_version}")
-    implementation fg.deobf("com.simibubi.create:create-${create_minecraft_version}:${create_version}-${create_version_suffix}:slim") { transitive = false }
+    implementation("com.tterrag.registrate:Registrate:${registrate_version}")
+    implementation("dev.engine-room.flywheel:flywheel-neoforge-${flywheel_minecraft_version}:${flywheel_version}")
+    implementation("net.createmod.ponder:Ponder-NeoForge-${ponder_minecraft_version}:${ponder_version}")
+    implementation("com.simibubi.create:create-${create_minecraft_version}:${create_version}-${create_version_suffix}:slim") { transitive = false }
 
+    compileOnly("mezz.jei:jei-${jei_minecraft_version}-common-api:${jei_version}")
+    compileOnly("mezz.jei:jei-${jei_minecraft_version}-neoforge-api:${jei_version}")
+    runtimeOnly("mezz.jei:jei-${jei_minecraft_version}-neoforge:${jei_version}")
 
-    compileOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}-common-api:${jei_version}")
-    compileOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}-forge-api:${jei_version}")
-    runtimeOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}-forge:${jei_version}")
+    compileOnly("top.theillusivec4.curios:curios-neoforge:${curios_version}+${curios_minecraft_version}:api")
+    runtimeOnly("top.theillusivec4.curios:curios-neoforge:${curios_version}+${curios_minecraft_version}")
 
-    implementation("dev.latvian.mods:kubejs-create-forge:${kubejs_create_version}")
-    implementation fg.deobf("dev.latvian.mods:kubejs-forge:${kubejs_version}")
-    implementation fg.deobf("dev.architectury:architectury-forge:${architectury_version}")
-    implementation fg.deobf("dev.latvian.mods:rhino-forge:${rhino_version}")
+    // Farmer's Delight
+    compileOnly("curse.maven:farmers-delight-398521:${farmersdelight_version}")
+    runtimeOnly("curse.maven:farmers-delight-398521:${farmersdelight_version}")
 
-    if (!Boolean.getBoolean('idea.sync.active')) {
-        annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
+    //implementation("dev.latvian.mods:kubejs-create-forge:${kubejs_create_version}")
+    //implementation fg.deobf("dev.latvian.mods:kubejs-forge:${kubejs_version}")
+    //implementation fg.deobf("dev.architectury:architectury-forge:${architectury_version}")
+    //implementation fg.deobf("dev.latvian.mods:rhino-forge:${rhino_version}")
+
+}
+
+tasks.withType(ProcessResources).configureEach {
+    var replaceProperties = [
+            minecraft_version      : minecraft_version,
+            minecraft_version_range: minecraft_version_range,
+            neo_version            : neo_version,
+            neo_version_range      : neo_version_range,
+            "create_version_range" : create_version_range,
+            loader_version_range   : loader_version_range,
+            mod_id                 : mod_id,
+            mod_name               : mod_name,
+            mod_license            : mod_license,
+            mod_long_version       : minecraft_version + "-" + create_version  + "-" + mod_version,
+            mod_author             : mod_author,
+            mod_description        : mod_description
+    ]
+    inputs.properties replaceProperties
+
+    filesMatching(['META-INF/neoforge.mods.toml']) {
+        expand replaceProperties
     }
 }
 
-sourceSets.main.resources {
-    srcDir 'src/generated/resources'
-    exclude '.cache/'
-}
-
-mixin {
-    add sourceSets.main, 'createlowheated.refmap.json'
-}
-
-// Workaround for SpongePowered/MixinGradle#38
-afterEvaluate {
-    tasks.configureReobfTaskForReobfJar.mustRunAfter(tasks.compileJava)
-    tasks.configureReobfTaskForReobfJarJar.mustRunAfter(tasks.compileJava)
-}
-
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+tasks.named('jar', Jar).configure {
+    manifest {
+        attributes([
+                "Specification-Title"     : mod_id,
+                "Specification-Vendor"    : mod_author,
+                "Specification-Version"   : mod_version,
+                "Implementation-Title"    : project.jar.archiveBaseName,
+                "Implementation-Version"  : project.jar.archiveVersion,
+                "Implementation-Vendor"   : mod_author,
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                "MixinConfigs": "createlowheated.mixins.json"
+        ])
+    }
 }
 
 compileJava {
     options.compilerArgs = ['-Xdiags:verbose']
 }
-
-jar {
-    manifest {
-        attributes([
-                "Specification-Title"     : mod_id,
-                "Specification-Vendor"    : mod_author,
-                "Specification-Version"   : "1", // We are version 1 of ourselves
-                'Implementation-Title'    : project.jar.archiveBaseName,
-                'Implementation-Version'  : project.jar.archiveVersion,
-                "Implementation-Vendor"   : mod_author,
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ", TimeZone.getTimeZone("UTC")),
-                "MixinConfigs"            : "createlowheated.mixins.json"
-        ])
-    }
-}
-
-// Example configuration to allow publishing using the maven-publish plugin
-// This is the preferred method to reobfuscate your jar file
-jar.finalizedBy('reobfJar')

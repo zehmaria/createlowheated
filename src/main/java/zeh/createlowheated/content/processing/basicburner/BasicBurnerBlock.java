@@ -5,16 +5,22 @@ import java.util.Random;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import com.mojang.serialization.MapCodec;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.Create;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
+import com.simibubi.create.content.kinetics.belt.behaviour.DirectBeltInputBehaviour;
 import com.simibubi.create.content.kinetics.fan.EncasedFanBlock;
 import com.simibubi.create.content.kinetics.fan.EncasedFanBlockEntity;
+import com.simibubi.create.content.logistics.box.PackageEntity;
 import com.simibubi.create.content.processing.basin.BasinBlockEntity;
 import com.simibubi.create.foundation.block.IBE;
 
+import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import com.simibubi.create.foundation.item.ItemHelper;
 import net.createmod.catnip.data.Iterate;
+import net.createmod.catnip.math.VecHelper;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -23,7 +29,9 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -41,22 +49,22 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.items.IItemHandler;
 import zeh.createlowheated.AllBlockEntityTypes;
 import zeh.createlowheated.AllShapes;
 
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock.HeatLevel;
 import zeh.createlowheated.AllTags;
+import zeh.createlowheated.CreateLowHeated;
 import zeh.createlowheated.common.Configuration;
+
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
@@ -66,6 +74,12 @@ public class BasicBurnerBlock extends HorizontalDirectionalBlock implements IBE<
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final BooleanProperty FUELED = BooleanProperty.create("fueled");
     public static final BooleanProperty EMPOWERED = BooleanProperty.create("empowered");
+    public static final MapCodec<BasicBurnerBlock> CODEC = simpleCodec(BasicBurnerBlock::new);
+
+    @Override
+    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return CODEC;
+    }
 
     public BasicBurnerBlock(Properties properties) {
         super(properties);
@@ -107,43 +121,43 @@ public class BasicBurnerBlock extends HorizontalDirectionalBlock implements IBE<
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult blockRayTraceResult) {
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         ItemStack heldItem = player.getItemInHand(hand);
         boolean wasEmptyHanded = heldItem.isEmpty() && hand == InteractionHand.MAIN_HAND;
         boolean shouldntPlaceItem = AllBlocks.MECHANICAL_ARM.isIn(heldItem);
 
-        if (!state.hasBlockEntity()) return InteractionResult.PASS;
-        BlockEntity be = world.getBlockEntity(pos);
-        if (!(be instanceof BasicBurnerBlockEntity burnerBE)) return InteractionResult.PASS;
+        if (!state.hasBlockEntity()) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        BlockEntity be = getBlockEntity(level, pos);
+        if (!(be instanceof BasicBurnerBlockEntity burnerBE)) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 
-        if (!burnerBE.inputInv.getStackInSlot(0).isEmpty() && !state.getValue(LIT) && heldItem.is(AllTags.AllItemTags.BURNER_STARTERS.tag)) {
-            world.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F,
-                    world.random.nextFloat() * 0.4F + 0.8F);
-            if (world.isClientSide) return InteractionResult.SUCCESS;
-            heldItem.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
-            world.setBlockAndUpdate(pos, state.setValue(BasicBurnerBlock.LIT, true));
+        if (!burnerBE.inputInv.getStackInSlot(0).isEmpty() && !state.getValue(LIT) && AllTags.AllItemTags.BURNER_STARTERS.matches(heldItem)) {
+            level.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F,
+                    level.random.nextFloat() * 0.4F + 0.8F);
+            if (level.isClientSide) return ItemInteractionResult.SUCCESS;
+            heldItem.hurtAndBreak(1, player, hand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
+
+            level.setBlockAndUpdate(pos, state.setValue(BasicBurnerBlock.LIT, true));
             burnerBE.notifyUpdate();
-            return InteractionResult.SUCCESS;
+            return ItemInteractionResult.SUCCESS;
         }
-
         ItemStack mainItemStack = burnerBE.inputInv.getStackInSlot(0);
 
         if (!mainItemStack.isEmpty() && wasEmptyHanded) {
             player.getInventory().placeItemBackInInventory(mainItemStack);
             burnerBE.inputInv.setStackInSlot(0, ItemStack.EMPTY);
-            world.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, .2f,
+            level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, .2f,
                     1f + Create.RANDOM.nextFloat());
         }
 
         if (!wasEmptyHanded && !shouldntPlaceItem) {
             ItemStack remainder = burnerBE.itemHandler.insertItem(0, heldItem.copy(), false);
-            if (remainder.getCount() == heldItem.getCount()) return InteractionResult.PASS;
+            if (remainder.getCount() == heldItem.getCount()) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
             player.setItemInHand(hand, remainder);
-            AllSoundEvents.DEPOT_SLIDE.playOnServer(world, pos);
+            AllSoundEvents.DEPOT_SLIDE.playOnServer(level, pos);
         }
 
         burnerBE.notifyUpdate();
-        return InteractionResult.SUCCESS;
+        return ItemInteractionResult.SUCCESS;
     }
 
     @Override
@@ -188,7 +202,7 @@ public class BasicBurnerBlock extends HorizontalDirectionalBlock implements IBE<
     }
 
     @Override
-    public boolean isPathfindable(BlockState state, BlockGetter reader, BlockPos pos, PathComputationType type) {
+    protected boolean isPathfindable(BlockState state, PathComputationType pathComputationType) {
         return false;
     }
 
@@ -236,12 +250,10 @@ public class BasicBurnerBlock extends HorizontalDirectionalBlock implements IBE<
 
         if (burner == null) return;
 
-        LazyOptional<IItemHandler> capability = burner.getCapability(ForgeCapabilities.ITEM_HANDLER);
-        if (!capability.isPresent())
-            return;
+        IItemHandler capability = burner.getLevel().getCapability(Capabilities.ItemHandler.BLOCK, burner.getBlockPos(), null);
+        if (capability == null) return;
 
-        ItemStack remainder = capability.orElse(new ItemStackHandler())
-                .insertItem(0, itemEntity.getItem(), false);
+        ItemStack remainder = capability.insertItem(0, itemEntity.getItem(), false);
         if (remainder.isEmpty()) itemEntity.discard();
         if (remainder.getCount() < itemEntity.getItem().getCount()) itemEntity.setItem(remainder);
     }

@@ -1,0 +1,33 @@
+{
+  "type": "create:mixing",
+  "heat_requirement": "lowheated",
+  "ingredients": [
+    {
+      "item": "minecraft:bowl"
+    },
+    {
+      "item": "minecraft:potato"
+    },
+    {
+      "item": "minecraft:rabbit"
+    },
+    {
+      "item": "minecraft:carrot"
+    },
+    {
+      "tag": "c:mushrooms"
+    },
+    {
+      "type": "fluid_stack",
+      "amount": 250,
+      "fluid": "minecraft:water"
+    }
+  ],
+  "results": [
+    {
+      "item": {
+        "id": "minecraft:rabbit_stew"
+      }
+    }
+  ]
+}

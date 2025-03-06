@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.client.renderer.RenderType;
 
-import net.minecraftforge.client.model.generators.ConfiguredModel;
+import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import zeh.createlowheated.content.processing.basicburner.*;
 
 import com.tterrag.registrate.util.entry.BlockEntry;
@@ -20,7 +20,6 @@ import com.tterrag.registrate.util.entry.BlockEntry;
 public class AllBlocks {
 
     static { REGISTRATE.setCreativeTab(AllCreativeModeTabs.MAIN_TAB); }
-
 
     public static final BlockEntry<BasicBurnerBlock> BASIC_BURNER =
             REGISTRATE.block("basic_burner", BasicBurnerBlock::new)

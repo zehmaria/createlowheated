@@ -3,9 +3,9 @@ package zeh.createlowheated.mixin;
 import com.simibubi.create.compat.jei.category.BasinCategory;
 import com.simibubi.create.content.processing.basin.BasinRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingOutput;
-import mezz.jei.api.forge.ForgeTypes;
+import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -50,7 +50,7 @@ public abstract class BasinCategoryMixin {
                 builder
                         .addSlot(RecipeIngredientRole.OUTPUT, xPosition, yPosition)
                         .setBackground(getRenderedSlot(), -1, -1)
-                        .addIngredient(ForgeTypes.FLUID_STACK, withImprovedVisibility(fluidResult))
+                        .addIngredient(NeoForgeTypes.FLUID_STACK, withImprovedVisibility(fluidResult))
                         .addRichTooltipCallback(addFluidTooltip(fluidResult.getAmount()));
                 i++;
             }

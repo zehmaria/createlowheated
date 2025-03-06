@@ -5,6 +5,7 @@ import com.tterrag.registrate.util.entry.ItemEntry;
 import com.tterrag.registrate.util.entry.ItemProviderEntry;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import it.unimi.dsi.fastutil.objects.*;
+import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
@@ -14,14 +15,13 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.CreativeModeTab.TabVisibility;
 import net.minecraft.world.item.CreativeModeTab.Output;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
-import net.minecraftforge.eventbus.api.IEventBus;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import org.apache.commons.lang3.mutable.MutableObject;
+import zeh.createlowheated.infrastructure.data.LHRegistrate;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -30,16 +30,15 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class AllCreativeModeTabs {
     private static final DeferredRegister<CreativeModeTab> REGISTER =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, CreateLowHeated.ID);
 
-    public static final RegistryObject<CreativeModeTab> MAIN_TAB = REGISTER.register("base",
-            () -> CreativeModeTab.builder()
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MAIN_TAB =
+            REGISTER.register("base", () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.createlowheated.base"))
-                    .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
                     .icon(() -> AllBlocks.BASIC_BURNER.asStack())
+                    .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
                     .displayItems(new RegistrateDisplayItemsGenerator(true, AllCreativeModeTabs.MAIN_TAB))
                     .build());
 
@@ -53,14 +52,8 @@ public class AllCreativeModeTabs {
 
         static {
             MutableObject<Predicate<Item>> isItem3d = new MutableObject<>(item -> false);
-            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-                isItem3d.setValue(item -> {
-                    ItemRenderer itemRenderer = Minecraft.getInstance()
-                            .getItemRenderer();
-                    BakedModel model = itemRenderer.getModel(new ItemStack(item), null, null, 0);
-                    return model.isGui3d();
-                });
-            });
+            if (CatnipServices.PLATFORM.getEnv().isClient())
+                isItem3d.setValue(makeClient3dItemPredicate());
             IS_ITEM_3D_PREDICATE = isItem3d.getValue();
         }
 
@@ -75,9 +68,9 @@ public class AllCreativeModeTabs {
         }
 
         private final boolean addItems;
-        private final RegistryObject<CreativeModeTab> tabFilter;
+        private final DeferredHolder<CreativeModeTab, CreativeModeTab> tabFilter;
 
-        public RegistrateDisplayItemsGenerator(boolean addItems, RegistryObject<CreativeModeTab> tabFilter) {
+        public RegistrateDisplayItemsGenerator(boolean addItems, DeferredHolder<CreativeModeTab, CreativeModeTab> tabFilter) {
             this.addItems = addItems;
             this.tabFilter = tabFilter;
         }
@@ -85,7 +78,7 @@ public class AllCreativeModeTabs {
         private static Predicate<Item> makeExclusionPredicate() {
             Set<Item> exclusions = new ReferenceOpenHashSet<>();
 
-            List<ItemProviderEntry<?>> simpleExclusions = List.of(
+            List<ItemProviderEntry<?, ?>> simpleExclusions = List.of(
 
             );
 
@@ -93,7 +86,7 @@ public class AllCreativeModeTabs {
 
             );
 
-            for (ItemProviderEntry<?> entry : simpleExclusions) {
+            for (ItemProviderEntry<?, ?> entry : simpleExclusions) {
                 exclusions.add(entry.asItem());
             }
 
@@ -110,10 +103,10 @@ public class AllCreativeModeTabs {
         private static List<ItemOrdering> makeOrderings() {
             List<ItemOrdering> orderings = new ReferenceArrayList<>();
 
-            Map<ItemProviderEntry<?>, ItemProviderEntry<?>> simpleBeforeOrderings = Map.of(
+            Map<ItemProviderEntry<?, ?>, ItemProviderEntry<?, ?>> simpleBeforeOrderings = Map.of(
             );
 
-            Map<ItemProviderEntry<?>, ItemProviderEntry<?>> simpleAfterOrderings = Map.of(
+            Map<ItemProviderEntry<?, ?>, ItemProviderEntry<?, ?>> simpleAfterOrderings = Map.of(
             );
 
             simpleBeforeOrderings.forEach((entry, otherEntry) -> {
@@ -130,7 +123,7 @@ public class AllCreativeModeTabs {
         private static Function<Item, ItemStack> makeStackFunc() {
             Map<Item, Function<Item, ItemStack>> factories = new Reference2ReferenceOpenHashMap<>();
 
-            Map<ItemProviderEntry<?>, Function<Item, ItemStack>> simpleFactories = Map.of(
+            Map<ItemProviderEntry<?, ?>, Function<Item, ItemStack>> simpleFactories = Map.of(
             );
 
             simpleFactories.forEach((entry, factory) -> {
@@ -149,7 +142,7 @@ public class AllCreativeModeTabs {
         private static Function<Item, TabVisibility> makeVisibilityFunc() {
             Map<Item, TabVisibility> visibilities = new Reference2ObjectOpenHashMap<>();
 
-            Map<ItemProviderEntry<?>, TabVisibility> simpleVisibilities = Map.of(
+            Map<ItemProviderEntry<?, ?>, TabVisibility> simpleVisibilities = Map.of(
             );
 
             simpleVisibilities.forEach((entry, factory) -> {
@@ -187,10 +180,11 @@ public class AllCreativeModeTabs {
 
         private List<Item> collectBlocks(Predicate<Item> exclusionPredicate) {
             List<Item> items = new ReferenceArrayList<>();
-            for (RegistryEntry<Block> entry : CreateLowHeated.REGISTRATE.getAll(Registries.BLOCK)) {
-                if (!CreateLowHeated.REGISTRATE.isInCreativeTab(entry, tabFilter))
+            for (RegistryEntry<Block, Block> entry : CreateLowHeated.REGISTRATE.getAll(Registries.BLOCK)) {
+                if (!LHRegistrate.isInCreativeTab(entry, tabFilter))
                     continue;
-                Item item = entry.get().asItem();
+                Item item = entry.get()
+                        .asItem();
                 if (item == Items.AIR)
                     continue;
                 if (!exclusionPredicate.test(item))
@@ -202,9 +196,8 @@ public class AllCreativeModeTabs {
 
         private List<Item> collectItems(Predicate<Item> exclusionPredicate) {
             List<Item> items = new ReferenceArrayList<>();
-
-            for (RegistryEntry<Item> entry : CreateLowHeated.REGISTRATE.getAll(Registries.ITEM)) {
-                if (!CreateLowHeated.REGISTRATE.isInCreativeTab(entry, tabFilter))
+            for (RegistryEntry<Item, Item> entry : CreateLowHeated.REGISTRATE.getAll(Registries.ITEM)) {
+                if (!LHRegistrate.isInCreativeTab(entry, tabFilter))
                     continue;
                 Item item = entry.get();
                 if (item instanceof BlockItem)

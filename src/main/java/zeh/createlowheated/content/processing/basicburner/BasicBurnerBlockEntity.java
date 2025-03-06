@@ -11,7 +11,7 @@ import com.simibubi.create.foundation.item.ItemHelper;
 
 import net.createmod.catnip.math.VecHelper;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
@@ -21,13 +21,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.ForgeHooks;
 
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock.HeatLevel;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
+import zeh.createlowheated.AllBlockEntityTypes;
 import zeh.createlowheated.AllTags;
 import zeh.createlowheated.common.Configuration;
 
@@ -45,14 +45,14 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity {
     protected HeatLevel empoweredHeatLevel;
 
     public ItemStackHandler inputInv;
-    public LazyOptional<IItemHandler> capability;
+    public IItemHandler capability;
     BurnerItemHandler itemHandler;
 
     public BasicBurnerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         inputInv = new ItemStackHandler(1);
         itemHandler = new BurnerItemHandler();
-        capability = LazyOptional.of(() -> itemHandler);
+        capability = new BurnerItemHandler();
         activeFuel = FuelType.NONE;
         remainingBurnTime = 0;
         fanMultiplier = Configuration.FAN_MULTIPLIER.get();
@@ -135,7 +135,7 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity {
 
         if (newFuel == FuelType.NONE) return false;
         if (newFuel.ordinal() < activeFuel.ordinal()) return false;
-        newBurnTime = ForgeHooks.getBurnTime(itemStack, null);
+        newBurnTime = itemStack.getBurnTime(null);
 
         if (newFuel == activeFuel) {
             if (remainingBurnTime <= INSERTION_THRESHOLD) {
@@ -163,6 +163,13 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity {
         return true;
     }
 
+    public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                AllBlockEntityTypes.BASIC_HEATER.get(),
+                (be, context) -> be.capability
+        );
+    }
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
         behaviours.add(new DirectBeltInputBehaviour(this));
@@ -171,7 +178,7 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity {
     @Override
     public void invalidate() {
         super.invalidate();
-        capability.invalidate();
+        invalidateCapabilities();
     }
 
     @Override
@@ -181,25 +188,19 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity {
     }
 
     @Override
-    public void write(CompoundTag compound, boolean clientPacket) {
-        compound.put("InputInventory", inputInv.serializeNBT());
+    public void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
+        compound.put("InputInventory", inputInv.serializeNBT(registries));
         compound.putInt("FuelLevel", activeFuel.ordinal());
         compound.putInt("BurnTimeRemaining", remainingBurnTime);
-        super.write(compound, clientPacket);
+        super.write(compound, registries, clientPacket);
     }
 
     @Override
-    protected void read(CompoundTag compound, boolean clientPacket) {
-        inputInv.deserializeNBT(compound.getCompound("InputInventory"));
+    protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
+        inputInv.deserializeNBT(registries, compound.getCompound("InputInventory"));
         activeFuel = FuelType.values()[compound.getInt("FuelLevel")];
         remainingBurnTime = compound.getInt("BurnTimeRemaining");
-        super.read(compound, clientPacket);
-    }
-
-    @Override
-    public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
-        if (isItemHandlerCap(cap)) return capability.cast();
-        return super.getCapability(cap, side);
+        super.read(compound, registries, clientPacket);
     }
 
     public HeatLevel getHeatLevelFromBlock() {
@@ -296,7 +297,7 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity {
     }
 
     public boolean isFuelValid(ItemStack stack) {
-        int burnTime = ForgeHooks.getBurnTime(stack, null);
+        int burnTime = stack.getBurnTime(null);
         boolean tagged = !stack.is(AllTags.AllItemTags.BASIC_BURNER_FUEL_BLACKLIST.tag)
                 && (stack.is(AllTags.AllItemTags.BASIC_BURNER_FUEL_WHITELIST.tag) || Configuration.IGNORES_FUEL_TAG_WHITELIST.get());
         return burnTime > 0 && tagged && inputInv.isItemValid(0, stack);
@@ -312,9 +313,7 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity {
         }
 
         @Override
-        public int getSlots() {
-            return 1;
-        }
+        public int getSlots() {return 1;}
 
         @Override
         public ItemStack getStackInSlot(int slot) {

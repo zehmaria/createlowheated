@@ -1,22 +1,20 @@
 package zeh.createlowheated.common;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
-@Mod.EventBusSubscriber
 public class Configuration {
 
-    public static ForgeConfigSpec COMMON_CONFIG;
-	public static ForgeConfigSpec.IntValue FAN_MULTIPLIER;
-	public static ForgeConfigSpec.IntValue FAN_SPEED_REQUIRED;
-	public static ForgeConfigSpec.IntValue BASE_MULTIPLIER;
-	public static ForgeConfigSpec.BooleanValue HOT_BURNERS;
-	public static ForgeConfigSpec.BooleanValue IGNORES_FUEL_TAG_WHITELIST;
-	public static ForgeConfigSpec.BooleanValue BASIC_BURNER_BOILER;
+    public static ModConfigSpec COMMON_CONFIG;
+	public static ModConfigSpec.IntValue FAN_MULTIPLIER;
+	public static ModConfigSpec.IntValue FAN_SPEED_REQUIRED;
+	public static ModConfigSpec.IntValue BASE_MULTIPLIER;
+	public static ModConfigSpec.BooleanValue HOT_BURNERS;
+	public static ModConfigSpec.BooleanValue IGNORES_FUEL_TAG_WHITELIST;
+	public static ModConfigSpec.BooleanValue BASIC_BURNER_BOILER;
 
     static {
 
-		ForgeConfigSpec.Builder COMMON_BUILDER = new ForgeConfigSpec.Builder();
+		ModConfigSpec.Builder COMMON_BUILDER = new ModConfigSpec.Builder();
 
 		COMMON_BUILDER.comment("#Basic Burner Requirements").push("basic_burner");
 		
