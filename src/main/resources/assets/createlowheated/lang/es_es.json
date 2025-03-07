@@ -1,0 +1,13 @@
+{
+  "block.createlowheated.basic_burner": "Quemador básico",
+  "block.createlowheated.basic_burner.tooltip": "Quemador básico",
+  "block.createlowheated.basic_burner.tooltip.behaviour1": "Haz clic derecho con _combustible_ o usa un _Embudo/Desplegador/Brazo mecánico_.",
+  "block.createlowheated.basic_burner.tooltip.behaviour2": "Para iniciar el _fuego_ debes hacer clic derecho con un _mechero_. Mientras se alimente continuamente, el fuego persistirá.",
+  "block.createlowheated.basic_burner.tooltip.behaviour3": "Se puede potenciar usando un ventilador a máxima potencia contra él.",
+  "block.createlowheated.basic_burner.tooltip.condition1": "Requiere combustible",
+  "block.createlowheated.basic_burner.tooltip.condition2": "Requiere una chispa",
+  "block.createlowheated.basic_burner.tooltip.condition3": "Quemador potenciado",
+  "block.createlowheated.basic_burner.tooltip.summary": "Proporciona _calor_ a las _Recetas en cuencas_ y a la _caldera de vapor_.",
+  "create.recipe.heat_requirement.lowheated": "A fuego lento",
+  "itemGroup.createlowheated.base": "Create Low-Heated"
+}
