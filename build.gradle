@@ -1,7 +1,6 @@
 plugins {
     id "idea"
     id "eclipse"
-    id "maven-publish"
     id "net.neoforged.moddev" version "2.0.74"
 }
 
@@ -31,7 +30,7 @@ neoForge {
     accessTransformers = project.files('src/main/resources/META-INF/accesstransformer.cfg')
 
     parchment {
-        mappingsVersion = project.parchment_mappings_version
+        mappingsVersion = project.parchment_version
         minecraftVersion = project.parchment_minecraft_version
     }
 

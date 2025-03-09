@@ -1,12 +1,13 @@
 package zeh.createlowheated.mixin;
 
 import com.simibubi.create.compat.jei.category.BasinCategory;
+import com.simibubi.create.compat.jei.category.CreateRecipeCategory;
 import com.simibubi.create.content.processing.basin.BasinRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingOutput;
-import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -15,8 +16,15 @@ import mezz.jei.api.recipe.IFocusGroup;
 
 import static com.simibubi.create.compat.jei.category.CreateRecipeCategory.*;
 
+
 @Mixin(value = BasinCategory.class, remap = false)
-public abstract class BasinCategoryMixin {
+public abstract class BasinCategoryMixin extends CreateRecipeCategory<BasinRecipe> {
+    private final boolean needsHeating;
+    public BasinCategoryMixin(Info<BasinRecipe> info, boolean needsHeating) {
+        super(info);
+        this.needsHeating = needsHeating;
+    }
+
     @Inject(
             method = "Lcom/simibubi/create/compat/jei/category/BasinCategory;setRecipe(Lmezz/jei/api/gui/builder/IRecipeLayoutBuilder;Lcom/simibubi/create/content/processing/basin/BasinRecipe;Lmezz/jei/api/recipe/IFocusGroup;)V",
             at = @At(
@@ -46,12 +54,7 @@ public abstract class BasinCategoryMixin {
             for (FluidStack fluidResult : recipe.getFluidResults()) {
                 int xPosition = 142 - (size % 2 != 0 && i == size - 1 ? 0 : i % 2 == 0 ? 10 : -9);
                 int yPosition = -19 * (i / 2) + 51;
-
-                builder
-                        .addSlot(RecipeIngredientRole.OUTPUT, xPosition, yPosition)
-                        .setBackground(getRenderedSlot(), -1, -1)
-                        .addIngredient(NeoForgeTypes.FLUID_STACK, withImprovedVisibility(fluidResult))
-                        .addRichTooltipCallback(addFluidTooltip(fluidResult.getAmount()));
+                addFluidSlot(builder, xPosition, yPosition, fluidResult);
                 i++;
             }
 
@@ -60,4 +63,5 @@ public abstract class BasinCategoryMixin {
             ci.cancel();
         }
     }
+
 }
