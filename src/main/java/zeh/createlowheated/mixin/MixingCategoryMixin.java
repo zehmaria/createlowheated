@@ -20,7 +20,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;    
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
