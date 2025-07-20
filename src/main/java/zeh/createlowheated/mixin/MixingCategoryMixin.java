@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.AllSpriteShifts;
+import com.simibubi.create.compat.jei.category.BasinCategory;
 import com.simibubi.create.compat.jei.category.MixingCategory;
 import com.simibubi.create.compat.jei.category.animations.AnimatedKinetics;
 import com.simibubi.create.compat.jei.category.animations.AnimatedMixer;
@@ -30,7 +31,11 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = MixingCategory.class, remap = false)
-public abstract class MixingCategoryMixin {
+public abstract class MixingCategoryMixin extends BasinCategory {
+
+    public MixingCategoryMixin(Info<BasinRecipe> info, boolean needsHeating) {
+        super(info, needsHeating);
+    }
 
     @Inject(
             method = "draw(Lcom/simibubi/create/content/processing/basin/BasinRecipe;Lmezz/jei/api/gui/ingredient/IRecipeSlotsView;Lnet/minecraft/client/gui/GuiGraphics;DD)V",
@@ -45,8 +50,8 @@ public abstract class MixingCategoryMixin {
                            double mouseX, double mouseY, CallbackInfo ci) {
         HeatCondition requiredHeat = recipe.getRequiredHeat();
         if (recipe.getRequiredHeat().name().equals("LOWHEATED")) {
-            createLowHeated$drawLow(requiredHeat.visualizeAsBlazeBurner(), graphics, 177 / 2 + 3, 55);
-            createLowHeated$mixer.draw(graphics, 177 / 2 + 3, 34);
+            createLowHeated$drawLow(requiredHeat.visualizeAsBlazeBurner(), graphics,  getBackground().getWidth() / 2 + 3, 55);
+            createLowHeated$mixer.draw(graphics,  getBackground().getWidth() / 2 + 3, 34);
             ci.cancel();
         }
     }
@@ -99,14 +104,10 @@ public abstract class MixingCategoryMixin {
         uScroll = uScroll - Math.floor(uScroll);
         uScroll = uScroll * spriteWidth / 2;
 
-        Minecraft mc = Minecraft.getInstance();
-        MultiBufferSource.BufferSource buffer = mc.renderBuffers()
-                .bufferSource();
-        VertexConsumer vb = buffer.getBuffer(RenderType.cutoutMipped());
         CachedBuffers.partial(AllPartialModels.BLAZE_BURNER_FLAME, Blocks.AIR.defaultBlockState())
                 .shiftUVScrolling(spriteShift, (float) uScroll, (float) vScroll)
                 .light(LightTexture.FULL_BRIGHT)
-                .renderInto(matrixStack, vb);
+                .renderInto(matrixStack, graphics.bufferSource().getBuffer(RenderType.cutoutMipped()));
         matrixStack.popPose();
     }
 

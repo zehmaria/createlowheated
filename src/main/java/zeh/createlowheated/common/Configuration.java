@@ -7,12 +7,14 @@ public class Configuration {
     public static ModConfigSpec COMMON_CONFIG;
 	public static ModConfigSpec.IntValue FAN_MULTIPLIER;
 	public static ModConfigSpec.IntValue FAN_SPEED_REQUIRED;
+	public static ModConfigSpec.BooleanValue FAN_HORIZONTAL_ONLY;
 	public static ModConfigSpec.IntValue BASE_MULTIPLIER;
 	public static ModConfigSpec.BooleanValue HOT_BURNERS;
 	public static ModConfigSpec.BooleanValue IGNORES_FUEL_TAG_WHITELIST;
 	public static ModConfigSpec.BooleanValue BASIC_BURNER_BOILER;
+	public static ModConfigSpec.BooleanValue PASSIVE_BOILER_HEATERS_TAG;
 
-    static {
+	static {
 
 		ModConfigSpec.Builder COMMON_BUILDER = new ModConfigSpec.Builder();
 
@@ -29,6 +31,9 @@ public class Configuration {
 						"changing the lang file, if you use this and the inaccuracy bothers you.")
 				.define("basicBurnerBoiler", true);
 
+		PASSIVE_BOILER_HEATERS_TAG = COMMON_BUILDER.comment("When set to true, it re-enables all passive heaters.")
+				.define("passiveBoilerHeatersTag", false);
+
 		IGNORES_FUEL_TAG_WHITELIST = COMMON_BUILDER.comment("When set to true, ignores Basic Burner Fuel Item " +
 						"Tag Whitelist, instead accepts anything with a valid BurnTime.")
 				.define("ignoresFuelTagWhitelist", true);
@@ -44,6 +49,9 @@ public class Configuration {
 
 		FAN_SPEED_REQUIRED = COMMON_BUILDER.comment("How much fan speed is needed for the Basic Burner to be empowered.")
 				.defineInRange("fanSpeedRequired", 256, 1, Integer.MAX_VALUE);
+
+		FAN_HORIZONTAL_ONLY = COMMON_BUILDER.comment("Fan direction preference.")
+				.define("fanHorizontalOnly", true);
 
 		COMMON_BUILDER.pop();
 

@@ -29,7 +29,7 @@ public abstract class EncasedFanBlockEntityMixin extends KineticBlockEntity {
     @Unique
     public void createLowHeated$updateBasicBurner(boolean rm) {
         Direction fanFacingDir = getAirflowOriginSide();
-        if (!fanFacingDir.getAxis().isHorizontal()) return;
+        if (Configuration.FAN_HORIZONTAL_ONLY.get()) if (!fanFacingDir.getAxis().isHorizontal()) return;
 
         BlockEntity poweredBurner = level.getBlockEntity(worldPosition.relative(fanFacingDir));
         if (!(poweredBurner instanceof BasicBurnerBlockEntity burnerBE))  return;
