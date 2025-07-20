@@ -73,34 +73,16 @@ minecraft {
 
 repositories {
     maven { url = "https://maven.createmod.net" } // Ponder, Flywheel
-    maven {
-        // Location of the maven for mixed mappings, Registrate, and Flywheel
-        name 'tterrag maven'
-        url 'https://maven.tterrag.com'
-    }
-    maven {
-        // location of the maven that hosts JEI files since January 2023
-        // location of the maven for Vazkii's mods
-        name = "Jared's maven"
-        url = "https://maven.blamejared.com/"
-    }
-    maven {
-        url 'https://www.cursemaven.com'
-        content {
-            includeGroup "curse.maven"
-        }
-    }
+    maven { url = "https://maven.ithundxr.dev/mirror" } // Registrate
+    maven { url = "https://maven.blamejared.com" } // JEI, Vazkii's Mods
+    maven { url = "https://www.cursemaven.com" }
+    maven { url = "https://api.modrinth.com/maven" }
+    maven { url = "https://maven.architectury.dev" } // Arch API
     maven {
         url "https://maven.latvian.dev/releases"
         content {
             includeGroup "dev.latvian.mods"
         }
-    }
-    maven {
-        url "https://maven.saps.dev/minecraft"
-    }
-    maven {
-        url "https://maven.architectury.dev/"
     }
 
     flatDir {
@@ -112,14 +94,17 @@ dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
     implementation fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
-    implementation fg.deobf("dev.engine-room.flywheel:flywheel-forge-${flywheel_minecraft_version}:${flywheel_version}")
+    //implementation fg.deobf("dev.engine-room.flywheel:flywheel-forge-${flywheel_minecraft_version}:${flywheel_version}")
+    compileOnly fg.deobf("dev.engine-room.flywheel:flywheel-forge-api-${flywheel_minecraft_version}:${flywheel_version}")
+    runtimeOnly fg.deobf("dev.engine-room.flywheel:flywheel-forge-${flywheel_minecraft_version}:${flywheel_version}")
+
     implementation fg.deobf("net.createmod.ponder:Ponder-Forge-${ponder_minecraft_version}:${ponder_version}")
     implementation fg.deobf("com.simibubi.create:create-${create_minecraft_version}:${create_version}-${create_version_suffix}:slim") { transitive = false }
 
-
-    compileOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}-common-api:${jei_version}")
-    compileOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}-forge-api:${jei_version}")
-    runtimeOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}-forge:${jei_version}")
+    //compileOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}-common-api:${jei_version}")
+    //compileOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}-forge-api:${jei_version}")
+    //runtimeOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}-forge:${jei_version}")
+    implementation("mezz.jei:jei-${jei_minecraft_version}-forge:${jei_version}")
 
     implementation("dev.latvian.mods:kubejs-create-forge:${kubejs_create_version}")
     implementation fg.deobf("dev.latvian.mods:kubejs-forge:${kubejs_version}")

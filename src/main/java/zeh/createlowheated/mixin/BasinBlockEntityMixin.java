@@ -1,7 +1,9 @@
 package zeh.createlowheated.mixin;
 
+import com.simibubi.create.AllTags;
 import com.simibubi.create.content.processing.basin.BasinBlockEntity;
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock;
+import com.simibubi.create.foundation.utility.BlockHelper;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -26,7 +28,14 @@ public class BasinBlockEntityMixin {
             cir.setReturnValue(state.getValue(BlazeBurnerBlock.HEAT_LEVEL));
             return;
         }
-        cir.setReturnValue(BlazeBurnerBlock.HeatLevel.NONE);
+
+        if (Configuration.PASSIVE_BOILER_HEATERS_TAG.get()) {
+            if (AllTags.AllBlockTags.PASSIVE_BOILER_HEATERS.matches(state) && BlockHelper.isNotUnheated(state)) {
+                cir.setReturnValue(BlazeBurnerBlock.HeatLevel.SMOULDERING);
+            } else {
+                cir.setReturnValue(BlazeBurnerBlock.HeatLevel.NONE);
+            }
+        } else cir.setReturnValue(BlazeBurnerBlock.HeatLevel.NONE);
 
         cir.cancel();
     }

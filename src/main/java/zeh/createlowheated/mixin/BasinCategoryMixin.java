@@ -32,24 +32,14 @@ public abstract class BasinCategoryMixin {
             int i = 0;
 
             for(ProcessingOutput result : recipe.getRollableResults()) {
-                int xPosition = 142 - (size % 2 != 0 && i == size - 1 ? 0 : (i % 2 == 0 ? 10 : -9));
-                int yPosition = -19 * (i / 2) + 51;
-                ((IRecipeSlotBuilder)builder.addSlot(RecipeIngredientRole.OUTPUT, xPosition, yPosition)
-                        .setBackground(getRenderedSlot(result), -1, -1)
-                        .addItemStack(result.getStack()))
-                        .addRichTooltipCallback(addStochasticTooltip(result));
-                ++i;
-            }
-            for (ProcessingOutput result : recipe.getRollableResults()) {
                 int xPosition = 142 - (size % 2 != 0 && i == size - 1 ? 0 : i % 2 == 0 ? 10 : -9);
                 int yPosition = -19 * (i / 2) + 51;
-
                 builder
                         .addSlot(RecipeIngredientRole.OUTPUT, xPosition, yPosition)
                         .setBackground(getRenderedSlot(result), -1, -1)
                         .addItemStack(result.getStack())
                         .addRichTooltipCallback(addStochasticTooltip(result));
-                i++;
+                ++i;
             }
 
             for (FluidStack fluidResult : recipe.getFluidResults()) {

@@ -9,10 +9,12 @@ public class Configuration {
     public static ForgeConfigSpec COMMON_CONFIG;
 	public static ForgeConfigSpec.IntValue FAN_MULTIPLIER;
 	public static ForgeConfigSpec.IntValue FAN_SPEED_REQUIRED;
+	public static ForgeConfigSpec.BooleanValue FAN_HORIZONTAL_ONLY;
 	public static ForgeConfigSpec.IntValue BASE_MULTIPLIER;
 	public static ForgeConfigSpec.BooleanValue HOT_BURNERS;
 	public static ForgeConfigSpec.BooleanValue IGNORES_FUEL_TAG_WHITELIST;
 	public static ForgeConfigSpec.BooleanValue BASIC_BURNER_BOILER;
+	public static ForgeConfigSpec.BooleanValue PASSIVE_BOILER_HEATERS_TAG;
 
     static {
 
@@ -31,6 +33,9 @@ public class Configuration {
 						"changing the lang file, if you use this and the inaccuracy bothers you.")
 				.define("basicBurnerBoiler", true);
 
+		PASSIVE_BOILER_HEATERS_TAG = COMMON_BUILDER.comment("When set to true, it re-enables all passive heaters.")
+				.define("passiveBoilerHeatersTag", false);
+
 		IGNORES_FUEL_TAG_WHITELIST = COMMON_BUILDER.comment("When set to true, ignores Basic Burner Fuel Item " +
 						"Tag Whitelist, instead accepts anything with a valid BurnTime.")
 				.define("ignoresFuelTagWhitelist", true);
@@ -46,6 +51,9 @@ public class Configuration {
 
 		FAN_SPEED_REQUIRED = COMMON_BUILDER.comment("How much fan speed is needed for the Basic Burner to be empowered.")
 				.defineInRange("fanSpeedRequired", 256, 1, Integer.MAX_VALUE);
+
+		FAN_HORIZONTAL_ONLY = COMMON_BUILDER.comment("Fan direction preference.")
+				.define("fanHorizontalOnly", true);
 
 		COMMON_BUILDER.pop();
 
