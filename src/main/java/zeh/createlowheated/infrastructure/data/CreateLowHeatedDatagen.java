@@ -32,7 +32,7 @@ public class CreateLowHeatedDatagen {
         });
 
         if (event.includeServer()) {
-            LHRecipeGen.registerAll(generator, output, lookupProvider);
+            LHRecipeProvider.registerAllProcessing(generator, output, lookupProvider);
         }
     }
 

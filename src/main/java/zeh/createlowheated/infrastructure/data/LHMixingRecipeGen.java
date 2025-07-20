@@ -2,10 +2,8 @@ package zeh.createlowheated.infrastructure.data;
 
 import com.simibubi.create.AllFluids;
 import com.simibubi.create.AllItems;
-import com.simibubi.create.AllRecipeTypes;
+import com.simibubi.create.api.data.recipe.MixingRecipeGen;
 import com.simibubi.create.content.processing.recipe.HeatCondition;
-import com.simibubi.create.foundation.data.recipe.Mods;
-import com.simibubi.create.foundation.data.recipe.ProcessingRecipeGen;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -25,7 +23,7 @@ import zeh.createlowheated.CreateLowHeated;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
-public class LHMixingRecipeGen extends ProcessingRecipeGen {
+public class LHMixingRecipeGen extends MixingRecipeGen {
 
     public HeatCondition low() {
         return HeatCondition.valueOf("LOWHEATED");
@@ -405,12 +403,7 @@ public class LHMixingRecipeGen extends ProcessingRecipeGen {
             .requiresHeat(low()));
 
     public LHMixingRecipeGen(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
-        super(output, registries);
-    }
-
-    @Override
-    protected AllRecipeTypes getRecipeType() {
-        return AllRecipeTypes.MIXING;
+        super(output, registries, CreateLowHeated.ID);
     }
 
     // TODO: Deprecate this if NeoForge removes melon_slice from the vegetables tag.
