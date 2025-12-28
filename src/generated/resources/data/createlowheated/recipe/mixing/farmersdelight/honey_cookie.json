@@ -12,17 +12,15 @@
       "tag": "c:foods/dough"
     },
     {
-      "type": "fluid_tag",
+      "type": "neoforge:tag",
       "amount": 250,
-      "fluid_tag": "c:honey"
+      "tag": "c:honey"
     }
   ],
   "results": [
     {
       "count": 8,
-      "item": {
-        "id": "farmersdelight:honey_cookie"
-      }
+      "id": "farmersdelight:honey_cookie"
     }
   ]
 }

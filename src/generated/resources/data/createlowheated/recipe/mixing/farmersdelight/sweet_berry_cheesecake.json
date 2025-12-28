@@ -30,17 +30,15 @@
       "item": "farmersdelight:pie_crust"
     },
     {
-      "type": "fluid_tag",
+      "type": "neoforge:tag",
       "amount": 500,
-      "fluid_tag": "c:milk"
+      "tag": "c:milk"
     }
   ],
   "results": [
     {
       "count": 8,
-      "item": {
-        "id": "farmersdelight:sweet_berry_cheesecake"
-      }
+      "id": "farmersdelight:sweet_berry_cheesecake"
     }
   ]
 }

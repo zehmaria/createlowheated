@@ -15,17 +15,15 @@
       "item": "farmersdelight:beef_patty"
     },
     {
-      "type": "fluid_tag",
+      "type": "neoforge:tag",
       "amount": 250,
-      "fluid_tag": "c:milk"
+      "tag": "c:milk"
     }
   ],
   "results": [
     {
       "count": 8,
-      "item": {
-        "id": "farmersdelight:stuffed_potato"
-      }
+      "id": "farmersdelight:stuffed_potato"
     }
   ]
 }

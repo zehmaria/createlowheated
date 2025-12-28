@@ -3,21 +3,28 @@ package zeh.createlowheated.content.processing.basicburner;
 import java.util.List;
 
 import com.simibubi.create.AllBlocks;
+import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.fluids.tank.FluidTankBlock;
 import com.simibubi.create.content.kinetics.belt.behaviour.DirectBeltInputBehaviour;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.item.ItemHelper;
 
+import com.simibubi.create.foundation.utility.CreateLang;
 import net.createmod.catnip.math.VecHelper;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.Clearable;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -31,7 +38,7 @@ import zeh.createlowheated.AllBlockEntityTypes;
 import zeh.createlowheated.AllTags;
 import zeh.createlowheated.common.Configuration;
 
-public class BasicBurnerBlockEntity extends SmartBlockEntity {
+public class BasicBurnerBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation {
 
     public static final int MAX_HEAT_CAPACITY = 4000;
     public static final int INSERTION_THRESHOLD = 400;
@@ -112,8 +119,12 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity {
         ItemStack stackInSlot = inputInv.getStackInSlot(0);
 
         if (tryUpdateFuel(stackInSlot, false, false)) {
-            stackInSlot.shrink(1);
-            inputInv.setStackInSlot(0, stackInSlot);
+            if (stackInSlot.hasCraftingRemainingItem()) {
+                inputInv.setStackInSlot(0, stackInSlot.getCraftingRemainingItem());
+            } else {
+                stackInSlot.shrink(1);
+                inputInv.setStackInSlot(0, stackInSlot);
+            }
 
             if (remainingBurnTime > 0 && !getBlockState().getValue(BasicBurnerBlock.FUELED)) {
                 level.setBlockAndUpdate(worldPosition, getBlockState()
@@ -301,6 +312,28 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity {
         boolean tagged = !stack.is(AllTags.AllItemTags.BASIC_BURNER_FUEL_BLACKLIST.tag)
                 && (stack.is(AllTags.AllItemTags.BASIC_BURNER_FUEL_WHITELIST.tag) || Configuration.IGNORES_FUEL_TAG_WHITELIST.get());
         return burnTime > 0 && tagged && inputInv.isItemValid(0, stack);
+    }
+
+    @Override
+    public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+
+        if (inputInv == null) inputInv = new ItemStackHandler();
+        boolean isEmpty = false;
+        ItemStack stackInSlot = inputInv.getStackInSlot(0);
+        if (stackInSlot.isEmpty()) isEmpty = true;
+
+        if (!isEmpty) {
+            CreateLang.translate("addon.basicburner.burner_contents")
+                    .forGoggles(tooltip);
+            CreateLang.text("")
+                    .add(Component.translatable(stackInSlot.getDescriptionId())
+                            .withStyle(ChatFormatting.GRAY))
+                    .add(CreateLang.text(" x" + stackInSlot.getCount())
+                            .style(ChatFormatting.GREEN))
+                    .forGoggles(tooltip, 1);
+        }
+
+        return !isEmpty;
     }
 
     public enum FuelType { NONE, NORMAL }

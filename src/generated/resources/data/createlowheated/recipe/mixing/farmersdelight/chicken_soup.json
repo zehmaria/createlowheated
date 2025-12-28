@@ -30,16 +30,14 @@
       }
     },
     {
-      "type": "fluid_stack",
+      "type": "neoforge:single",
       "amount": 250,
       "fluid": "minecraft:water"
     }
   ],
   "results": [
     {
-      "item": {
-        "id": "farmersdelight:chicken_soup"
-      }
+      "id": "farmersdelight:chicken_soup"
     }
   ]
 }

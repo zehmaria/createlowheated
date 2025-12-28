@@ -65,7 +65,7 @@ public class AllTags {
     }
 
     public enum AllBlockTags {
-
+        LOWHEAT_BOILER_HEATERS
         ;
         public final TagKey<Block> tag;
         public final boolean alwaysDatagen;
@@ -118,7 +118,6 @@ public class AllTags {
     public enum AllItemTags {
         BASIC_BURNER_FUEL_WHITELIST,
         BASIC_BURNER_FUEL_BLACKLIST,
-        DELIGHT_INCLUDED,
         BURNER_STARTERS
         ;
 

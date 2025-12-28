@@ -33,16 +33,14 @@
       }
     },
     {
-      "type": "fluid_stack",
+      "type": "neoforge:single",
       "amount": 250,
       "fluid": "minecraft:water"
     }
   ],
   "results": [
     {
-      "item": {
-        "id": "farmersdelight:vegetable_noodles"
-      }
+      "id": "farmersdelight:vegetable_noodles"
     }
   ]
 }

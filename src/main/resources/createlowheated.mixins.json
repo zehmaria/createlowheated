@@ -11,7 +11,8 @@
 		"HeatLevelMixin",
 		"EncasedFanBlockEntityMixin",
 		"BasinCategoryMixin",
-		"MixingCategoryMixin"
+		"MixingCategoryMixin",
+        "CreateAdditionMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

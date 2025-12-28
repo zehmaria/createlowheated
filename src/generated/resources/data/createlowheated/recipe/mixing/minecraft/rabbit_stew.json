@@ -18,16 +18,14 @@
       "tag": "c:mushrooms"
     },
     {
-      "type": "fluid_stack",
+      "type": "neoforge:single",
       "amount": 250,
       "fluid": "minecraft:water"
     }
   ],
   "results": [
     {
-      "item": {
-        "id": "minecraft:rabbit_stew"
-      }
+      "id": "minecraft:rabbit_stew"
     }
   ]
 }

@@ -24,16 +24,14 @@
       "tag": "c:foods/leafy_green"
     },
     {
-      "type": "fluid_stack",
+      "type": "neoforge:single",
       "amount": 250,
       "fluid": "minecraft:water"
     }
   ],
   "results": [
     {
-      "item": {
-        "id": "farmersdelight:vegetable_soup"
-      }
+      "id": "farmersdelight:vegetable_soup"
     }
   ]
 }

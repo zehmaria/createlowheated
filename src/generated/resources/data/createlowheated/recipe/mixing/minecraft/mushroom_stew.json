@@ -12,16 +12,14 @@
       "tag": "c:mushrooms"
     },
     {
-      "type": "fluid_stack",
+      "type": "neoforge:single",
       "amount": 250,
       "fluid": "minecraft:water"
     }
   ],
   "results": [
     {
-      "item": {
-        "id": "minecraft:mushroom_stew"
-      }
+      "id": "minecraft:mushroom_stew"
     }
   ]
 }

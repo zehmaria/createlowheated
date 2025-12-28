@@ -86,7 +86,8 @@ configurations {
 }
 
 repositories {
-    maven { url = "https://mvn.devos.one/snapshots" } // Registrate
+    //maven { url = "https://mvn.devos.one/snapshots" } // Registrate
+    maven { url = "https://maven.ithundxr.dev/snapshots" } // Registrate
     maven { url = "https://maven.createmod.net" } // Ponder, Flywheel
     maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven" } // NeoForge config api port, needed by ponder
     maven { url = "https://maven.blamejared.com" } // JEI, Vazkii's Mods
@@ -98,43 +99,52 @@ repositories {
         url "https://maven.latvian.dev/releases"
         content {
             includeGroup "dev.latvian.mods"
+            includeGroup "dev.latvian.apps"
         }
     }
+    maven {
+        name 'JitPack'
+        url 'https://jitpack.io'
+        content {
+            includeGroupByRegex '(io|com)\\.github\\..*'
+        }
+    }
+
 }
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
 
     implementation("com.tterrag.registrate:Registrate:${registrate_version}")
-    implementation("dev.engine-room.flywheel:flywheel-neoforge-${flywheel_minecraft_version}:${flywheel_version}")
-    implementation("net.createmod.ponder:Ponder-NeoForge-${ponder_minecraft_version}:${ponder_version}")
-    implementation("com.simibubi.create:create-${create_minecraft_version}:${create_version}-${create_version_suffix}:slim") { transitive = false }
+    implementation("dev.engine-room.flywheel:flywheel-neoforge-${minecraft_version}:${flywheel_version}")
+    implementation("net.createmod.ponder:ponder-neoforge:${ponder_version}+mc${minecraft_version}")
+    implementation("com.simibubi.create:create-${minecraft_version}:${create_version}-${create_version_suffix}:slim") { transitive = false }
 
-    compileOnly("mezz.jei:jei-${jei_minecraft_version}-common-api:${jei_version}")
-    compileOnly("mezz.jei:jei-${jei_minecraft_version}-neoforge-api:${jei_version}")
-    runtimeOnly("mezz.jei:jei-${jei_minecraft_version}-neoforge:${jei_version}")
+    compileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
+    compileOnly("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
+    runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
 
-    compileOnly("top.theillusivec4.curios:curios-neoforge:${curios_version}+${curios_minecraft_version}:api")
-    runtimeOnly("top.theillusivec4.curios:curios-neoforge:${curios_version}+${curios_minecraft_version}")
+    compileOnly("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}:api")
+    runtimeOnly("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}")
 
     // Farmer's Delight
     compileOnly("curse.maven:farmers-delight-398521:${farmersdelight_version}")
     runtimeOnly("curse.maven:farmers-delight-398521:${farmersdelight_version}")
 
-    //implementation("dev.latvian.mods:kubejs-create-forge:${kubejs_create_version}")
-    //implementation fg.deobf("dev.latvian.mods:kubejs-forge:${kubejs_version}")
-    //implementation fg.deobf("dev.architectury:architectury-forge:${architectury_version}")
-    //implementation fg.deobf("dev.latvian.mods:rhino-forge:${rhino_version}")
+    // Create's Crafts & Additions
+    compileOnly("curse.maven:createaddition-439890:${createaddition_Version}")
+    runtimeOnly("curse.maven:createaddition-439890:${createaddition_Version}")
+
+    //implementation("dev.latvian.mods:kubejs-create-neoforge:${kubejs_create_version}")
+    //api("dev.latvian.mods:kubejs-neoforge:$kubejs_version")
+    //interfaceInjectionData("dev.latvian.mods:kubejs-neoforge:$kubejs_version")
 
 }
 
 tasks.withType(ProcessResources).configureEach {
     var replaceProperties = [
             minecraft_version      : minecraft_version,
-            minecraft_version_range: minecraft_version_range,
             neo_version            : neo_version,
-            neo_version_range      : neo_version_range,
             "create_version_range" : create_version_range,
-            loader_version_range   : loader_version_range,
             mod_id                 : mod_id,
             mod_name               : mod_name,
             mod_license            : mod_license,

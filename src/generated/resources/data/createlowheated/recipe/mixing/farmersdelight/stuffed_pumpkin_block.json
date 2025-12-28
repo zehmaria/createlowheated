@@ -36,16 +36,14 @@
       }
     },
     {
-      "type": "fluid_stack",
+      "type": "neoforge:single",
       "amount": 100,
       "fluid": "minecraft:water"
     }
   ],
   "results": [
     {
-      "item": {
-        "id": "farmersdelight:stuffed_pumpkin_block"
-      }
+      "id": "farmersdelight:stuffed_pumpkin_block"
     }
   ]
 }

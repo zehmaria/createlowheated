@@ -21,16 +21,14 @@
       "item": "minecraft:sugar"
     },
     {
-      "type": "fluid_tag",
+      "type": "neoforge:tag",
       "amount": 250,
-      "fluid_tag": "c:milk"
+      "tag": "c:milk"
     }
   ],
   "results": [
     {
-      "item": {
-        "id": "farmersdelight:glow_berry_custard"
-      }
+      "id": "farmersdelight:glow_berry_custard"
     }
   ]
 }

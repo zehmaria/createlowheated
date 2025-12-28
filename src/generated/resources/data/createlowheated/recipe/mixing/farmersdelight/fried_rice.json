@@ -24,16 +24,14 @@
       "tag": "c:crops/onion"
     },
     {
-      "type": "fluid_stack",
+      "type": "neoforge:single",
       "amount": 100,
       "fluid": "minecraft:water"
     }
   ],
   "results": [
     {
-      "item": {
-        "id": "farmersdelight:fried_rice"
-      }
+      "id": "farmersdelight:fried_rice"
     }
   ]
 }
