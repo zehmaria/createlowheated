@@ -8,6 +8,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluid;
 import zeh.createlowheated.AllTags.AllBlockTags;
 import zeh.createlowheated.AllTags.AllItemTags;
@@ -26,6 +27,8 @@ public class CreateLowHeatedRegistrateTags {
     private static void genBlockTags(RegistrateTagsProvider<Block> provIn) {
         CreateTagsProvider<Block> prov = new CreateTagsProvider<>(provIn, Block::builtInRegistryHolder);
 
+        //prov.tag(AllBlockTags.LOWHEAT_RECIPE_HEATERS.tag).add(Blocks.CAMPFIRE);
+
         // COMPAT
 
         // VALIDATE
@@ -40,8 +43,7 @@ public class CreateLowHeatedRegistrateTags {
     private static void genItemTags(RegistrateTagsProvider<Item> provIn) {
         CreateTagsProvider<Item> prov = new CreateTagsProvider<>(provIn, Item::builtInRegistryHolder);
         prov.tag(AllItemTags.BASIC_BURNER_FUEL_WHITELIST.tag).add(Items.CHARCOAL);
-        prov.tag(AllItemTags.BASIC_BURNER_FUEL_BLACKLIST.tag).add(Items.LAVA_BUCKET);
-        prov.tag(AllItemTags.DELIGHT_INCLUDED.tag).add(Items.BEDROCK);
+        //prov.tag(AllItemTags.BASIC_BURNER_FUEL_BLACKLIST.tag).add(Items.LAVA_BUCKET);
         prov.tag(AllItemTags.BURNER_STARTERS.tag).add(Items.FLINT_AND_STEEL);
 
         // COMPAT

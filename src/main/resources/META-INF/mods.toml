@@ -12,19 +12,19 @@ displayName="Create Low-Heated"
 authors="zeh_maria"
 description="Active fueled low-heat alternative for processing and steam engine."
 
-[[dependencies.createpickywheels]]
+[[dependencies.createlowheated]]
 modId="forge"
 mandatory=true
 versionRange="[47.0.0,)"
 ordering="NONE"
 side="BOTH"
-[[dependencies.createpickywheels]]
+[[dependencies.createlowheated]]
 modId="create"
 mandatory=true
 versionRange="[6.0.0,)"
 ordering="NONE"
 side="BOTH"
-[[dependencies.createpickywheels]]
+[[dependencies.createlowheated]]
 modId="minecraft"
 mandatory=true
 versionRange="[1.20,1.21)"

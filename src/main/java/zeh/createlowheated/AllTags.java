@@ -1,6 +1,5 @@
 package zeh.createlowheated;
 
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
@@ -66,7 +65,7 @@ public class AllTags {
     }
 
     public enum AllBlockTags {
-
+        LOWHEAT_RECIPE_HEATERS
         ;
         public final TagKey<Block> tag;
         public final boolean alwaysDatagen;
@@ -119,7 +118,6 @@ public class AllTags {
     public enum AllItemTags {
         BASIC_BURNER_FUEL_WHITELIST,
         BASIC_BURNER_FUEL_BLACKLIST,
-        DELIGHT_INCLUDED,
         BURNER_STARTERS
         ;
 

@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import zeh.createlowheated.CreateLowHeated;
 import zeh.createlowheated.common.Configuration;
 import zeh.createlowheated.content.processing.basicburner.BasicBurnerBlock;
 
@@ -19,6 +20,11 @@ public class BasinBlockEntityMixin {
     private static void getHeatLevelOfMixin(BlockState state, CallbackInfoReturnable<BlazeBurnerBlock.HeatLevel> cir) {
         if (state.hasProperty(BasicBurnerBlock.HEAT_LEVEL)) {
             cir.setReturnValue(state.getValue(BasicBurnerBlock.HEAT_LEVEL));
+            return;
+        }
+
+        if(zeh.createlowheated.AllTags.AllBlockTags.LOWHEAT_RECIPE_HEATERS.matches(state) && BlockHelper.isNotUnheated(state)) {
+            cir.setReturnValue(BlazeBurnerBlock.HeatLevel.valueOf("LOW"));
             return;
         }
 
