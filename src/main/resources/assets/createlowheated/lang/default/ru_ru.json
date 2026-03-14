@@ -7,7 +7,7 @@
   "block.createlowheated.basic_burner.tooltip.condition1": "Требует топливо",
   "block.createlowheated.basic_burner.tooltip.condition2": "Требует Огниво",
   "block.createlowheated.basic_burner.tooltip.condition3": "Усиленная горелка",
-  "block.createlowheated.basic_burner.tooltip.summary": "Предоставляет _жар_ для _рецептов с Чашей_, _Парового двигателя_ и т.д.",
+  "block.createlowheated.basic_burner.tooltip.summary": "Предоставляет _жар_ для _рецептов с Чашей_ и _Парового двигателя_.",
   "create.addon.basicburner.burner_contents": "Содержимое горелки:",
   "create.recipe.heat_requirement.lowheated": "Low-Heated",
   "itemGroup.createlowheated.base": "Create Low-Heated"
