@@ -1,0 +1,14 @@
+{
+  "block.createlowheated.basic_burner": "Горелка",
+  "block.createlowheated.basic_burner.tooltip": "Горелка",
+  "block.createlowheated.basic_burner.tooltip.behaviour1": "Кликните ПКМ по ней _Топливом_ или используйте _Шлюз/Автономный активатор/Механическую руку_.",
+  "block.createlowheated.basic_burner.tooltip.behaviour2": "Чтобы запустить _огонь_, кликните по горелке ПКМ с _Огнивом_ в руке. Огонь будет сохранятся, пока горелка заправлена.",
+  "block.createlowheated.basic_burner.tooltip.behaviour3": "Может быть усилена с помощью вентилятора с максимальной скоростью вращения.",
+  "block.createlowheated.basic_burner.tooltip.condition1": "Требует топливо",
+  "block.createlowheated.basic_burner.tooltip.condition2": "Требует Огниво",
+  "block.createlowheated.basic_burner.tooltip.condition3": "Усиленная горелка",
+  "block.createlowheated.basic_burner.tooltip.summary": "Предоставляет _жар_ для _рецептов с Чашей_, _Парового двигателя_ и т.д.",
+  "create.addon.basicburner.burner_contents": "Содержимое горелки:",
+  "create.recipe.heat_requirement.lowheated": "Low-Heated",
+  "itemGroup.createlowheated.base": "Create Low-Heated"
+}
