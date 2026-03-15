@@ -22,7 +22,7 @@ public class BasinBlockEntityMixin {
             return;
         }
 
-        if(state.is(zeh.createlowheated.AllTags.AllBlockTags.LOWHEAT_BOILER_HEATERS.tag) && BlockHelper.isNotUnheated(state)) {
+        if(zeh.createlowheated.AllTags.AllBlockTags.LOWHEAT_RECIPE_HEATERS.matches(state) && BlockHelper.isNotUnheated(state)) {
             cir.setReturnValue(BlazeBurnerBlock.HeatLevel.valueOf("LOW"));
             return;
         }

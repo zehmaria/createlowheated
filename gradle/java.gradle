@@ -30,7 +30,7 @@ tasks.withType(JavaCompile).configureEach {
 // metadata includes mapped dependencies which are not reasonably consumable by
 // other mod developers.
 tasks.withType(GenerateModuleMetadata) {
-	enabled = false
+    enabled = false
 }
 
 javadoc {

@@ -65,7 +65,7 @@ public class AllTags {
     }
 
     public enum AllBlockTags {
-        LOWHEAT_BOILER_HEATERS
+        LOWHEAT_RECIPE_HEATERS
         ;
         public final TagKey<Block> tag;
         public final boolean alwaysDatagen;

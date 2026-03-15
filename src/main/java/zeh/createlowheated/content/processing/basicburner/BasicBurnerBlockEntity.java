@@ -129,8 +129,8 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity implements IHaveGog
             if (remainingBurnTime > 0 && !getBlockState().getValue(BasicBurnerBlock.FUELED)) {
                 level.setBlockAndUpdate(worldPosition, getBlockState()
                         .setValue(BasicBurnerBlock.FUELED, true));
-                notifyUpdate();
             }
+            notifyUpdate();
         }
     }
 
