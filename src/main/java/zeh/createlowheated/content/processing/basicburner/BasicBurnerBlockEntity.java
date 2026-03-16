@@ -21,10 +21,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.Clearable;
-import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -75,6 +72,15 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity implements IHaveGog
 
     public int getRemainingBurnTime() {
         return remainingBurnTime;
+    }
+    public int getFanMultiplier() {
+        return fanMultiplier;
+    }
+    public int getBaseMultiplier() {
+        return baseMultiplier;
+    }
+    public boolean getHotBurners() {
+        return hotBurners;
     }
 
     public void setEmpowered(boolean value) {
@@ -321,7 +327,9 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity implements IHaveGog
         boolean isEmpty = false;
         ItemStack stackInSlot = inputInv.getStackInSlot(0);
         if (stackInSlot.isEmpty()) isEmpty = true;
-
+        if (remainingBurnTime > 0) {
+            CreateLang.translate(getHeatLevelKey().substring(7)).style(ChatFormatting.YELLOW).forGoggles(tooltip);
+        }
         if (!isEmpty) {
             CreateLang.translate("addon.basicburner.burner_contents")
                     .forGoggles(tooltip);
@@ -334,6 +342,12 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity implements IHaveGog
         }
 
         return !isEmpty;
+    }
+
+    public String getHeatLevelKey() {
+        return "create.recipe.heat_requirement." +
+                (hotBurners ? (getEmpoweredFromBlock() ? "superheated" : "heated") :
+                        (getEmpoweredFromBlock() ? "heated" : "lowheated"));
     }
 
     public enum FuelType { NONE, NORMAL }

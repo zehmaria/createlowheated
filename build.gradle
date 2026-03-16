@@ -139,6 +139,14 @@ dependencies {
     compileOnly("curse.maven:createaddition-439890:${createaddition_Version}")
     runtimeOnly("curse.maven:createaddition-439890:${createaddition_Version}")
 
+    // Jade
+    compileOnly("curse.maven:jade-324717:${jade_neoforge_id}")
+    runtimeOnly("curse.maven:jade-324717:${jade_neoforge_id}")
+
+    // The One Probe
+    compileOnly("curse.maven:the-one-probe-245211:${top_neoforge_id}")
+    runtimeOnly("curse.maven:the-one-probe-245211:${top_neoforge_id}")
+
     //implementation("dev.latvian.mods:kubejs-create-neoforge:${kubejs_create_version}")
     //api("dev.latvian.mods:kubejs-neoforge:$kubejs_version")
     //interfaceInjectionData("dev.latvian.mods:kubejs-neoforge:$kubejs_version")
@@ -149,7 +157,7 @@ tasks.withType(ProcessResources).configureEach {
     var replaceProperties = [
             minecraft_version      : minecraft_version,
             neo_version            : neo_version,
-            "create_version_range" : create_version_range,
+            create_version_range   : create_version_range,
             mod_id                 : mod_id,
             mod_name               : mod_name,
             mod_license            : mod_license,

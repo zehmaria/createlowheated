@@ -11,6 +11,7 @@ import net.createmod.catnip.lang.FontHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
@@ -19,6 +20,7 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import org.slf4j.Logger;
 import zeh.createlowheated.common.Configuration;
+import zeh.createlowheated.compat.TOPCompat;
 import zeh.createlowheated.infrastructure.data.CreateLowHeatedDatagen;
 import zeh.createlowheated.infrastructure.data.LHRegistrate;
 
@@ -56,6 +58,11 @@ public class CreateLowHeated {
         modContainer.registerConfig(ModConfig.Type.COMMON, Configuration.COMMON_CONFIG);
 
         modEventBus.addListener(CreateLowHeated::onRegister);
+
+        //The One Probe registration.
+        if (ModList.get().isLoaded("theoneprobe")) {
+            TOPCompat.register();
+        }
     }
 
     public static void onRegister(final RegisterEvent event) {

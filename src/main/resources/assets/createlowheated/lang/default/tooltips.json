@@ -8,5 +8,6 @@
 	"block.createlowheated.basic_burner.tooltip.condition3": "Empowered Burner",
 	"block.createlowheated.basic_burner.tooltip.behaviour3": "Can be empowered by using a Max-RPM fan against it.",
 	"itemGroup.createlowheated.base": "Create Low-Heated",
-    "create.addon.basicburner.burner_contents": "Basic Burner Contents:"
+    "create.addon.basicburner.burner_contents": "Basic Burner Contents:",
+	"config.jade.plugin_createlowheated.basic_burner_info": "Show remaining burn time"
 }
