@@ -130,12 +130,21 @@ dependencies {
 
     modImplementation("dev.latvian.mods:kubejs-create-forge:${kubejs_create_version}")
     modImplementation("dev.latvian.mods:kubejs-forge:${kubejs_version}")
-    modImplementation("dev.architectury:architectury-forge:${architectury_version}")
+    //modImplementation("dev.architectury:architectury-forge:${architectury_version}")
+    modImplementation("curse.maven:architectury-api-419699:5137938")
     modImplementation("dev.latvian.mods:rhino-forge:${rhino_version}")
 
     // Create's Crafts & Additions
     modCompileOnly("curse.maven:createaddition-439890:${createaddition_version}")
     modRuntimeOnly("curse.maven:createaddition-439890:${createaddition_version}")
+
+    // Jade
+    modCompileOnly("curse.maven:jade-324717:${jade_neoforge_id}")
+    modRuntimeOnly("curse.maven:jade-324717:${jade_neoforge_id}")
+
+    // The One Probe
+    modCompileOnly("curse.maven:the-one-probe-245211:${top_neoforge_id}")
+    modRuntimeOnly("curse.maven:the-one-probe-245211:${top_neoforge_id}")
 
     if (!Boolean.getBoolean("idea.sync.active")) {
         annotationProcessor "org.spongepowered:mixin:0.8.5:processor"

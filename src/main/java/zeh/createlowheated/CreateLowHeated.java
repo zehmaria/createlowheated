@@ -10,6 +10,7 @@ import com.simibubi.create.foundation.item.TooltipModifier;
 
 import net.createmod.catnip.lang.FontHelper;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -23,6 +24,7 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.registries.RegisterEvent;
 import org.slf4j.Logger;
 import zeh.createlowheated.common.Configuration;
+import zeh.createlowheated.compat.TOPCompat;
 import zeh.createlowheated.infrastructure.data.CreateLowHeatedDatagen;
 
 @Mod(zeh.createlowheated.CreateLowHeated.ID)
@@ -64,6 +66,11 @@ public class CreateLowHeated {
         modEventBus.addListener(CreateLowHeated::init);
         modEventBus.addListener(CreateLowHeated::onRegister);
         modEventBus.addListener(EventPriority.LOWEST, CreateLowHeatedDatagen::gatherData);
+
+        //The One Probe registration.
+        if (ModList.get().isLoaded("theoneprobe")) {
+            TOPCompat.register();
+        }
     }
 
     public static void onRegister(final RegisterEvent event) {

@@ -74,6 +74,9 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity implements IHaveGog
     public int getRemainingBurnTime() {
         return remainingBurnTime;
     }
+    public int getFanMultiplier() { return fanMultiplier; }
+    public int getBaseMultiplier() { return baseMultiplier; }
+    public boolean getHotBurners() { return hotBurners; }
 
     public void setEmpowered(boolean value) {
         if (getEmpoweredFromBlock() == value) return;
@@ -319,6 +322,10 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity implements IHaveGog
         ItemStack stackInSlot = inputInv.getStackInSlot(0);
         if (stackInSlot.isEmpty()) isEmpty = true;
 
+        if (remainingBurnTime > 0) {
+            CreateLang.translate(getHeatLevelKey().substring(7)).style(ChatFormatting.YELLOW).forGoggles(tooltip);
+        }
+
         if (!isEmpty) {
             CreateLang.translate("addon.basicburner.burner_contents")
                     .forGoggles(tooltip);
@@ -331,6 +338,12 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity implements IHaveGog
         }
 
         return !isEmpty;
+    }
+
+    public String getHeatLevelKey() {
+        return "create.recipe.heat_requirement." +
+                (hotBurners ? (getEmpoweredFromBlock() ? "superheated" : "heated") :
+                        (getEmpoweredFromBlock() ? "heated" : "lowheated"));
     }
 
     public enum FuelType { NONE, NORMAL }
