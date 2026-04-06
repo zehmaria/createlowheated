@@ -13,6 +13,7 @@ public class Configuration {
 	public static ModConfigSpec.BooleanValue IGNORES_FUEL_TAG_WHITELIST;
 	public static ModConfigSpec.BooleanValue BASIC_BURNER_BOILER;
 	public static ModConfigSpec.BooleanValue PASSIVE_BOILER_HEATERS_TAG;
+	public static ModConfigSpec.BooleanValue DISPENSER_BURNER;
 
 	static {
 
@@ -52,6 +53,9 @@ public class Configuration {
 
 		FAN_HORIZONTAL_ONLY = COMMON_BUILDER.comment("Fan direction preference.")
 				.define("fanHorizontalOnly", true);
+
+		DISPENSER_BURNER = COMMON_BUILDER.comment("Dispenser interacts with burner.")
+				.define("dispenserBurner", true);
 
 		COMMON_BUILDER.pop();
 
