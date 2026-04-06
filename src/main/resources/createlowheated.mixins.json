@@ -4,6 +4,7 @@
 	"priority": 2000,
 	"package": "zeh.createlowheated.mixin",
 	"compatibilityLevel": "JAVA_17",
+	"refmap": "createlowheated.refmap.json",
 	"mixins": [
 		"BasinBlockEntityMixin",
 		"BoilerHeatersMixin",
@@ -13,7 +14,8 @@
 		"BasinCategoryMixin",
 		"MixingCategoryMixin",
 		"ProcessingRecipeSchemaMixin",
-        "CreateAdditionMixin"
+        "CreateAdditionMixin",
+		"DispenserBlockMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

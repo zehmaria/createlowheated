@@ -15,6 +15,7 @@ public class Configuration {
 	public static ForgeConfigSpec.BooleanValue IGNORES_FUEL_TAG_WHITELIST;
 	public static ForgeConfigSpec.BooleanValue BASIC_BURNER_BOILER;
 	public static ForgeConfigSpec.BooleanValue PASSIVE_BOILER_HEATERS_TAG;
+	public static ForgeConfigSpec.BooleanValue DISPENSER_BURNER;
 
     static {
 
@@ -54,6 +55,9 @@ public class Configuration {
 
 		FAN_HORIZONTAL_ONLY = COMMON_BUILDER.comment("Fan direction preference.")
 				.define("fanHorizontalOnly", true);
+
+		DISPENSER_BURNER = COMMON_BUILDER.comment("Dispenser interacts with burner.")
+				.define("dispenserBurner", true);
 
 		COMMON_BUILDER.pop();
 

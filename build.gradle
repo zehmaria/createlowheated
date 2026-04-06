@@ -10,7 +10,7 @@ plugins {
 }
 
 apply(from: "./gradle/java.gradle")
-//apply(from: "gradle/property_loader.gradle")
+apply(from: "gradle/property_loader.gradle")
 
 base {
     group = mod_author + '.' + mod_id
@@ -38,6 +38,7 @@ legacyForge {
 
     // TODO - Try turning this on later
     validateAccessTransformers = false
+    accessTransformers.from "src/main/resources/META-INF/accesstransformer.cfg"
 
     parchment {
         minecraftVersion = minecraft_version
