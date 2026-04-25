@@ -10,6 +10,7 @@ public class Configuration {
 	public static ModConfigSpec.BooleanValue FAN_HORIZONTAL_ONLY;
 	public static ModConfigSpec.IntValue BASE_MULTIPLIER;
 	public static ModConfigSpec.BooleanValue HOT_BURNERS;
+	public static ModConfigSpec.BooleanValue IGNORES_BURNER_STARTERS;
 	public static ModConfigSpec.BooleanValue IGNORES_FUEL_TAG_WHITELIST;
 	public static ModConfigSpec.BooleanValue BASIC_BURNER_BOILER;
 	public static ModConfigSpec.BooleanValue PASSIVE_BOILER_HEATERS_TAG;
@@ -39,12 +40,15 @@ public class Configuration {
 						"Tag Whitelist, instead accepts anything with a valid BurnTime.")
 				.define("ignoresFuelTagWhitelist", true);
 
+		IGNORES_BURNER_STARTERS = COMMON_BUILDER.comment("When set to true, basic burners lit up whenever fuel is inserted," +
+						"Ignoring the burner starters item tag requirement.")
+				.define("ignoresBurnerStarters", false);
 		
 		BASE_MULTIPLIER = COMMON_BUILDER.comment("How much more fuel a non-empowered Basic Burner consumes. " +
 						"Use fanMultiplier for fan-empowered burners. Intended for use with the hotBurners option, " +
 						"the default value of 1 is recommended otherwise.")
 				.defineInRange("baseMultiplier", 1, 1, Integer.MAX_VALUE);
-		
+
 		FAN_MULTIPLIER = COMMON_BUILDER.comment("How much more fuel a Basic Burner consumes when empowered by an encased fan.")
 				.defineInRange("fanMultiplier", 32, 1, Integer.MAX_VALUE);
 
