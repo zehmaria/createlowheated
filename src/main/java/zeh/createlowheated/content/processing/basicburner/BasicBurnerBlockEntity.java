@@ -3,6 +3,7 @@ package zeh.createlowheated.content.processing.basicburner;
 import java.util.List;
 
 import com.simibubi.create.AllBlocks;
+import com.simibubi.create.Create;
 import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.fluids.tank.FluidTankBlock;
 import com.simibubi.create.content.kinetics.belt.behaviour.DirectBeltInputBehaviour;
@@ -21,6 +22,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -381,7 +383,13 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity implements IHaveGog
             if (!inputInv.getStackInSlot(0).isEmpty() && !stack.is(inputInv.getStackInSlot(0).getItem())) return stack;
             if (!isItemValid(slot, stack)) return stack;
             ItemStack remainder = inputInv.insertItem(slot, stack, simulate);
-            if (!simulate && remainder != stack) notifyUpdate();
+            if (!simulate && remainder != stack) {
+                if (!inputInv.getStackInSlot(0).isEmpty() && !getBlockState().getValue(BasicBurnerBlock.LIT) && Configuration.IGNORES_BURNER_STARTERS.get()) {
+                    level.playSound(null, getBlockPos(), SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.4F + 0.8F);
+                    if (!level.isClientSide) level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(BasicBurnerBlock.LIT, true));
+                }
+                notifyUpdate();
+            }
             return remainder;
         }
 

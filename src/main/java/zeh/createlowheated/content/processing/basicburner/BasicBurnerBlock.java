@@ -142,12 +142,6 @@ public class BasicBurnerBlock extends HorizontalDirectionalBlock implements IBE<
             AllSoundEvents.DEPOT_SLIDE.playOnServer(world, pos);
         }
 
-        if (!burnerBE.inputInv.getStackInSlot(0).isEmpty() && !state.getValue(LIT) && Configuration.IGNORES_BURNER_STARTERS.get()) {
-            world.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, world.random.nextFloat() * 0.4F + 0.8F);
-            if (world.isClientSide) return InteractionResult.SUCCESS;
-            world.setBlockAndUpdate(pos, state.setValue(BasicBurnerBlock.LIT, true));
-        }
-
         burnerBE.notifyUpdate();
         return InteractionResult.SUCCESS;
     }
