@@ -14,6 +14,7 @@ import com.simibubi.create.foundation.utility.CreateLang;
 import net.createmod.catnip.math.VecHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -83,9 +84,15 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity implements IHaveGog
         return hotBurners;
     }
 
-    public void setEmpowered(boolean value) {
-        if (getEmpoweredFromBlock() == value) return;
-        level.setBlockAndUpdate(worldPosition, getBlockState().setValue(BasicBurnerBlock.EMPOWERED, value));
+    public void setEmpowered(boolean value, Direction direction) {
+        int dunswe = this.getBlockState().getValue(BasicBurnerBlock.DUNSWE);
+        int mask = 0B100000 >> direction.ordinal();
+        if (value) {dunswe = dunswe | mask;}
+        else {dunswe = dunswe & (~mask);}
+        boolean empowered = (dunswe != 0);
+        if (Configuration.FAN_HORIZONTAL_ONLY.get()) {empowered = ((dunswe & 0B001111) != 0);}
+        level.setBlockAndUpdate(worldPosition, getBlockState().setValue(BasicBurnerBlock.EMPOWERED, empowered));
+        level.setBlockAndUpdate(worldPosition, getBlockState().setValue(BasicBurnerBlock.DUNSWE, dunswe));
         notifyUpdate();
     }
 
