@@ -383,7 +383,13 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity implements IHaveGog
             if (!inputInv.getStackInSlot(0).isEmpty() && !stack.is(inputInv.getStackInSlot(0).getItem())) return stack;
             if (!isItemValid(slot, stack)) return stack;
             ItemStack remainder = inputInv.insertItem(slot, stack, simulate);
-            if (!simulate && remainder != stack) notifyUpdate();
+            if (!simulate && remainder != stack) {
+                if (!inputInv.getStackInSlot(0).isEmpty() && !getBlockState().getValue(BasicBurnerBlock.LIT) && Configuration.IGNORES_BURNER_STARTERS.get()) {
+                    level.playSound(null, getBlockPos(), SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.4F + 0.8F);
+                    if (!level.isClientSide) level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(BasicBurnerBlock.LIT, true));
+                }
+                notifyUpdate();
+            }
             return remainder;
         }
 
