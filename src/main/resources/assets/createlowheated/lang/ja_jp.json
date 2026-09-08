@@ -1,0 +1,15 @@
+{
+    "block.createlowheated.basic_burner": "ベーシックバーナー",
+	"block.createlowheated.basic_burner.tooltip": "ベーシックバーナー",
+	"block.createlowheated.basic_burner.tooltip.behaviour1": "_燃料_を持って右クリックするか、_ファンネル/デプロイヤー/メカニカルアーム_を使用することで搬入できます。",
+	"block.createlowheated.basic_burner.tooltip.behaviour2": "_火を起こす_ために_火打ち石と打ち金_を持って右クリックすれば、燃料が供給され続けている限り燃え続けます。",
+	"block.createlowheated.basic_burner.tooltip.behaviour3": "最大RPMで動作しているファンによって、炎を強めることが可能です。",
+	"block.createlowheated.basic_burner.tooltip.condition1": "燃料が必要",
+	"block.createlowheated.basic_burner.tooltip.condition2": "火打ち石と打ち金が必要",
+	"block.createlowheated.basic_burner.tooltip.condition3": "火力を高める",
+	"block.createlowheated.basic_burner.tooltip.summary": "_鉢を使用するレシピ_や、_蒸気エンジン_などの_熱源_として使用できます。",
+	"config.jade.plugin_createlowheated.basic_burner_info": "残り燃焼時間を表示する",
+    "create.addon.basicburner.burner_contents": "ベーシックバーナーの要素：",
+    "create.recipe.heat_requirement.lowheated": "低温",
+	"itemGroup.createlowheated.base": "Create Low-Heated"
+}
