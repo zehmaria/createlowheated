@@ -147,9 +147,9 @@ dependencies {
     compileOnly("curse.maven:the-one-probe-245211:${top_neoforge_id}")
     runtimeOnly("curse.maven:the-one-probe-245211:${top_neoforge_id}")
 
-    //implementation("dev.latvian.mods:kubejs-create-neoforge:${kubejs_create_version}")
-    //api("dev.latvian.mods:kubejs-neoforge:$kubejs_version")
-    //interfaceInjectionData("dev.latvian.mods:kubejs-neoforge:$kubejs_version")
+    implementation("dev.latvian.mods:kubejs-create-neoforge:${kubejs_create_version}")
+    api("dev.latvian.mods:kubejs-neoforge:$kubejs_version")
+    interfaceInjectionData("dev.latvian.mods:kubejs-neoforge:$kubejs_version")
 
 }
 
