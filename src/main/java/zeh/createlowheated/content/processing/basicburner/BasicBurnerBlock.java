@@ -10,18 +10,14 @@ import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.Create;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
-import com.simibubi.create.content.kinetics.fan.EncasedFanBlock;
-import com.simibubi.create.content.kinetics.fan.EncasedFanBlockEntity;
 import com.simibubi.create.content.processing.basin.BasinBlockEntity;
 import com.simibubi.create.foundation.block.IBE;
 
 import net.createmod.catnip.data.Iterate;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -29,7 +25,6 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -41,7 +36,6 @@ import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -54,7 +48,6 @@ import zeh.createlowheated.AllShapes;
 
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock.HeatLevel;
 import zeh.createlowheated.AllTags;
-import zeh.createlowheated.common.Configuration;
 
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -67,7 +60,6 @@ public class BasicBurnerBlock extends HorizontalDirectionalBlock implements IBE<
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final BooleanProperty FUELED = BooleanProperty.create("fueled");
     public static final BooleanProperty EMPOWERED = BooleanProperty.create("empowered");
-    public static final IntegerProperty DUNSWE = IntegerProperty.create("dunswe", 0B000000, 0B111111);
     public static final MapCodec<BasicBurnerBlock> CODEC = simpleCodec(BasicBurnerBlock::new);
 
     @Override
@@ -81,13 +73,12 @@ public class BasicBurnerBlock extends HorizontalDirectionalBlock implements IBE<
                 .setValue(HEAT_LEVEL, HeatLevel.NONE)
                 .setValue(LIT, false)
                 .setValue(FUELED, false)
-                .setValue(EMPOWERED, false)
-                .setValue(DUNSWE, 0B000000));
+                .setValue(EMPOWERED, false));
     }
 
     @Override
     protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
-        builder.add(HEAT_LEVEL, LIT, FUELED, EMPOWERED, DUNSWE, FACING);
+        builder.add(HEAT_LEVEL, LIT, FUELED, EMPOWERED, FACING);
         super.createBlockStateDefinition(builder);
     }
 
@@ -153,31 +144,6 @@ public class BasicBurnerBlock extends HorizontalDirectionalBlock implements IBE<
 
         burnerBE.notifyUpdate();
         return ItemInteractionResult.SUCCESS;
-    }
-
-    @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
-        boolean isEmpowered = false;
-        int dunswe = 0B000000;
-        BlockPos burnerPos = context.getClickedPos();
-        for (Direction side : Iterate.directions) {
-            BlockPos fanPos = burnerPos.relative(side);
-            BlockEntity fan = context.getLevel().getBlockEntity(fanPos);
-            if (!(fan instanceof EncasedFanBlockEntity fanBE)) continue;
-
-            Direction fanFacingDir = fan.getBlockState().getValue(EncasedFanBlock.FACING);
-            BlockPos fanFacingPos = fanPos.relative(fanFacingDir);
-            if (!burnerPos.equals(fanFacingPos)) continue;
-
-            boolean empowering = (Mth.abs(fanBE.getSpeed()) >= Configuration.FAN_SPEED_REQUIRED.get());
-            if (empowering) {
-                int mask = 0B100000 >> side.ordinal();
-                dunswe = dunswe | mask;
-            }
-            if (Configuration.FAN_HORIZONTAL_ONLY.get() && !side.getAxis().isHorizontal()) continue;
-            if (!isEmpowered) {isEmpowered = true;}
-        }
-        return super.getStateForPlacement(context).setValue(EMPOWERED, isEmpowered).setValue(DUNSWE, dunswe);
     }
 
     @Override

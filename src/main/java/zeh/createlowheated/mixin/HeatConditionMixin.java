@@ -27,12 +27,10 @@ public abstract class HeatConditionMixin implements StringRepresentable {
     @Mutable
     private static HeatCondition[] $VALUES;
 
-    @Shadow public abstract String getTranslationKey();
-
     @Mutable @Shadow @Final public static Codec<HeatCondition> CODEC;
     @Mutable @Shadow @Final public static StreamCodec<ByteBuf, HeatCondition> STREAM_CODEC;
     @Unique
-    private static HeatCondition LOWHEATED = heatExpansion$addVariant("LOWHEATED",  0xED9C33);
+    private static final HeatCondition LOWHEATED = heatExpansion$addVariant("LOWHEATED",  0xED9C33);
 
     @Invoker("<init>")
     public static HeatCondition heatExpansion$invokeInit(String internalName, int internalId, int color) {

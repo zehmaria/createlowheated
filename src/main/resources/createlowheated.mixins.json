@@ -3,21 +3,23 @@
   "minVersion": "0.8",
   "priority": 2000,
   "package": "zeh.createlowheated.mixin",
+  "plugin": "zeh.createlowheated.mixin.Plugin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "BasinBlockEntityMixin",
-    "BasinCategoryMixin",
-    "BlazeBurnerBlockMixin",
-    "BlazeBurnerVisualMixin",
+    "BlazeBurnerBlockEntityMixin",
     "BoilerHeatersMixin",
     "CreateAdditionMixin",
     "DispenserBlockMixin",
     "EncasedFanBlockEntityMixin",
     "HeatConditionMixin",
-    "HeatLevelMixin",
+    "HeatLevelMixin"
+  ],
+  "client": [
+    "BasinCategoryMixin",
     "MixingCategoryMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-	}
+  }
 }

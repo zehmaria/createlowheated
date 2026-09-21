@@ -32,13 +32,8 @@ public class AllArmInteractionPointTypes {
 
         @Override
         public ArmInteractionPoint createPoint(Level level, BlockPos pos, BlockState state) {
-            return new BasicBurnerPoint(this, level, pos, state);
+            return new ArmInteractionPoint(this, level, pos, state);
         }
     }
 
-    public static class BasicBurnerPoint extends DepositOnlyArmInteractionPoint {
-        public BasicBurnerPoint(ArmInteractionPointType type, Level level, BlockPos pos, BlockState state) {
-            super(type, level, pos, state);
-        }
-    }
 }

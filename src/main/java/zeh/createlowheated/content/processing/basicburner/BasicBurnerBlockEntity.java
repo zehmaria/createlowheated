@@ -48,6 +48,7 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity implements IHaveGog
     protected boolean hotBurners;
     protected HeatLevel activeHeatLevel;
     protected HeatLevel empoweredHeatLevel;
+    protected int remainingEmpoweredTime;
 
     public ItemStackHandler inputInv;
     public IItemHandler capability;
@@ -84,16 +85,15 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity implements IHaveGog
         return hotBurners;
     }
 
-    public void setEmpowered(boolean value, Direction direction) {
-        int dunswe = this.getBlockState().getValue(BasicBurnerBlock.DUNSWE);
-        int mask = 0B100000 >> direction.ordinal();
-        if (value) {dunswe = dunswe | mask;}
-        else {dunswe = dunswe & (~mask);}
-        boolean empowered = (dunswe != 0);
-        if (Configuration.FAN_HORIZONTAL_ONLY.get()) {empowered = ((dunswe & 0B001111) != 0);}
-        level.setBlockAndUpdate(worldPosition, getBlockState().setValue(BasicBurnerBlock.EMPOWERED, empowered));
-        level.setBlockAndUpdate(worldPosition, getBlockState().setValue(BasicBurnerBlock.DUNSWE, dunswe));
+    public void setEmpowered(boolean value) {
+        if (getEmpoweredFromBlock() == value) return;
+        level.setBlockAndUpdate(worldPosition, getBlockState().setValue(BasicBurnerBlock.EMPOWERED, value));
         notifyUpdate();
+    }
+
+    public void powerUp() {
+        setEmpowered(true);
+        remainingEmpoweredTime = 20;
     }
 
     @Override
@@ -109,6 +109,11 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity implements IHaveGog
 
         tickFuel();
 
+        if (remainingEmpoweredTime > 0) {
+            remainingEmpoweredTime--;
+        } else {
+            if (getEmpoweredFromBlock()) setEmpowered(false);
+        }
         if (remainingBurnTime > 0) {
             if (getEmpoweredFromBlock()) remainingBurnTime -= fanMultiplier;
             else remainingBurnTime -= baseMultiplier;
