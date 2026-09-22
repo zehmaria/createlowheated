@@ -1,7 +1,9 @@
 package zeh.createlowheated.mixin;
 
 import com.simibubi.create.AllBlocks;
+import com.simibubi.create.AllTags;
 import com.simibubi.create.api.boiler.BoilerHeater;
+import com.simibubi.create.api.registry.SimpleRegistry;
 import com.simibubi.create.content.fluids.tank.BoilerHeaters;
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock;
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock.HeatLevel;
@@ -44,11 +46,12 @@ public class BoilerHeatersMixin {
     @Inject(method = "registerDefaults", at = @At("HEAD"), cancellable = true)
     private static void registerDefaultsMixin(CallbackInfo ci) {
         if (!Configuration.BASIC_BURNER_BOILER.get()) return;
+        BoilerHeater.REGISTRY.register(AllBlocks.BLAZE_BURNER.get(), createLowHeated$BlazeHeater);
         BoilerHeater.REGISTRY.register(zeh.createlowheated.AllBlocks.BASIC_BURNER.get(), createLowHeated$BasicHeater);
-        if (!Configuration.PASSIVE_BOILER_HEATERS_TAG.get()) {
-            BoilerHeater.REGISTRY.register(AllBlocks.BLAZE_BURNER.get(), createLowHeated$BlazeHeater);
-            ci.cancel();
+        if (Configuration.PASSIVE_BOILER_HEATERS_TAG.get()) {
+            BoilerHeater.REGISTRY.registerProvider(SimpleRegistry.Provider.forBlockTag(AllTags.AllBlockTags.PASSIVE_BOILER_HEATERS.tag, BoilerHeater.PASSIVE));
         }
+        ci.cancel();
     }
 
 }
