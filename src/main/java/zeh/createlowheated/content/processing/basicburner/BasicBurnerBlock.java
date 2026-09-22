@@ -147,26 +147,6 @@ public class BasicBurnerBlock extends HorizontalDirectionalBlock implements IBE<
     }
 
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
-        boolean isEmpowered = false;
-        for (Direction side : Iterate.directions) {
-            if (!side.getAxis().isHorizontal()) continue;
-
-            BlockPos burnerPos = context.getClickedPos();
-            BlockPos fanPos = burnerPos.relative(side);
-            BlockEntity fan = context.getLevel().getBlockEntity(fanPos);
-            if (!(fan instanceof EncasedFanBlockEntity fanBE)) continue;
-
-            Direction fanFacingDir = fan.getBlockState().getValue(EncasedFanBlock.FACING);
-            BlockPos fanFacingPos = fanPos.relative(fanFacingDir);
-            if (!burnerPos.equals(fanFacingPos)) continue;
-
-            isEmpowered = (Mth.abs(fanBE.getSpeed()) >= Configuration.FAN_SPEED_REQUIRED.get());
-        }
-        return super.getStateForPlacement(context).setValue(EMPOWERED, isEmpowered);
-    }
-
-    @Override
     public VoxelShape getShape(BlockState state, BlockGetter reader, BlockPos pos, CollisionContext context) {
         return AllShapes.BASIC_HEATER_BLOCK_SHAPE;
     }

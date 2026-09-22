@@ -147,6 +147,31 @@ dependencies {
     modCompileOnly("curse.maven:the-one-probe-245211:${top_neoforge_id}")
     modRuntimeOnly("curse.maven:the-one-probe-245211:${top_neoforge_id}")
 
+    //implementation(jarJar("io.github.llamalad7:mixinextras-forge:${mixin_extras_version}"))
+    implementation("io.github.llamalad7:mixinextras-forge:${mixin_extras_version}")
+    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:${mixin_extras_version}"))
+
+    // Create: Metallurgy
+    compileOnly("curse.maven:create-metallurgy-1007404:7890813")
+    runtimeOnly("curse.maven:create-metallurgy-1007404:7890813")
+
+    // Create: Diesel Generators
+    compileOnly("curse.maven:create-diesel-generators-869316:7932785")
+    runtimeOnly("curse.maven:create-diesel-generators-869316:7932785")
+
+    // Create: Rubberworks
+    compileOnly("curse.maven:create-rubberworks-1425758:7555275")
+    runtimeOnly("curse.maven:create-rubberworks-1425758:7555275")
+
+    // Create: Petrochem
+    compileOnly("curse.maven:create-petrochem-1494004:7985991")
+    runtimeOnly("curse.maven:create-petrochem-1494004:7985991")
+
+    // Create Big Cannons
+    compileOnly("curse.maven:create-big-cannons-646668:8169547")
+    runtimeOnly("curse.maven:create-big-cannons-646668:8169547")
+
+
     if (!Boolean.getBoolean("idea.sync.active")) {
         annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
     }

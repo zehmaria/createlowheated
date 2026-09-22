@@ -3,7 +3,6 @@ package zeh.createlowheated.content.processing.basicburner;
 import java.util.List;
 
 import com.simibubi.create.AllBlocks;
-import com.simibubi.create.Create;
 import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.fluids.tank.FluidTankBlock;
 import com.simibubi.create.content.kinetics.belt.behaviour.DirectBeltInputBehaviour;
@@ -22,7 +21,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -35,7 +33,6 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import zeh.createlowheated.AllTags;
-import zeh.createlowheated.CreateLowHeated;
 import zeh.createlowheated.common.Configuration;
 
 public class BasicBurnerBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation {
@@ -50,6 +47,7 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity implements IHaveGog
     protected boolean hotBurners;
     protected HeatLevel activeHeatLevel;
     protected HeatLevel empoweredHeatLevel;
+    protected int remainingEmpoweredTime;
 
     public ItemStackHandler inputInv;
     public LazyOptional<IItemHandler> capability;
@@ -62,6 +60,7 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity implements IHaveGog
         capability = LazyOptional.of(() -> itemHandler);
         activeFuel = FuelType.NONE;
         remainingBurnTime = 0;
+        remainingEmpoweredTime = 0;
         fanMultiplier = Configuration.FAN_MULTIPLIER.get();
         baseMultiplier= Configuration.BASE_MULTIPLIER.get();
         hotBurners = Configuration.HOT_BURNERS.get();
@@ -86,9 +85,20 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity implements IHaveGog
         notifyUpdate();
     }
 
+    public void powerUp() {
+        setEmpowered(true);
+        remainingEmpoweredTime = 20;
+    }
+
     @Override
     public void tick() {
         super.tick();
+
+        if (remainingEmpoweredTime > 0) {
+            remainingEmpoweredTime--;
+        } else {
+            if (getEmpoweredFromBlock()) setEmpowered(false);
+        }
 
         if (!getLitFromBlock()) return;
         

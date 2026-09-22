@@ -3,19 +3,33 @@
 	"minVersion": "0.8",
 	"priority": 2000,
 	"package": "zeh.createlowheated.mixin",
+	"plugin": "zeh.createlowheated.mixin.Plugin",
 	"compatibilityLevel": "JAVA_17",
 	"refmap": "createlowheated.refmap.json",
 	"mixins": [
 		"BasinBlockEntityMixin",
+		"BlazeBurnerBlockEntityMixin",
 		"BoilerHeatersMixin",
 		"HeatConditionMixin",
 		"HeatLevelMixin",
 		"EncasedFanBlockEntityMixin",
-		"BasinCategoryMixin",
-		"MixingCategoryMixin",
 		"ProcessingRecipeSchemaMixin",
         "CreateAdditionMixin",
 		"DispenserBlockMixin"
+	],
+	"client": [
+		"jei.createmetallurgy.FoundryBasinCategoryMixin",
+		"jei.createmetallurgy.AlloyingCategoryMixin",
+		"jei.createmetallurgy.MeltingCategoryMixin",
+		"jei.createdieselgenerators.BasinFermentingCategoryMixin",
+		"jei.createdieselgenerators.BulkFermentingCategoryMixin",
+		"jei.createdieselgenerators.CompressionMoldingCategoryMixin",
+		"jei.createdieselgenerators.DistillationCategoryMixin",
+		"jei.rubberworks.CompressingCategoryMixin",
+		"jei.createbigcannons.MeltingCategoryMixin",
+		"jei.petrochem.ElectrolyzingCategoryMixin",
+		"jei.BasinCategoryMixin",
+		"jei.MixingCategoryMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
