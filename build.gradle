@@ -139,6 +139,26 @@ dependencies {
     compileOnly("curse.maven:createaddition-439890:${createaddition_Version}")
     runtimeOnly("curse.maven:createaddition-439890:${createaddition_Version}")
 
+    // Create: Metallurgy
+    compileOnly("curse.maven:create-metallurgy-1007404:8128243")
+    runtimeOnly("curse.maven:create-metallurgy-1007404:8128243")
+
+    // Create: Diesel Generators
+    compileOnly("curse.maven:create-diesel-generators-869316:8542167")
+    runtimeOnly("curse.maven:create-diesel-generators-869316:8542167")
+
+    // Create: Rubberworks
+    compileOnly("curse.maven:create-rubberworks-1425758:8572299")
+    runtimeOnly("curse.maven:create-rubberworks-1425758:8572299")
+
+    // Create: Petrochem
+    compileOnly("curse.maven:create-petrochem-1494004:8926887")
+    runtimeOnly("curse.maven:create-petrochem-1494004:8926887")
+
+    // Create Big Cannons
+    compileOnly("curse.maven:create-big-cannons-646668:8303106")
+    runtimeOnly("curse.maven:create-big-cannons-646668:8303106")
+
     // Jade
     compileOnly("curse.maven:jade-324717:${jade_neoforge_id}")
     runtimeOnly("curse.maven:jade-324717:${jade_neoforge_id}")

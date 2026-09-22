@@ -1,0 +1,34 @@
+package zeh.createlowheated.mixin.jei;
+
+import com.llamalad7.mixinextras.sugar.Local;
+import com.simibubi.create.compat.jei.category.BasinCategory;
+import com.simibubi.create.compat.jei.category.CreateRecipeCategory;
+import com.simibubi.create.content.processing.basin.BasinRecipe;
+import com.simibubi.create.content.processing.recipe.HeatCondition;
+import com.tterrag.registrate.util.entry.BlockEntry;
+import net.minecraft.world.item.ItemStack;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Redirect;
+import zeh.createlowheated.AllBlocks;
+
+
+@Mixin(value = BasinCategory.class, remap = false)
+public abstract class BasinCategoryMixin extends CreateRecipeCategory<BasinRecipe> {
+
+    public BasinCategoryMixin(Info<BasinRecipe> info) { super(info); }
+
+    @Redirect(
+            method = "setRecipe(Lmezz/jei/api/gui/builder/IRecipeLayoutBuilder;Lcom/simibubi/create/content/processing/basin/BasinRecipe;Lmezz/jei/api/recipe/IFocusGroup;)V",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lcom/tterrag/registrate/util/entry/BlockEntry;asStack()Lnet/minecraft/world/item/ItemStack;"
+            ),
+            remap = false
+    )
+    private ItemStack drawMixin(BlockEntry instance, @Local(name = "requiredHeat") HeatCondition requiredHeat) {
+        if (requiredHeat.name().equals("LOWHEATED")) return AllBlocks.BASIC_BURNER.asStack();
+        else return instance.asStack();
+    }
+
+}

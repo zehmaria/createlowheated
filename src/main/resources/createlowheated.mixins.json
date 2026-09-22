@@ -16,8 +16,18 @@
     "HeatLevelMixin"
   ],
   "client": [
-    "BasinCategoryMixin",
-    "MixingCategoryMixin"
+    "jei.createmetallurgy.FoundryBasinCategoryMixin",
+    "jei.createmetallurgy.AlloyingCategoryMixin",
+    "jei.createmetallurgy.MeltingCategoryMixin",
+    "jei.createdieselgenerators.BasinFermentingCategoryMixin",
+    "jei.createdieselgenerators.BulkFermentingCategoryMixin",
+    "jei.createdieselgenerators.CompressionMoldingCategoryMixin",
+    "jei.createdieselgenerators.DistillationCategoryMixin",
+    "jei.rubberworks.CompressingCategoryMixin",
+    "jei.createbigcannons.MeltingCategoryMixin",
+    "jei.petrochem.ElectrolyzingCategoryMixin",
+    "jei.BasinCategoryMixin",
+    "jei.MixingCategoryMixin"
   ],
   "injectors": {
     "defaultRequire": 1

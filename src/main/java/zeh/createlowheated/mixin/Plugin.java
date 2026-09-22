@@ -17,7 +17,18 @@ public class Plugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        //if (mixinClassName.startsWith("zehmaria.mingle.mixin.compat.xaeros") && !Mods.XAEROWORLDMAP.isLoaded())
+        if (mixinClassName.startsWith("zeh.createlowheated.mixin.jei.createmetallurgy")) {
+            return Mods.CREATEMETALLURGY.isLoaded();
+        }
+        if (mixinClassName.startsWith("zeh.createlowheated.mixin.jei.createdieselgenerators")) {
+            return Mods.CREATEDIESELGENERATORS.isLoaded();
+        }
+        if (mixinClassName.startsWith("zeh.createlowheated.mixin.jei.createbigcannons")) {
+            return Mods.CREATEBIGCANNONS.isLoaded();
+        }
+        if (mixinClassName.startsWith("zeh.createlowheated.mixin.jei.petrochem")) {
+            return Mods.PETROCHEM.isLoaded();
+        }
         return switch (mixinClassName) {
             case "zeh.createlowheated.mixin.CreateAdditionMixin" -> Mods.CREATEADDITION.isLoaded();
             default -> true;

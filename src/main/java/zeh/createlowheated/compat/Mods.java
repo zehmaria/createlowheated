@@ -9,6 +9,10 @@ import java.util.Locale;
 
 public enum Mods {
 
+    PETROCHEM,
+    CREATEBIGCANNONS,
+    CREATEDIESELGENERATORS,
+    CREATEMETALLURGY,
     CREATEADDITION;
 
     private final String id;
