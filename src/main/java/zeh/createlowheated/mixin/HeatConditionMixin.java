@@ -40,7 +40,7 @@ public abstract class HeatConditionMixin implements StringRepresentable {
     @Unique
     private static HeatCondition heatExpansion$addVariant(String internalName, int color) {
         ArrayList<HeatCondition> variants = new ArrayList<>(Arrays.asList(HeatConditionMixin.$VALUES));
-        HeatCondition heat = heatExpansion$invokeInit(internalName, variants.get(variants.size() - 1).ordinal() + 1, color);
+        HeatCondition heat = heatExpansion$invokeInit(internalName, variants.getLast().ordinal() + 1, color);
         variants.add(heat);
         HeatConditionMixin.$VALUES = variants.toArray(new HeatCondition[0]);
         CODEC = StringRepresentable.fromEnum(HeatCondition::values);

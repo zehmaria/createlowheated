@@ -1,15 +1,14 @@
 package zeh.createlowheated.mixin;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import com.llamalad7.mixinextras.sugar.Local;
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock.HeatLevel;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.gen.Invoker;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Locale;
 
 @Mixin(value = HeatLevel.class, remap = false)
 public abstract class HeatLevelMixin {
@@ -36,38 +35,20 @@ public abstract class HeatLevelMixin {
         return heat;
     }
 
-    @Inject(method = "nextActiveLevel", at = @At("RETURN"), cancellable = true)
-    public void nextActiveLevel(CallbackInfoReturnable<HeatLevel> cir) {
-        if (this.equals(HeatLevel.NONE)) {
-            cir.setReturnValue(LOW);
-            return;
-        }
-        if (this.equals(LOW)) {
-            cir.setReturnValue(HeatLevel.SMOULDERING);
-            return;
-        }
-        if (this.equals(HeatLevel.SEETHING)) {
-            cir.setReturnValue(LOW);
-        }
+    @ModifyReturnValue(method = "nextActiveLevel", at = @At("RETURN"))
+    private HeatLevel nextActiveLevelMixin(HeatLevel original) {
+        if (this.equals(HeatLevel.NONE)) return LOW;
+        if (this.equals(LOW)) return HeatLevel.SMOULDERING;
+        if (this.equals(HeatLevel.SEETHING)) return LOW;
+        return original;
     }
 
-    @Inject(method = "isAtLeast", at = @At("RETURN"), cancellable = true)
-    public void isAtLeast(HeatLevel heatLevel, CallbackInfoReturnable<Boolean> cir) {
-        if (heatLevel.equals(HeatLevel.NONE)) {
-            cir.setReturnValue(true);
-            return;
-        }
-        if (heatLevel.equals(LOW)) {
-            if (this.equals(HeatLevel.NONE)) {
-                cir.setReturnValue(false);
-            } else {
-                cir.setReturnValue(true);
-            }
-            return;
-        }
-        if (this.equals(LOW)) {
-            cir.setReturnValue(heatLevel.equals(LOW));
-        }
+    @ModifyReturnValue(method = "isAtLeast", at = @At("RETURN"))
+    private boolean isAtLeastMixin(boolean original, @Local(name = "heatLevel") HeatLevel heatLevel) {
+        if (heatLevel.equals(HeatLevel.NONE)) return true;
+        if (heatLevel.equals(LOW)) return !this.equals(HeatLevel.NONE);
+        if (this.equals(LOW)) return heatLevel.equals(LOW);
+        return original;
     }
 
 }

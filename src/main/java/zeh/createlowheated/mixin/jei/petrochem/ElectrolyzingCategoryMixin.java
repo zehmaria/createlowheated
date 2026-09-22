@@ -1,5 +1,7 @@
 package zeh.createlowheated.mixin.jei.petrochem;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.simibubi.create.compat.jei.category.CreateRecipeCategory;
 import com.simibubi.create.compat.jei.category.animations.AnimatedBlazeBurner;
@@ -12,7 +14,6 @@ import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import zeh.createlowheated.AllBlocks;
 import zeh.createlowheated.compat.jei.AnimatedBasicBurner;
 
@@ -22,7 +23,7 @@ public abstract class ElectrolyzingCategoryMixin extends CreateRecipeCategory<Ba
     @Unique private final AnimatedBasicBurner createLowHeated$basic = new AnimatedBasicBurner();
     public ElectrolyzingCategoryMixin(Info<BasinRecipe> info) {super(info);}
 
-    @Redirect(
+    @WrapOperation(
             method = "setRecipe(Lmezz/jei/api/gui/builder/IRecipeLayoutBuilder;Lio/github/hadron13/petrochem/blocks/electrolyzer/ElectrolyzingRecipe;Lmezz/jei/api/recipe/IFocusGroup;)V",
             at = @At(
                     value = "INVOKE",
@@ -30,12 +31,12 @@ public abstract class ElectrolyzingCategoryMixin extends CreateRecipeCategory<Ba
             ),
             remap = false
     )
-    private ItemStack drawMixin(BlockEntry instance, @Local(name = "requiredHeat") HeatCondition requiredHeat) {
+    private ItemStack drawMixin(BlockEntry instance, Operation<ItemStack> original, @Local(name = "requiredHeat") HeatCondition requiredHeat) {
         if (requiredHeat.name().equals("LOWHEATED")) return AllBlocks.BASIC_BURNER.asStack();
         else return instance.asStack();
     }
 
-    @Redirect(
+    @WrapOperation(
             method = "draw(Lio/github/hadron13/petrochem/blocks/electrolyzer/ElectrolyzingRecipe;Lmezz/jei/api/gui/ingredient/IRecipeSlotsView;Lnet/minecraft/client/gui/GuiGraphics;DD)V",
             at = @At(
                     value = "INVOKE",
@@ -43,7 +44,7 @@ public abstract class ElectrolyzingCategoryMixin extends CreateRecipeCategory<Ba
             ),
             remap = false
     )
-    private AnimatedBlazeBurner drawMixin(AnimatedBlazeBurner instance, BlazeBurnerBlock.HeatLevel heatLevel) {
+    private AnimatedBlazeBurner drawMixin(AnimatedBlazeBurner instance, BlazeBurnerBlock.HeatLevel heatLevel, Operation<AnimatedBlazeBurner> original) {
         if (heatLevel == BlazeBurnerBlock.HeatLevel.valueOf("LOW")) return createLowHeated$basic.withHeat(heatLevel);
         else return instance.withHeat(heatLevel);
     }

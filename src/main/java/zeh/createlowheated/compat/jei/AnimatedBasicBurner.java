@@ -28,13 +28,6 @@ public class AnimatedBasicBurner extends AnimatedBlazeBurner {
                 .scale(scale)
                 .render(graphics);
 
-        /*
-        blockElement(zeh.createlowheated.AllBlocks.BASIC_BURNER.getDefaultState())
-                .atLocal(1, 1.8, 1)
-                .rotate(0, 180, 0)
-                .scale(scale)
-                .render(graphics);*/
-
         matrixStack.popPose();
     }
 }

@@ -14,7 +14,6 @@ import com.simibubi.create.foundation.utility.CreateLang;
 import net.createmod.catnip.math.VecHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -61,6 +60,7 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity implements IHaveGog
         capability = new BurnerItemHandler();
         activeFuel = FuelType.NONE;
         remainingBurnTime = 0;
+        remainingEmpoweredTime = 0;
         fanMultiplier = Configuration.FAN_MULTIPLIER.get();
         baseMultiplier= Configuration.BASE_MULTIPLIER.get();
         hotBurners = Configuration.HOT_BURNERS.get();
@@ -100,6 +100,12 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity implements IHaveGog
     public void tick() {
         super.tick();
 
+        if (remainingEmpoweredTime > 0) {
+            remainingEmpoweredTime--;
+        } else {
+            if (getEmpoweredFromBlock()) setEmpowered(false);
+        }
+
         if (!getLitFromBlock()) return;
         
         if (level.isClientSide) {
@@ -109,11 +115,6 @@ public class BasicBurnerBlockEntity extends SmartBlockEntity implements IHaveGog
 
         tickFuel();
 
-        if (remainingEmpoweredTime > 0) {
-            remainingEmpoweredTime--;
-        } else {
-            if (getEmpoweredFromBlock()) setEmpowered(false);
-        }
         if (remainingBurnTime > 0) {
             if (getEmpoweredFromBlock()) remainingBurnTime -= fanMultiplier;
             else remainingBurnTime -= baseMultiplier;

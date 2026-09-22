@@ -1,6 +1,8 @@
 package zeh.createlowheated.mixin.jei.createdieselgenerators;
 
 import com.jesz.createdieselgenerators.compat.jei.BulkFermentingCategory;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.simibubi.create.compat.jei.category.CreateRecipeCategory;
 import com.simibubi.create.compat.jei.category.animations.AnimatedBlazeBurner;
@@ -8,12 +10,10 @@ import com.simibubi.create.content.processing.basin.BasinRecipe;
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock;
 import com.simibubi.create.content.processing.recipe.HeatCondition;
 import com.tterrag.registrate.util.entry.BlockEntry;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import zeh.createlowheated.AllBlocks;
 import zeh.createlowheated.compat.jei.AnimatedBasicBurner;
 
@@ -23,7 +23,7 @@ public abstract class BulkFermentingCategoryMixin extends CreateRecipeCategory<B
     @Unique private final AnimatedBasicBurner createLowHeated$basic = new AnimatedBasicBurner();
     public BulkFermentingCategoryMixin(Info<BasinRecipe> info) {super(info);}
 
-    @Redirect(
+    @WrapOperation(
             method = "setRecipe(Lmezz/jei/api/gui/builder/IRecipeLayoutBuilder;Lcom/jesz/createdieselgenerators/content/bulk_fermenter/BulkFermentingRecipe;Lmezz/jei/api/recipe/IFocusGroup;)V",
             at = @At(
                     value = "INVOKE",
@@ -31,12 +31,12 @@ public abstract class BulkFermentingCategoryMixin extends CreateRecipeCategory<B
             ),
             remap = false
     )
-    private ItemStack drawMixin(BlockEntry instance, @Local(name = "requiredHeat") HeatCondition requiredHeat) {
+    private ItemStack drawMixin(BlockEntry instance, Operation<ItemStack> original, @Local(name = "requiredHeat") HeatCondition requiredHeat) {
         if (requiredHeat.name().equals("LOWHEATED")) return AllBlocks.BASIC_BURNER.asStack();
-        else return instance.asStack();
+        else return original.call(instance);
     }
 
-    @Redirect(
+    @WrapOperation(
             method = "draw(Lcom/jesz/createdieselgenerators/content/bulk_fermenter/BulkFermentingRecipe;Lmezz/jei/api/gui/ingredient/IRecipeSlotsView;Lnet/minecraft/client/gui/GuiGraphics;DD)V",
             at = @At(
                     value = "INVOKE",
@@ -44,8 +44,9 @@ public abstract class BulkFermentingCategoryMixin extends CreateRecipeCategory<B
             ),
             remap = false
     )
-    private AnimatedBlazeBurner drawMixin(AnimatedBlazeBurner instance, BlazeBurnerBlock.HeatLevel heatLevel) {
+    private AnimatedBlazeBurner drawMixin(AnimatedBlazeBurner instance, BlazeBurnerBlock.HeatLevel heatLevel, Operation<AnimatedBlazeBurner> original) {
         if (heatLevel == BlazeBurnerBlock.HeatLevel.valueOf("LOW")) return createLowHeated$basic.withHeat(heatLevel);
-        else return instance.withHeat(heatLevel);
+        else return original.call(instance, heatLevel);
     }
+
 }
